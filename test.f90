@@ -22,22 +22,22 @@ program test
    mol1=T_Molecule(ngpt=ngpt,density=dens)
    mol2=mol1
 
-   call mol1%set_vnuc(vnuc)
-   call mol1%init_ions(natoms,q,pos)
-   call mol1%init_grid(cell=cell)
+   call Mol_set_vnuc(mol1,vnuc)
+   call Mol_init_ions(mol1,natoms,q,pos)
+   call Mol_init_grid(mol1,cell=cell)
 
-   write(*,*) mol1%has_vnuc(),mol1%has_ions(),mol1%has_grid()
+   write(*,*) Mol_has_vnuc(mol1),Mol_has_ions(mol1),Mol_has_grid(mol1)
    write(*,*) mol1%vnuc
-   write(*,*) mol1%ions%has_charges()
+   write(*,*) Ions_has_charges(mol1%ions)
    write(*,*) mol1%grid%cell
-   write(*,*) mol2%has_vnuc(),mol2%has_ions(),mol2%has_grid()
+   write(*,*) Mol_has_vnuc(mol2),Mol_has_ions(mol2),Mol_has_grid(mol2)
 
-   call mol2%set_ions(mol1%ions)
-   call mol2%set_grid(mol1%grid)
+   call Mol_set_ions(mol2,mol1%ions)
+   call Mol_set_grid(mol2,mol1%grid)
 
-   write(*,*) mol2%has_vnuc(),mol2%has_ions(),mol2%has_grid()
+   write(*,*) Mol_has_vnuc(mol2),Mol_has_ions(mol2),Mol_has_grid(mol2)
 
    dens2=(/1,2/)
-   call mol2%set_density(dens2)
+   call Mol_set_density(mol2,dens2)
 
 end program
