@@ -34,6 +34,8 @@ module types_mod
       type(T_Grid),pointer     :: grid => null()
       !Electron Density; size=2*ngpt for spin polarized, beta is from ngpt+1:2*ngpt
       real*8,allocatable       :: density(:)
+      !Density Gradient; size=3*ngpt for spin polarized, order is aa,ab,bb
+      real*8,allocatable       :: gradient(:)
       !Nuclear Potential, alternative to ions
       real*8,allocatable       :: vnuc(:)
       !Ions,contains #ions, charges and positions
@@ -74,6 +76,13 @@ module types_mod
       hasdensity = allocated(this%density)
    end function
 
+   function Mol_has_gradient(this) result(hasgradient)
+      type(T_Molecule),intent(in) :: this
+      Logical                      :: hasgradient
+
+      hasgradient = allocated(this%gradient)
+   end function
+
    subroutine Mol_set_grid(this,grid)
       type(T_Molecule),intent(inout) :: this
       type(T_Grid),intent(in)      :: grid
@@ -104,6 +113,23 @@ module types_mod
       this%ions=ions
    end subroutine
 
+   subroutine Mol_set_spin(this,spinpol)
+      type(T_Molecule),intent(inout) :: this
+      logical,intent(in)             :: spinpol
+
+      this%spinpol=spinpol
+
+      if(Mol_has_density(this)) then 
+         call warning("Mol_set_spin: setting spin after density! Deallocating density!")
+         deallocate(this%density)
+      endif
+
+      if(Mol_has_gradient(this)) then 
+         call warning("Mol_set_spin: setting spin after gradient! Deallocating gradient!")
+         deallocate(this%gradient)
+      endif
+   end subroutine
+
    subroutine Mol_set_density(this,density)
       type(T_Molecule),intent(inout) :: this
       real*8,intent(in)            :: density(:)
@@ -116,7 +142,7 @@ module types_mod
       endif
 
       if(size(density).ne.dsize) &
-         & call error("Mol_set_density: size(density) /= spins*this%ngpt",size(density),dsize)
+         & call error("Mol_set_density: size(density) /= 2*this%ngpt",size(density),dsize)
 
       if(.not.Mol_has_density(this)) allocate(this%density(dsize))
       this%density=density(1:dsize)
@@ -154,6 +180,75 @@ module types_mod
 
       if(.not.Mol_has_density(this)) allocate(this%density(dsize))
       this%density(this%ngpt+1:dsize)=density(1:this%ngpt)
+   end subroutine
+
+   subroutine Mol_set_gradient(this,gradient)
+      type(T_Molecule),intent(inout) :: this
+      real*8,intent(in)            :: gradient(:)
+      integer                      :: dsize
+
+      if(this%spinpol) then
+         dsize=3*this%ngpt
+      else
+         dsize=this%ngpt
+      endif
+
+      if(size(gradient).ne.dsize) &
+         & call error("Mol_set_gradient: size(gradient) /= 3*this%ngpt",size(gradient),dsize)
+
+      if(.not.Mol_has_gradient(this)) allocate(this%gradient(dsize))
+      this%gradient=gradient(1:dsize)
+   end subroutine
+
+   subroutine Mol_set_gradient_aa(this,gradient)
+      type(T_Molecule),intent(inout) :: this
+      real*8,intent(in)            :: gradient(:)
+      integer                      :: dsize
+
+      dsize=3*this%ngpt
+
+      if(.not.this%spinpol) &
+         & call error("Mol_set_gradient_aa: trying to set alpha gradient for non spin polarized molecule!")
+
+      if(size(gradient).ne.dsize) &
+         & call error("Mol_set_gradient_aa: size(gradient) /= this%ngpt",size(gradient),this%ngpt)
+
+      if(.not.Mol_has_gradient(this)) allocate(this%gradient(dsize))
+      this%gradient(1:this%ngpt)=gradient(1:this%ngpt)
+   end subroutine
+
+   subroutine Mol_set_gradient_ab(this,gradient)
+      type(T_Molecule),intent(inout) :: this
+      real*8,intent(in)            :: gradient(:)
+      integer                      :: dsize
+
+      dsize=3*this%ngpt
+
+      if(.not.this%spinpol) &
+         & call error("Mol_set_gradient_ab: trying to set alpha*beta gradient for non spin polarized molecule!")
+
+      if(size(gradient).ne.this%ngpt) &
+         & call error("Mol_set_gradient_ab: size(gradient) /= this%ngpt",size(gradient),this%ngpt)
+
+      if(.not.Mol_has_gradient(this)) allocate(this%gradient(dsize))
+      this%gradient(this%ngpt+1:2*this%ngpt)=gradient(1:this%ngpt)
+   end subroutine
+
+   subroutine Mol_set_gradient_bb(this,gradient)
+      type(T_Molecule),intent(inout) :: this
+      real*8,intent(in)            :: gradient(:)
+      integer                      :: dsize
+
+      dsize=3*this%ngpt
+
+      if(.not.this%spinpol) &
+         & call error("Mol_set_gradient_bb: trying to set beta gradient for non spin polarized molecule!")
+
+      if(size(gradient).ne.this%ngpt) &
+         & call error("Mol_set_gradient_bb: size(gradient) /= this%ngpt",size(gradient),this%ngpt)
+
+      if(.not.Mol_has_gradient(this)) allocate(this%gradient(dsize))
+      this%gradient(2*this%ngpt+1:dsize)=gradient(1:this%ngpt)
    end subroutine
 
    subroutine Mol_init_grid(this,weights,cell)

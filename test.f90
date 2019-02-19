@@ -37,6 +37,11 @@ program test
 
    write(*,*) Mol_has_vnuc(mol2),Mol_has_ions(mol2),Mol_has_grid(mol2)
 
+   call Mol_set_spin(mol2,.true.)
+   call Mol_set_density(mol2,(/ dens,dens /))
+   call Mol_set_gradient(mol2,(/ dens,dens,dens /))
+
+
    dens2=(/1,2/)
    call Mol_set_density(mol2,dens2)
 
