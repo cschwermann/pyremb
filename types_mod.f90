@@ -32,12 +32,14 @@ module types_mod
       integer                  :: ngpt
       !Grid, may contain weights and cell
       type(T_Grid),pointer     :: grid => null()
-      !Electron Density
+      !Electron Density; size=2*ngpt for spin polarized, beta is from ngpt+1:2*ngpt
       real*8,allocatable       :: density(:)
       !Nuclear Potential, alternative to ions
       real*8,allocatable       :: vnuc(:)
       !Ions,contains #ions, charges and positions
       type(T_Ions),pointer     :: ions => null()
+      !Spin polarized or not
+      logical                  :: spinpol=.false.
    end type T_Molecule
 
  contains
@@ -105,12 +107,53 @@ module types_mod
    subroutine Mol_set_density(this,density)
       type(T_Molecule),intent(inout) :: this
       real*8,intent(in)            :: density(:)
+      integer                      :: dsize
+
+      if(this%spinpol) then
+         dsize=2*this%ngpt
+      else
+         dsize=this%ngpt
+      endif
+
+      if(size(density).ne.dsize) &
+         & call error("Mol_set_density: size(density) /= spins*this%ngpt",size(density),dsize)
+
+      if(.not.Mol_has_density(this)) allocate(this%density(dsize))
+      this%density=density(1:dsize)
+   end subroutine
+
+   subroutine Mol_set_density_a(this,density)
+      type(T_Molecule),intent(inout) :: this
+      real*8,intent(in)            :: density(:)
+      integer                        :: dsize
+
+      dsize=2*this%ngpt
+
+      if(.not.this%spinpol) &
+         & call error("Mol_set_density_a: trying to set alpha density for non spin polarized molecule!")
 
       if(size(density).ne.this%ngpt) &
-         & call error("Mol_set_density: size(density) /= this%ngpt",size(density),this%ngpt)
+         & call error("Mol_set_density_a: size(density) /= this%ngpt",size(density),this%ngpt)
 
-      if(.not.Mol_has_density(this)) allocate(this%density(this%ngpt))
-      this%density=density(1:this%ngpt)
+      if(.not.Mol_has_density(this)) allocate(this%density(dsize))
+      this%density(1:this%ngpt)=density(1:this%ngpt)
+   end subroutine
+
+   subroutine Mol_set_density_b(this,density)
+      type(T_Molecule),intent(inout) :: this
+      real*8,intent(in)            :: density(:)
+      integer                        :: dsize
+
+      dsize=2*this%ngpt
+
+      if(.not.this%spinpol) &
+         & call error("Mol_set_density_b: trying to set beta density for non spin polarized molecule!")
+
+      if(size(density).ne.this%ngpt) &
+         & call error("Mol_set_density_b: size(density) /= this%ngpt",size(density),this%ngpt)
+
+      if(.not.Mol_has_density(this)) allocate(this%density(dsize))
+      this%density(this%ngpt+1:dsize)=density(1:this%ngpt)
    end subroutine
 
    subroutine Mol_init_grid(this,weights,cell)
