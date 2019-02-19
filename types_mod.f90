@@ -7,7 +7,7 @@ module types_mod
    public
 
    !Grid type, contains points, weights and cell
-   type, public :: T_Grid
+   type :: T_Grid
       !#Grid Points
       integer               :: ngpt
       !weights,optional
@@ -17,7 +17,7 @@ module types_mod
    end type T_Grid
 
    !Ions class, contains number, charges and positions
-   type, public :: T_Ions
+   type :: T_Ions
       !#ions
       integer               :: nions
       !Charges
@@ -27,7 +27,7 @@ module types_mod
    end type T_Ions
 
    !Molecule type, contains points, grid, density, nuclear potential and ions
-   type, public :: T_Molecule
+   type :: T_Molecule
       !#Grid Points
       integer                  :: ngpt
       !Grid, may contain weights and cell
@@ -42,6 +42,8 @@ module types_mod
       type(T_Ions),pointer     :: ions => null()
       !Spin polarized or not
       logical                  :: spinpol=.false.
+      !Active or not
+      logical                  :: active=.false.
    end type T_Molecule
 
  contains

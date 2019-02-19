@@ -1,9 +1,10 @@
 program test
    use types_mod
+   use system_mod
    implicit none
    integer :: ngpt,natoms,i
    real*8 :: dens(3),vnuc(3),q(4),pos(3,4),cell(3,3),dens2(2)
-   type(T_Molecule) :: mol1,mol2
+   type(T_Molecule) :: mol1,mol2,mol3
 
    ngpt=3
    dens=(/1,2,3/)
@@ -40,6 +41,22 @@ program test
    call Mol_set_spin(mol2,.true.)
    call Mol_set_density(mol2,(/ dens,dens /))
    call Mol_set_gradient(mol2,(/ dens,dens,dens /))
+
+   mol3=T_Molecule(ngpt=ngpt,spinpol=.true.,density= (/ dens,dens /), gradient=(/ dens,dens,dens /))
+
+   mol3%vnuc=(/ 1,2,3,4 /)
+
+   write(*,*) Mol_has_density(mol3),Mol_has_gradient(mol3),Mol_has_grid(mol3),Mol_has_vnuc(mol3)
+
+   call Sys_init(3)
+
+   system(1)=mol1
+   system(2)=mol2
+   system(3)=mol3
+   
+   system(2)%active=.true.
+
+   write(*,*) "System:",nsys,system(1)%active,system(2)%active,system(3)%active
 
 
    dens2=(/1,2/)
