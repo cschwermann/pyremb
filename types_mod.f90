@@ -1,366 +1,425 @@
 !Types Module
 !Contains all used types, including
 !Molecule, Grid and Ions
-module types_mod
-   use output_mod
+module Types_mod
+   use Precision_mod
+   use Output_mod
    implicit none
-   public
+
+   public :: grid_t, ions_t, molecule_t
+
+   public :: Mol_has_grid, Mol_has_vnuc, Mol_has_ions, Mol_has_density, Mol_has_gradient
+   public :: Mol_set_grid, Mol_set_vnuc, Mol_set_ions, Mol_set_spin, Mol_set_density, &
+      & Mol_set_density_a, Mol_set_density_b, Mol_set_gradient, Mol_set_gradient_aa, &
+      & Mol_set_gradient_ab, Mol_set_gradient_bb, Mol_init_grid, Mol_init_ions
+
+   public :: Grid_has_cell
+   public :: Grid_set_weights, Grid_set_cell
+
+   public :: Ions_has_charges, Ions_has_positions
+   public :: Ions_set_charges, Ions_set_positions
+
 
    !Grid type, contains points, weights and cell
-   type :: T_Grid
+   type :: grid_t
       !#Grid Points
       integer               :: ngpt
       !weights,optional
-      real*8,allocatable    :: weights(:)
+      real(kind=DP), allocatable    :: weights(:)
       !cell vectors,optional
-      real*8,allocatable    :: cell(:,:)
-   end type T_Grid
+      real(kind=DP), allocatable    :: cell(:, :)
+   end type grid_t
 
    !Ions class, contains number, charges and positions
-   type :: T_Ions
+   type :: ions_t
       !#ions
       integer               :: nions
       !Charges
-      real*8,allocatable    :: charges(:)
+      real(kind=DP), allocatable    :: charges(:)
       !Positions,first index is x,y,z
-      real*8,allocatable    :: positions(:,:)
-   end type T_Ions
+      real(kind=DP), allocatable    :: positions(:, :)
+   end type ions_t
 
    !Molecule type, contains points, grid, density, nuclear potential and ions
-   type :: T_Molecule
+   type :: molecule_t
       !#Grid Points
       integer                  :: ngpt
       !Grid, may contain weights and cell
-      type(T_Grid),pointer     :: grid => null()
-      !Electron Density; size=2*ngpt for spin polarized, beta is from ngpt+1:2*ngpt
-      real*8,allocatable       :: density(:)
-      !Density Gradient; size=3*ngpt for spin polarized, order is aa,ab,bb
-      real*8,allocatable       :: gradient(:)
+      type(grid_t), pointer     :: grid => null()
+      !Electron Density; Size=2*ngpt for spin polarized, beta is from ngpt+1:2*ngpt
+      real(kind=DP), allocatable       :: density(:)
+      !Density Gradient; Size=3*ngpt for spin polarized, order is aa,ab,bb
+      real(kind=DP), allocatable       :: gradient(:)
       !Nuclear Potential, alternative to ions
-      real*8,allocatable       :: vnuc(:)
+      real(kind=DP), allocatable       :: vnuc(:)
       !Ions,contains #ions, charges and positions
-      type(T_Ions),pointer     :: ions => null()
+      type(ions_t), pointer     :: ions => null()
       !Spin polarized or not
-      logical                  :: spinpol=.false.
+      logical                  :: spinpol = .false.
       !Active or not
-      logical                  :: active=.false.
-   end type T_Molecule
+      logical                  :: active = .false.
+   end type molecule_t
 
- contains
+contains
 
 !Molecule functions
 
-   function Mol_has_grid(this) result(hasgrid)
-      type(T_Molecule),intent(in) :: this
-      Logical                      :: hasgrid
+   pure function Mol_has_grid( this ) result( hasgrid )
+      type(molecule_t), intent(in) :: this
+      logical                      :: hasgrid
 
-      hasgrid = associated(this%grid)
-   end function
+      hasgrid = Associated( this%grid )
+   end function Mol_has_grid
 
-   function Mol_has_vnuc(this) result(hasvnuc)
-      type(T_Molecule),intent(in) :: this
-      Logical                      :: hasvnuc
+   pure function Mol_has_vnuc( this ) result( hasvnuc )
+      type(molecule_t), intent(in) :: this
+      logical                      :: hasvnuc
 
-      hasvnuc = allocated(this%vnuc)
-   end function
+      hasvnuc = Allocated( this%vnuc )
+   end function Mol_has_vnuc
 
-   function Mol_has_ions(this) result(hasions)
-      type(T_Molecule),intent(in) :: this
-      Logical                      :: hasions
+   pure function Mol_has_ions( this ) result( hasions )
+      type(molecule_t), intent(in) :: this
+      logical                      :: hasions
 
-      hasions = associated(this%ions)
-   end function
+      hasions = associated( this%ions )
+   end function Mol_has_ions
 
-   function Mol_has_density(this) result(hasdensity)
-      type(T_Molecule),intent(in) :: this
-      Logical                      :: hasdensity
+   pure function Mol_has_density( this ) result( hasdensity )
+      type(molecule_t), intent(in) :: this
+      logical                      :: hasdensity
 
-      hasdensity = allocated(this%density)
-   end function
+      hasdensity = Allocated( this%density )
+   end function Mol_has_density
 
-   function Mol_has_gradient(this) result(hasgradient)
-      type(T_Molecule),intent(in) :: this
-      Logical                      :: hasgradient
+   pure function Mol_has_gradient( this ) result( hasgradient )
+      type(molecule_t), intent(in) :: this
+      logical                      :: hasgradient
 
-      hasgradient = allocated(this%gradient)
-   end function
+      hasgradient = Allocated( this%gradient )
+   end function Mol_has_gradient
 
-   subroutine Mol_set_grid(this,grid)
-      type(T_Molecule),intent(inout) :: this
-      type(T_Grid),intent(in)      :: grid
+   subroutine Mol_set_grid( this, grid )
+      type(molecule_t), intent(inout) :: this
+      type(grid_t), intent(in)      :: grid
 
-      if(grid%ngpt.ne.this%ngpt) &
-         & call error("Mol_set_grid: grid%ngpt /= this%ngpt",grid%ngpt,this%ngpt)
+      if( grid%ngpt /= this%ngpt ) &
+         & call Error( "Mol_set_grid: grid%ngpt /= this%ngpt", grid%ngpt, this%ngpt )
 
-      if(.not.Mol_has_grid(this)) allocate(this%grid)
-      this%grid=grid
-   end subroutine
+      if( .not. Mol_has_grid( this ) ) allocate( this%grid )
+      this%grid = grid
+   end subroutine Mol_set_grid
 
-   subroutine Mol_set_vnuc(this,vnuc)
-      type(T_Molecule),intent(inout) :: this
-      real*8,intent(in)      :: vnuc(:)
+   subroutine Mol_set_vnuc( this, vnuc )
+      type(molecule_t), intent(inout) :: this
+      real(kind=DP), intent(in)      :: vnuc(:)
+      integer :: istart, iend
 
-      if(size(vnuc).ne.this%ngpt) &
-         & call error("Mol_set_vnuc: size(vnuc) /= this%ngpt",size(vnuc),this%ngpt)
+      if( Size( vnuc ) /= this%ngpt ) &
+         & call Error( "Mol_set_vnuc: Size(vnuc) /= this%ngpt", Size( vnuc ), this%ngpt )
 
-      if(.not.Mol_has_vnuc(this)) allocate(this%vnuc(this%ngpt))
-      this%vnuc=vnuc(1:this%ngpt)
-   end subroutine
+      istart = Lbound( vnuc, 1 )
+      iend = Ubound( vnuc, 1 ) 
 
-   subroutine Mol_set_ions(this,ions)
-      type(T_Molecule),intent(inout) :: this
-      type(T_Ions),intent(in)      :: ions
+      if( .not. Mol_has_vnuc( this ) ) allocate( this%vnuc(1:this%ngpt) )
+      this%vnuc(1:this%ngpt) = vnuc(istart:iend)
+   end subroutine Mol_set_vnuc
 
-      if(.not.Mol_has_ions(this)) allocate(this%ions)
-      this%ions=ions
-   end subroutine
+   pure subroutine Mol_set_ions( this, ions )
+      type(molecule_t), intent(inout) :: this
+      type(ions_t), intent(in)      :: ions
 
-   subroutine Mol_set_spin(this,spinpol)
-      type(T_Molecule),intent(inout) :: this
-      logical,intent(in)             :: spinpol
+      if( .not. Mol_has_ions( this ) ) allocate( this%ions )
+      this%ions = ions
+   end subroutine Mol_set_ions
 
-      this%spinpol=spinpol
+   subroutine Mol_set_spin( this, spinpol )
+      type(molecule_t), intent(inout) :: this
+      logical, intent(in)             :: spinpol
 
-      if(Mol_has_density(this)) then 
-         call warning("Mol_set_spin: setting spin after density! Deallocating density!")
-         deallocate(this%density)
+      this%spinpol = spinpol
+
+      if( Mol_has_density( this ) ) then 
+         call Warning( "Mol_set_spin: setting spin after density! Deallocating density!" )
+         deallocate( this%density )
       endif
 
-      if(Mol_has_gradient(this)) then 
-         call warning("Mol_set_spin: setting spin after gradient! Deallocating gradient!")
-         deallocate(this%gradient)
+      if( Mol_has_gradient( this ) ) then 
+         call Warning( "Mol_set_spin: setting spin after gradient! Deallocating gradient!" )
+         deallocate( this%gradient )
       endif
-   end subroutine
+   end subroutine Mol_set_spin
 
-   subroutine Mol_set_density(this,density)
-      type(T_Molecule),intent(inout) :: this
-      real*8,intent(in)            :: density(:)
-      integer                      :: dsize
+   subroutine Mol_set_density( this, density )
+      type(molecule_t), intent(inout) :: this
+      real(kind=DP), intent(in)            :: density(:)
+      integer                      :: dsize, istart, iend
 
-      if(this%spinpol) then
-         dsize=2*this%ngpt
+      if( this%spinpol ) then
+         dsize = 2 * this%ngpt
       else
-         dsize=this%ngpt
-      endif
+         dsize = this%ngpt
+      end if
 
-      if(size(density).ne.dsize) &
-         & call error("Mol_set_density: size(density) /= 2*this%ngpt",size(density),dsize)
+      if( Size( density ) /= dsize ) &
+         & call Error( "Mol_set_density: Size(density) /= 2*this%ngpt", Size(density), dsize )
 
-      if(.not.Mol_has_density(this)) allocate(this%density(dsize))
-      this%density=density(1:dsize)
-   end subroutine
+      istart = Lbound( density, 1 )
+      iend = Ubound( density, 1 )
 
-   subroutine Mol_set_density_a(this,density)
-      type(T_Molecule),intent(inout) :: this
-      real*8,intent(in)            :: density(:)
-      integer                        :: dsize
+      if( .not. Mol_has_density( this ) ) allocate( this%density(1:dsize) )
+      this%density(1:dsize) = density(istart:iend)
+   end subroutine Mol_set_density
 
-      dsize=2*this%ngpt
+   subroutine Mol_set_density_a( this, density )
+      type(molecule_t), intent(inout) :: this
+      real(kind=DP), intent(in)            :: density(:)
+      integer                        :: dsize, istart, iend
 
-      if(.not.this%spinpol) &
-         & call error("Mol_set_density_a: trying to set alpha density for non spin polarized molecule!")
+      dsize = 2 * this%ngpt
 
-      if(size(density).ne.this%ngpt) &
-         & call error("Mol_set_density_a: size(density) /= this%ngpt",size(density),this%ngpt)
+      if( .not. this%spinpol ) &
+         & call Error( "Mol_set_density_a: trying to set alpha density for non spin polarized molecule!" )
 
-      if(.not.Mol_has_density(this)) allocate(this%density(dsize))
-      this%density(1:this%ngpt)=density(1:this%ngpt)
-   end subroutine
+      if( Size( density ) /= this%ngpt ) &
+         & call Error( "Mol_set_density_a: Size(density) /= this%ngpt", Size( density ), this%ngpt )
 
-   subroutine Mol_set_density_b(this,density)
-      type(T_Molecule),intent(inout) :: this
-      real*8,intent(in)            :: density(:)
-      integer                        :: dsize
+      istart = Lbound( density, 1 )
+      iend = Ubound( density, 1 )
 
-      dsize=2*this%ngpt
+      if( .not. Mol_has_density( this ) ) allocate( this%density(1:dsize) )
+      this%density(1:this%ngpt) = density(istart:iend)
+   end subroutine Mol_set_density_a
 
-      if(.not.this%spinpol) &
-         & call error("Mol_set_density_b: trying to set beta density for non spin polarized molecule!")
+   subroutine Mol_set_density_b( this, density )
+      type(molecule_t), intent(inout) :: this
+      real(kind=DP), intent(in)            :: density(:)
+      integer                        :: dsize, istart, iend
 
-      if(size(density).ne.this%ngpt) &
-         & call error("Mol_set_density_b: size(density) /= this%ngpt",size(density),this%ngpt)
+      dsize = 2 * this%ngpt
 
-      if(.not.Mol_has_density(this)) allocate(this%density(dsize))
-      this%density(this%ngpt+1:dsize)=density(1:this%ngpt)
-   end subroutine
+      if( .not. this%spinpol ) &
+         & call Error( "Mol_set_density_b: trying to set beta density for non spin polarized molecule!" )
 
-   subroutine Mol_set_gradient(this,gradient)
-      type(T_Molecule),intent(inout) :: this
-      real*8,intent(in)            :: gradient(:)
-      integer                      :: dsize
+      if( Size( density ) /= this%ngpt ) &
+         & call Error( "Mol_set_density_b: Size(density) /= this%ngpt", Size( density ), this%ngpt )
 
-      if(this%spinpol) then
-         dsize=3*this%ngpt
+      istart = Lbound( density, 1 )
+      iend = Ubound( density, 1 )
+
+      if( .not. Mol_has_density( this ) ) allocate( this%density(1:dsize) )
+      this%density(this%ngpt+1:dsize) = density(istart:iend)
+   end subroutine Mol_set_density_b
+
+   subroutine Mol_set_gradient( this, gradient )
+      type(molecule_t), intent(inout) :: this
+      real(kind=DP), intent(in)            :: gradient(:)
+      integer                      :: dsize, istart, iend
+
+      if( this%spinpol ) then
+         dsize = 3 * this%ngpt
       else
-         dsize=this%ngpt
-      endif
+         dsize = this%ngpt
+      end if
 
-      if(size(gradient).ne.dsize) &
-         & call error("Mol_set_gradient: size(gradient) /= 3*this%ngpt",size(gradient),dsize)
+      if( Size( gradient ) /= dsize ) &
+         & call Error( "Mol_set_gradient: Size(gradient) /= 3*this%ngpt", Size( gradient ), dsize )
 
-      if(.not.Mol_has_gradient(this)) allocate(this%gradient(dsize))
-      this%gradient=gradient(1:dsize)
-   end subroutine
+      istart = Lbound( gradient, 1 )
+      iend = Ubound( gradient, 1 )
 
-   subroutine Mol_set_gradient_aa(this,gradient)
-      type(T_Molecule),intent(inout) :: this
-      real*8,intent(in)            :: gradient(:)
-      integer                      :: dsize
+      if( .not. Mol_has_gradient( this ) ) allocate( this%gradient(dsize) )
+      this%gradient(1:dsize) = gradient(istart:iend)
+   end subroutine Mol_set_gradient
 
-      dsize=3*this%ngpt
+   subroutine Mol_set_gradient_aa( this, gradient )
+      type(molecule_t), intent(inout) :: this
+      real(kind=DP), intent(in)            :: gradient(:)
+      integer                      :: dsize, istart, iend
 
-      if(.not.this%spinpol) &
-         & call error("Mol_set_gradient_aa: trying to set alpha gradient for non spin polarized molecule!")
+      dsize = 3 * this%ngpt
 
-      if(size(gradient).ne.dsize) &
-         & call error("Mol_set_gradient_aa: size(gradient) /= this%ngpt",size(gradient),this%ngpt)
+      if( .not. this%spinpol ) &
+         & call Error( "Mol_set_gradient_aa: trying to set alpha gradient for non spin polarized molecule!" )
 
-      if(.not.Mol_has_gradient(this)) allocate(this%gradient(dsize))
-      this%gradient(1:this%ngpt)=gradient(1:this%ngpt)
-   end subroutine
+      if( Size( gradient ) /= dsize ) &
+         & call Error( "Mol_set_gradient_aa: Size(gradient) /= this%ngpt", Size( gradient ), this%ngpt )
 
-   subroutine Mol_set_gradient_ab(this,gradient)
-      type(T_Molecule),intent(inout) :: this
-      real*8,intent(in)            :: gradient(:)
-      integer                      :: dsize
+      istart = Lbound( gradient, 1 )
+      iend = Ubound( gradient, 1 )
 
-      dsize=3*this%ngpt
+      if( .not. Mol_has_gradient( this ) ) allocate( this%gradient(dsize) )
+      this%gradient(1:this%ngpt) = gradient(istart:iend)
+   end subroutine Mol_set_gradient_aa
 
-      if(.not.this%spinpol) &
-         & call error("Mol_set_gradient_ab: trying to set alpha*beta gradient for non spin polarized molecule!")
+   subroutine Mol_set_gradient_ab( this, gradient )
+      type(molecule_t), intent(inout) :: this
+      real(kind=DP), intent(in)            :: gradient(:)
+      integer                      :: dsize, istart, iend
 
-      if(size(gradient).ne.this%ngpt) &
-         & call error("Mol_set_gradient_ab: size(gradient) /= this%ngpt",size(gradient),this%ngpt)
+      dsize= 3 * this%ngpt
 
-      if(.not.Mol_has_gradient(this)) allocate(this%gradient(dsize))
-      this%gradient(this%ngpt+1:2*this%ngpt)=gradient(1:this%ngpt)
-   end subroutine
+      if( .not. this%spinpol ) &
+         & call Error( "Mol_set_gradient_ab: trying to set alpha*beta gradient for non spin polarized molecule!" )
 
-   subroutine Mol_set_gradient_bb(this,gradient)
-      type(T_Molecule),intent(inout) :: this
-      real*8,intent(in)            :: gradient(:)
-      integer                      :: dsize
+      if( Size( gradient ) /= this%ngpt ) &
+         & call Error( "Mol_set_gradient_ab: Size(gradient) /= this%ngpt", Size( gradient ), this%ngpt )
 
-      dsize=3*this%ngpt
+      istart = Lbound( gradient, 1 )
+      iend = Ubound( gradient, 1 )
 
-      if(.not.this%spinpol) &
-         & call error("Mol_set_gradient_bb: trying to set beta gradient for non spin polarized molecule!")
+      if( .not. Mol_has_gradient( this ) ) allocate( this%gradient(dsize) )
+      this%gradient(this%ngpt+1:2*this%ngpt) = gradient(istart:iend)
+   end subroutine Mol_set_gradient_ab
 
-      if(size(gradient).ne.this%ngpt) &
-         & call error("Mol_set_gradient_bb: size(gradient) /= this%ngpt",size(gradient),this%ngpt)
+   subroutine Mol_set_gradient_bb( this, gradient )
+      type(molecule_t), intent(inout) :: this
+      real(kind=DP), intent(in)            :: gradient(:)
+      integer                      :: dsize, istart, iend
 
-      if(.not.Mol_has_gradient(this)) allocate(this%gradient(dsize))
-      this%gradient(2*this%ngpt+1:dsize)=gradient(1:this%ngpt)
-   end subroutine
+      dsize = 3 * this%ngpt
 
-   subroutine Mol_init_grid(this,weights,cell)
-      type(T_Molecule),intent(inout) :: this
-      real*8,optional              :: weights(:)
-      real*8,optional              :: cell(:,:)
+      if( .not. this%spinpol ) &
+         & call Error( "Mol_set_gradient_bb: trying to set beta gradient for non spin polarized molecule!" )
 
-      if(Mol_has_grid(this)) &
-         & call error("Mol_init_grid: grid already initialized")
+      if( Size( gradient ) /= this%ngpt ) &
+         & call Error( "Mol_set_gradient_bb: Size(gradient) /= this%ngpt", Size( gradient ), this%ngpt )
 
-      allocate(this%grid)
-      this%grid=T_Grid(ngpt=this%ngpt)
+      istart = Lbound( gradient, 1 )
+      iend = Ubound( gradient, 1 )
 
-      if(present(weights)) then
-         call Grid_set_weights(this%grid,weights)
-      endif
+      if( .not. Mol_has_gradient( this ) ) Allocate( this%gradient(dsize) )
+      this%gradient(2*this%ngpt+1:dsize) = gradient(istart:iend)
+   end subroutine Mol_set_gradient_bb
 
-      if(present(cell)) then
-         call Grid_set_cell(this%grid,cell)
-      endif
-   end subroutine
+   subroutine Mol_init_grid( this, weights, cell )
+      type(molecule_t), intent(inout) :: this
+      real(kind=DP), optional, intent(in)  :: weights(:)
+      real(kind=DP), optional, intent(in)  :: cell(:, :)
 
-   subroutine Mol_init_ions(this,nions,charges,positions)
-      type(T_Molecule),intent(inout) :: this
-      integer                      :: nions
-      real*8                       :: charges(:)
-      real*8                       :: positions(:,:)
+      if( Mol_has_grid( this ) ) &
+         & call Error( "Mol_init_grid: grid already initialized" )
 
-      if(Mol_has_ions(this)) &
-         & call error("Mol_init_ions: ions already initialized")
+      allocate( this%grid )
+      this%grid = grid_t( ngpt = this%ngpt )
 
-      allocate(this%ions)
-      this%ions=T_Ions(nions=nions)
-      call Ions_set_charges(this%ions,charges)
-      call Ions_set_positions(this%ions,positions)
-   end subroutine
+      if( Present( weights ) ) then
+         call Grid_set_weights( this%grid, weights )
+      end if
+
+      if( Present( cell ) ) then
+         call Grid_set_cell( this%grid, cell )
+      end if
+   end subroutine Mol_init_grid
+
+   subroutine Mol_init_ions( this, nions, charges, positions )
+      type(molecule_t), intent(inout) :: this
+      integer, intent(in)          :: nions
+      real(kind=DP), intent(in)           :: charges(:)
+      real(kind=DP), intent(in)           :: positions(:, :)
+
+      if( Mol_has_ions( this ) ) &
+         & call Error( "Mol_init_ions: ions already initialized" )
+
+      allocate( this%ions )
+      this%ions = ions_t( nions = nions )
+      call Ions_set_charges( this%ions, charges )
+      call Ions_set_positions( this%ions, positions )
+   end subroutine Mol_init_ions
 
 !Grid functions
 
-   function Grid_has_weights(this) result(hasweights)
-      type(T_Grid),intent(in)     :: this
-      Logical                      :: hasweights
+   pure function Grid_has_weights( this ) result( hasweights )
+      type(grid_t), intent(in)     :: this
+      logical                      :: hasweights
 
-      hasweights = allocated(this%weights)
-   end function
+      hasweights = Allocated( this%weights )
+   end function Grid_has_weights
 
-   function Grid_has_cell(this) result(hascell)
-      type(T_Grid),intent(in)     :: this
-      Logical                      :: hascell
+   pure function Grid_has_cell( this ) result( hascell )
+      type(grid_t), intent(in)     :: this
+      logical                      :: hascell
 
-      hascell = allocated(this%cell)
-   end function
+      hascell = Allocated( this%cell )
+   end function Grid_has_cell
 
-   subroutine Grid_set_weights(this,weights)
-      type(T_Grid),intent(inout) :: this
-      real*8,intent(in)      :: weights(:)
+   subroutine Grid_set_weights( this, weights )
+      type(grid_t), intent(inout) :: this
+      real(kind=DP), intent(in)      :: weights(:)
+      integer :: istart, iend
 
-      if(size(weights).ne.this%ngpt) &
-         & call error("Grid_set_weights: size(weights) /= this%ngpt",size(weights),this%ngpt)
+      if( Size( weights ) /= this%ngpt ) &
+         & call Error( "Grid_set_weights: Size(weights) /= this%ngpt", Size( weights ), this%ngpt )
 
-      if(.not.Grid_has_weights(this)) allocate(this%weights(this%ngpt))
-      this%weights=weights(1:this%ngpt)
-   end subroutine
+      istart = Lbound( weights, 1 )
+      iend = Ubound( weights, 1 )
 
-   subroutine Grid_set_cell(this,cell)
-      type(T_Grid),intent(inout) :: this
-      real*8,intent(in)      :: cell(:,:)
+      if( .not. Grid_has_weights( this ) ) allocate( this%weights(1:this%ngpt) )
+      this%weights(1:this%ngpt) = weights(istart:iend)
+   end subroutine Grid_set_weights
 
-      if(size(cell).ne.9) &
-         & call error("Grid_set_cell: shape(cell) incorrect",size(cell),9)
+   subroutine Grid_set_cell( this, cell )
+      type(grid_t), intent(inout) :: this
+      real(kind=DP), intent(in)      :: cell(:, :)
+      integer :: istart1,iend1,istart2,iend2
 
-      if(.not.Grid_has_cell(this)) allocate(this%cell(3,3))
-      this%cell=cell(1:3,1:3)
-   end subroutine
+      if( Size( cell ) /= 9 ) &
+         & call Error( "Grid_set_cell: shape(cell) incorrect", Size( cell ), 9 )
+
+      istart1 = Lbound( cell, 1 )
+      iend1 = Ubound( cell, 1 )
+      istart2 = Lbound( cell, 2 )
+      iend2 = Ubound( cell, 2 )
+
+      if( .not. Grid_has_cell( this ) ) allocate( this%cell(1:3, 1:3) )
+      this%cell(1:3, 1:3) = cell(istart1:iend1, istart1:iend2)
+   end subroutine Grid_set_cell
 
 !Ions functions
-   function Ions_has_charges(this) result(hascharges)
-      type(T_Ions),intent(in)     :: this
-      Logical                      :: hascharges
+   pure function Ions_has_charges( this ) result( hascharges )
+      type(ions_t), intent(in)     :: this
+      logical                      :: hascharges
 
-      hascharges = allocated(this%charges)
-   end function
+      hascharges = Allocated( this%charges )
+   end function Ions_has_charges
 
-   function Ions_has_positions(this) result(haspositions)
-      type(T_Ions),intent(in)     :: this
-      Logical                      :: haspositions
+   pure function Ions_has_positions( this ) result( haspositions )
+      type(ions_t), intent(in)     :: this
+      logical                      :: haspositions
 
-      haspositions = allocated(this%positions)
-   end function
+      haspositions = Allocated( this%positions )
+   end function Ions_has_positions
 
-   subroutine Ions_set_charges(this,charges)
-      type(T_Ions),intent(inout) :: this
-      real*8,intent(in)      :: charges(:)
+   subroutine Ions_set_charges( this, charges )
+      type(ions_t), intent(inout) :: this
+      real(kind=DP), intent(in)      :: charges(:)
+      integer :: istart, iend
 
-      if(size(charges).ne.this%nions) &
-         & call error("Ions_set_charges: size(charges) /= this%nions",size(charges),this%nions)
+      if( Size( charges ) /= this%nions ) &
+         & call Error("Ions_set_charges: Size(charges) /= this%nions", Size(charges), this%nions )
 
-      if(.not.Ions_has_charges(this)) allocate(this%charges(this%nions))
-      this%charges=charges(1:this%nions)
-   end subroutine
+      istart = Lbound( charges, 1 )
+      iend = Ubound( charges, 1 )
 
-   subroutine Ions_set_positions(this,positions)
-      type(T_Ions),intent(inout) :: this
-      real*8,intent(in)      :: positions(:,:)
+      if( .not. Ions_has_charges( this ) ) allocate( this%charges(1:this%nions) )
+      this%charges(1:this%nions) = charges(istart:iend)
+   end subroutine Ions_set_charges
 
-      if(size(positions).ne.3*this%nions) &
-         & call error("Ions_set_positions: shape(positions incorrect",size(positions),3*this%nions)
+   subroutine Ions_set_positions( this, positions )
+      type(ions_t), intent(inout) :: this
+      real(kind=DP), intent(in)      :: positions(:, :)
+      integer :: istart1, iend1, istart2, iend2
 
-      if(.not.Ions_has_positions(this)) allocate(this%positions(3,this%nions))
-      this%positions=positions(1:3,1:this%nions)
-   end subroutine
+      if( Size( positions ) /= 3 * this%nions ) &
+         & call Error( "Ions_set_positions: shape(positions incorrect", Size( positions ), 3 * this%nions )
 
-end
+      istart1 = Lbound( positions, 1 )
+      iend1 = Ubound( positions, 1 )
+      istart2 = Lbound( positions, 2 )
+      iend2 = Ubound( positions, 2 )
+
+      if( .not. Ions_has_positions( this ) ) allocate( this%positions(1:3, 1:this%nions) )
+      this%positions(1:3, 1:this%nions) = positions(istart1:iend1, istart2:iend2)
+   end subroutine Ions_set_positions
+
+end module Types_mod

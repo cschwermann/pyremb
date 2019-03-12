@@ -1,35 +1,38 @@
 !Output Module
-!contains error subroutine
-module output_mod
+!contains error and warning subroutine
+module Output_mod
+   use Precision_mod !consistent precisions
    implicit none
 
- contains
+   public :: Error, Warning
+
+contains
 
    !Throw error and exit with -1
-   subroutine error(string,int1,int2,real1,real2)
-      character(*),intent(in) :: string
-      integer,optional,intent(in) :: int1,int2
-      real*8,optional,intent(in) :: real1,real2
+   subroutine Error( string, int1, int2, real1, real2 )
+      character(len=*), intent(in) :: string
+      integer, optional, intent(in) :: int1, int2
+      real(kind=DP), optional, intent(in) :: real1, real2
 
-      write(*,*) "ERROR! ",string
-      if(present(int1)) write(*,*) "(1)=",int1
-      if(present(int2)) write(*,*) "(2)=",int2
-      if(present(real1)) write(*,*) "(1)=",real1
-      if(present(real2)) write(*,*) "(2)=",real2
+      write(*,*) "ERROR! ", string
+      if( Present( int1 ) ) write(*,*) "(1)=", int1
+      if( Present( int2 ) ) write(*,*) "(2)=", int2
+      if( Present( real1 ) ) write(*,*) "(1)=", real1
+      if( Present( real2 ) ) write(*,*) "(2)=", real2
       stop
-   end subroutine
+   end subroutine Error
 
    !Throw warning, don't exit!
-   subroutine warning(string,int1,int2,real1,real2)
-      character(*),intent(in) :: string
-      integer,optional,intent(in) :: int1,int2
-      real*8,optional,intent(in) :: real1,real2
+   subroutine Warning( string, int1, int2, real1, real2 )
+      character(len=*), intent(in) :: string
+      integer, optional, intent(in) :: int1, int2
+      real(kind=DP), optional, intent(in) :: real1, real2
 
-      write(*,*) "WARNING! ",string
-      if(present(int1)) write(*,*) "(1)=",int1
-      if(present(int2)) write(*,*) "(2)=",int2
-      if(present(real1)) write(*,*) "(1)=",real1
-      if(present(real2)) write(*,*) "(2)=",real2
-   end subroutine
+      write(*,*) "WARNING! ", string
+      if( Present( int1 ) ) write(*,*) "(1)=", int1
+      if( Present( int2 ) ) write(*,*) "(2)=", int2
+      if( Present( real1 ) ) write(*,*) "(1)=", real1
+      if( Present( real2 ) ) write(*,*) "(2)=", real2
+   end subroutine Warning
 
-end module
+end module Output_mod

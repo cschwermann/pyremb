@@ -1,212 +1,218 @@
-module xcpot_mod
-   use output_mod
-   use type_mod
-   use utils_mod !TODO should contain integrate and gradient
+module Xcpot_mod
+   use Precision_mod
+   use Output_mod
+   use Type_mod
+   use Utils_mod !TODO should contain integrate and gradient
   !use libxc wrappers
   #ifdef LIBXC
-   use xcpot_libxc_mod
+   use Xcpot_libxc_mod
   #endif
   !alternatively use xcfun wrappers
   #ifdef XCFUN
-   use xcpot_xcfun_mod
+   use Xcpot_xcfun_mod
   #endif
    implicit none
-   public
 
-  contains
+   public :: Xc_energy, Xc_potential
+
+contains
 
    !TODO subroutine xc_parse
 
-   subroutine xc_energy(molecule,funcstring,energy)
-      type(T_Molecule),intent(in) :: molecule
-      character(:),intent(in) :: funcstring
-      real*8,intent(out) :: energy
+   subroutine Xc_energy( molecule, funcstring, energy )
+      type(molecule_t), intent(in) :: molecule
+      character(:), intent(in) :: funcstring
+      real(kind=DP), intent(out) :: energy
       !functional id, for exchange, correlation and kinetic in this order
-      integer :: funcid(3)
+      integer :: funcid(1:3)
       !energy density
-      real*8, allocatable :: enerdens(:),temppot(:)
-      character(:),allocatable :: functype
+      real(kind=DP), allocatable :: enerdens(:), temppot(:)
+      character(:), allocatable :: functype
 
-      allocate(enerdens(molecule%ngpt))
-      allocate(temppot(molecule%ngpt))
+      allocate( enerdens(1:molecule%ngpt) )
+      allocate( temppot(1:molecule%ngpt) )
 
-      energy=0.0d0
+      energy(:) = 0.0_DP
 
-      call xc_parse(funcstring,funcid,functype)
-      select case (functype)
-         case("LDA")
-            call xc_ener(funcid,molecule%ngpt,molecule%spinpol,temppot,molecule%density)
-            enerdens=enerdens+temppot
+      call Xc_parse(funcstring,funcid,functype)
+      select case ( functype )
+         case( "LDA" )
+            call Xc_ener( funcid, molecule%ngpt, molecule%spinpol, temppot, molecule%density )
+            enerdens(:) = enerdens(:) + temppot(:)
 
-            call xc_ener(funcid,molecule%ngpt,molecule%spinpol,temppot,molecule%density)
-            enerdens=enerdens+temppot
+            call Xc_ener( funcid, molecule%ngpt, molecule%spinpol, temppot, molecule%density )
+            enerdens(:) = enerdens(:) + temppot(:)
 
-            call xc_ener(funcid,molecule%ngpt,molecule%spinpol,temppot,molecule%density)
-            enerdens=enerdens+temppot
-         case("GGA")
-            if(.not.Mol_has_gradient(molecule) call gradient(molecule)
-            call xc_ener(funcid,molecule%ngpt,molecule%spinpol,temppot,molecule%density,molecule%gradient)
-            enerdens=enerdens+temppot
+            call Xc_ener( funcid, molecule%ngpt, molecule%spinpol, temppot, molecule%density )
+            enerdens(:) = enerdens(:) + temppot(:)
+         case( "GGA" )
+            if( .not. Mol_has_gradient( molecule ) call Gradient( molecule )
+            call Xc_ener( funcid, molecule%ngpt, molecule%spinpol, temppot, molecule%density, molecule%gradient )
+            enerdens(:) = enerdens(:) + temppot(:)
 
-            call xc_ener(funcid,molecule%ngpt,molecule%spinpol,temppot,molecule%density,molecule%gradient)
-            enerdens=enerdens+temppot
+            call Xc_ener( funcid, molecule%ngpt, molecule%spinpol, temppot, molecule%density, molecule%gradient )
+            enerdens(:) = enerdens(:) + temppot(:)
 
-            call xc_ener(funcid,molecule%ngpt,molecule%spinpol,temppot,molecule%density,molecule%gradient)
-            enerdens=enerdens+temppot
+            call Xc_ener( funcid, molecule%ngpt, molecule%spinpol, temppot, molecule%density, molecule%gradient )
+            enerdens(:) = enerdens(:) + temppot(:)
          case default
-            call error("xc_energy: only LDA and GGA possible!")
+            call Error( "Xc_energy: only LDA and GGA possible!" )
       end select
 
-      deallocate(temppot)
+      deallocate( temppot )
 
-      energy=integrate(enerdens,molecule%grid)
+      energy = Integrate( enerdens, molecule%grid )
 
-      deallocate(enerdens)
-   end subroutine
+      deallocate( enerdens )
+   end subroutine Xc_energy
 
    !exchange-correlation-kinetic potential for a molecule and a specified functional
-   subroutine xc_potential(molecule,funcstring,potential)
-      type(T_Molecule),intent(in) :: molecule
-      character(:),intent(in) :: funcstring
-      real*8,intent(out) :: potential(:)
+   subroutine Xc_potential( molecule, funcstring, potential )
+      type(molecule_t), intent(in) :: molecule
+      character(:), intent(in) :: funcstring
+      real(kind=DP), intent(out) :: potential(:)
       !functional id, for exchange, correlation and kinetic in this order
-      integer :: funcid(3)
-      real*8,allocatable :: temppot(:)
-      character(:),allocatable :: functype
+      integer :: funcid(1:3)
+      real(kind=DP), allocatable :: temppot(:)
+      character(:), allocatable :: functype
 
-      potential=0.0d0
-      if(molecule%spinpol) then
-         allocate(temppot(2*molecule%ngpt)
+      potential(:) = 0.0_DP
+      if( molecule%spinpol ) then
+         allocate( temppot(2 * molecule%ngpt) )
       else
-         allocate(temppot(molecule%ngpt)
-      endif
+         allocate( temppot(molecule%ngpt )
+      end if
 
-      call xc_parse(funcstring,funcid,functype)
-      select case (functype)
-         case("LDA")
-            call xc_pot(funcid(1),molecule%ngpt,molecule%spinpol,temppot,molecule%density)
-            potential=potential+temppot
+      call Xc_parse( funcstring, funcid, functype )
+      select case ( functype )
+         case( "LDA" )
+            call Xc_pot( funcid(1), molecule%ngpt, molecule%spinpol, temppot, molecule%density )
+            potential(:) = potential(:) + temppot(:)
 
-            call xc_pot(funcid(2),molecule%ngpt,molecule%spinpol,temppot,molecule%density)
-            potential=potential+temppot
+            call xc_pot( funcid(2), molecule%ngpt, molecule%spinpol, temppot, molecule%density )
+            potential(:) = potential(:) + temppot(:)
 
-            call xc_pot(funcid(3),molecule%ngpt,molecule%spinpol,temppot,molecule%density)
-            potential=potential+temppot
-         case("GGA")
-            if(.not.Mol_has_gradient(molecule) call gradient(molecule)
-            call xc_pot(funcid(1),molecule%ngpt,molecule%spinpol,temppot,molecule%density,molecule%gradient)
-            potential=potential+temppot
+            call xc_pot( funcid(3), molecule%ngpt, molecule%spinpol, temppot, molecule%density )
+            potential(:) = potential(:) + temppot(:)
+         case( "GGA" )
+            if( .not. Mol_has_gradient( molecule ) ) call Gradient( molecule )
+            call Xc_pot( funcid(1), molecule%ngpt, molecule%spinpol, temppot, molecule%density, molecule%gradient )
+            potential(:) = potential(:) + temppot(:)
 
-            call xc_pot(funcid(2),molecule%ngpt,molecule%spinpol,temppot,molecule%density,molecule%gradient)
-            potential=potential+temppot
+            call Xc_pot( funcid(2), molecule%ngpt, molecule%spinpol, temppot, molecule%density, molecule%gradient )
+            potential(:) = potential(:) + temppot(:)
 
-            call xc_pot(funcid(3),molecule%ngpt,molecule%spinpol,temppot,molecule%density,molecule%gradient)
-            potential=potential+temppot
+            call Xc_pot( funcid(3), molecule%ngpt, molecule%spinpol, temppot, molecule%density, molecule%gradient )
+            potential(:) = potential(:) + temppot(:)
          case default
-            call error("xc_potential: only LDA and GGA possible!")
+            call Error( "Xc_potential: only LDA and GGA possible!" )
       end select
 
-      deallocate(temppot)
-   end subroutine
+      deallocate( temppot )
+   end subroutine Xc_potential
 
-end module
+end module Xcpot_mod
 
 !libxc wrapper
 #ifdef LIBXC
-module xcpot_libxc_mod
-   use xc_f90_types_m
-   use xc_f90_lib_m
+
+module Xcpot_libxc_mod
+   use Xc_f90_types_m
+   use Xc_f90_lib_m
    implicit none
-   private
+
+   private :: xcfunc, xcinfo, vmajor, vminor
+   public  :: Xc_ener, Xc_pot
+
    type(xc_f90_pointer_t) :: xcfunc
    type(xc_f90_pointer_t) :: xcinfo
    integer :: vmajor, vminor
 
-   public xc_ener
-   public xc_pot
 
-  contains
+contains
 
-   subroutine xc_ener(functional,ngpt,spinpol,enerdens,density,gradient)
+   subroutine Xc_ener( functional, ngpt, spinpol, enerdens, density, gradient )
       !functional id, #grid points
-      integer,intent(in) :: functional,ngpt
-      logical,intent(in) :: spinpol
-      real*8,intent(in) :: density(:)
-      real*8,optional,intent(in) :: gradient(:)
-      real*8,intent(out) :: energy(:)
+      integer, intent(in) :: functional,ngpt
+      logical, intent(in) :: spinpol
+      real(kind=DP), intent(in) :: density(:)
+      real(kind=DP), optional, intent(in) :: gradient(:)
+      real(kind=DP), intent(out) :: energy(:)
       !internal: de/dsigma in addition to de/drho
-      real*8,allocatable :: vsigma(:)
+      real(kind=DP), allocatable :: vsigma(:)
 
-      enerdens=0.0d0
+      enerdens(:) = 0.0_DP
 
       !initialize functional
       if(spinpol) then
-         call xc_f90_func_init(xcfunc,xcinfo,functional,xc_polarized)
+         call Xc_f90_func_init( xcfunc, xcinfo, functional, XC_POLARIZED )
       else
-         call xc_f90_func_init(xcfunc,xcinfo,functional,xc_unpolarized)
+         call Xc_f90_func_init( xcfunc, xcinfo, functional, XC_UNPOLARIZED )
       endif
 
-      select case (xc_f90_info_family(xcinfo))
+      select case ( Xc_f90_info_family( xcinfo ) )
          !lda, simple
-         case(xc_family_lda)
-            call xc_f90_lda_exc(xcfunc,ngpt,density,enerdens)
+         case( XC_FAMILY_LDA )
+            call Xc_f90_lda_exc( xcfunc, ngpt, density, enerdens )
          !gga, needs gradient, returns also de/dsigma, where sigma is gradrho*gradrho
          !needs some formula to yield the correct potential
-         case(xc_family_gga)
-            if(.not.present(gradient) &
-               call error("xc_pot: GGA functional specified but no gradient given!")
-            call xc_f90_gga_exc(xcfunc,ngpt,density,gradient,enerdens)
+         case( XC_FAMILY_GGA )
+            if( .not. Present( gradient ) ) &
+               call Error( "Xc_pot: GGA functional specified but no gradient given!" )
+            call Xc_f90_gga_exc( xcfunc, ngpt, density, gradient, enerdens )
          !all other cases are impossible
          case default
-            call error("xc_pot: only LDA and GGA possible!")
+            call Error( "Xc_pot: only LDA and GGA possible!" )
       end select
 
-      call xc_f90_func_end(xcfunc)
-   end subroutine
+      call Xc_f90_func_end( xcfunc )
+   end subroutine Xc_ener
 
-   subroutine xc_pot(functional,ngpt,spinpol,potential,density,gradient)
+   subroutine Xc_pot( functional, ngpt, spinpol, potential, density, gradient )
       !functional id, #grid points
-      integer,intent(in) :: functional,ngpt
-      logical,intent(in) :: spinpol
-      real*8,intent(in) :: density(:)
-      real*8,optional,intent(in) :: gradient(:)
-      real*8,intent(out) :: potential(:)
+      integer, intent(in) :: functional,ngpt
+      logical, intent(in) :: spinpol
+      real(kind=DP), intent(in) :: density(:)
+      real(kind=DP), optional, intent(in) :: gradient(:)
+      real(kind=DP), intent(out) :: potential(:)
       !internal: de/dsigma in addition to de/drho
-      real*8,allocatable :: vsigma(:)
+      real(kind=DP), allocatable :: vsigma(:)
 
-      potential=0.0d0
+      potential(:) = 0.0_DP
 
       !initialize functional
-      if(spinpol) then
-         call xc_f90_func_init(xcfunc,xcinfo,functional,xc_polarized)
+      if( spinpol ) then
+         call Xc_f90_func_init( xcfunc, xcinfo, functional, XC_POLARIZED )
       else
-         call xc_f90_func_init(xcfunc,xcinfo,functional,xc_unpolarized)
+         call Xc_f90_func_init( xcfunc, xcinfo, functional, XC_UNPOLARIZED )
       endif
 
-      select case (xc_f90_info_family(xcinfo))
+      select case ( Xc_f90_info_family( xcinfo ) )
          !lda, simple
-         case(xc_family_lda)
-            call xc_f90_lda_vxc(xcfunc,ngpt,density,potential)
+         case( XC_FAMILY_LDA )
+            call Xc_f90_lda_vxc( xcfunc, ngpt, density, potential )
          !gga, needs gradient, returns also de/dsigma, where sigma is gradrho*gradrho
          !needs some formula to yield the correct potential
-         case(xc_family_gga)
-            if(.not.present(gradient) &
-               call error("xc_pot: GGA functional specified but no gradient given!")
-            if(spinpol) then
-               allocate(vsigma(3*ngpt))
+         case( XC_FAMILY_GGA )
+            if( .not. Present( gradient ) ) &
+               call Error( "Xc_pot: GGA functional specified but no gradient given!" )
+            if( spinpol ) then
+               allocate( vsigma(1:3*ngpt) )
             else
-               allocate(vsigma(ngpt))
+               allocate( vsigma(1:ngpt) )
             endif
-            call xc_f90_gga_vxc(xcfunc,ngpt,density,gradient,potential,vsigma)
+            call Xc_f90_gga_vxc( xcfunc, ngpt, density, gradient, potential, vsigma )
             !TODO tatsächliche formel einsetzen?
             !entälht vermutlich NOCH MEHR GRADIENTEN
-            deallocate(vsigma)
+            deallocate( vsigma )
          !all other cases are impossible
          case default
-            call error("xc_pot: only LDA and GGA possible!")
+            call Error( "xc_pot: only LDA and GGA possible!" )
       end select
 
-      call xc_f90_func_end(xcfunc)
-   end subroutine
+      call Xc_f90_func_end( xcfunc )
+   end subroutine Xc_pot
+
 #endif   
-end module
+
+end module Xc_pot_libxc_mod
