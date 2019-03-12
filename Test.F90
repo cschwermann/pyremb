@@ -2,10 +2,12 @@ program Test
    use Precision_mod
    use Types_mod
    use System_mod
+   use Utils_mod
    implicit none
    integer :: ngpt, natoms, i
    real(kind=DP)  :: dens(1:3), vnuc(1:3), q(1:4), pos(1:3, 1:4), cell(1:3, 1:3), dens2(1:2)
    type(molecule_t) :: mol1, mol2, mol3
+   type(grid_t) :: grid1
 
    ngpt = 3
    dens = (/ 1.0_DP, 2.0_DP, 3.0_DP /)
@@ -59,6 +61,14 @@ program Test
    system(2)%active = .true.
 
    write(*,*) "System:", nsys, system(1)%active, system(2)%active, system(3)%active
+
+   write(*,*) "Density integral:", Integrate( dens )
+
+   grid1=grid_T( & 
+      & ngpt = 3, &
+      & weights = (/ 0.1_DP, 0.2_DP, 0.3_DP /) )
+
+   write(*,*) "Weighted density integral:", Integrate( dens, grid1 )
 
 
    dens2 = (/ 1.0_DP, 2.0_DP /)

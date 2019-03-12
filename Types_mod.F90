@@ -13,7 +13,7 @@ module Types_mod
       & Mol_set_density_a, Mol_set_density_b, Mol_set_gradient, Mol_set_gradient_aa, &
       & Mol_set_gradient_ab, Mol_set_gradient_bb, Mol_init_grid, Mol_init_ions
 
-   public :: Grid_has_cell
+   public :: Grid_has_weights, Grid_has_cell
    public :: Grid_set_weights, Grid_set_cell
 
    public :: Ions_has_charges, Ions_has_positions

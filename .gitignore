@@ -3,4 +3,6 @@
 *.a
 *.so
 test
+Test
+*.f90
 *.swp
