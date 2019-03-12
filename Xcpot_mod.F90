@@ -1,25 +1,25 @@
 module Xcpot_mod
    use Precision_mod
    use Output_mod
-   use Type_mod
+   use Types_mod
    use Utils_mod !TODO should contain integrate and gradient
   !use libxc wrappers
-  #ifdef LIBXC
+#ifdef LIBXC
    use Xcpot_libxc_mod
-  #endif
+#endif
   !alternatively use xcfun wrappers
-  #ifdef XCFUN
+#ifdef XCFUN
    use Xcpot_xcfun_mod
-  #endif
+#endif
    implicit none
 
    public :: Xc_energy, Xc_potential
 
 contains
 
-   subroutine Xc_energy( molecule, funcstring, energy )
+   subroutine Xc_energy( molecule, functional, energy )
       type(molecule_t), intent(in) :: molecule
-      character(:), intent(in) :: funcstring
+      character(*), intent(in) :: functional
       real(kind=DP), intent(out) :: energy
       !functional id, for exchange, correlation and kinetic in this order
       integer :: funcid
@@ -31,13 +31,13 @@ contains
 
       enerdens(:) = 0.0_DP
 
-      call Xc_parse( funcstring, funcid, functype )
+      call Xc_parse( functional, funcid, functype )
          
       select case( functype )
          case( "LDA" )
             call Xc_ener( funcid, molecule%ngpt, molecule%spinpol, enerdens, molecule%density )
          case( "GGA" )
-            if( .not. Mol_has_gradient( molecule ) call Gradient( molecule )
+            if( .not. Mol_has_gradient( molecule ) ) call Gradient( molecule )
             call Xc_ener( funcid, molecule%ngpt, molecule%spinpol, enerdens, molecule%density, molecule%gradient )
          case default
             call Error( "Xc_energy: only LDA and GGA possible!" )
@@ -49,9 +49,9 @@ contains
    end subroutine Xc_energy
 
    !exchange-correlation-kinetic potential for a molecule and a specified functional
-   subroutine Xc_potential( molecule, funcstring, potential )
+   subroutine Xc_potential( molecule, functional, potential )
       type(molecule_t), intent(in) :: molecule
-      character(:), intent(in) :: funcstring
+      character(*), intent(in) :: functional
       real(kind=DP), intent(out) :: potential(:)
       !functional id, for exchange, correlation and kinetic in this order
       integer :: funcid
@@ -60,7 +60,7 @@ contains
 
       potential(:) = 0.0_DP
 
-      call Xc_parse( funcstring, funcid, functype )
+      call Xc_parse( functional, funcid, functype )
       select case( functype )
          case( "LDA" )
             call Xc_pot( funcid, molecule%ngpt, molecule%spinpol, potential, molecule%density )

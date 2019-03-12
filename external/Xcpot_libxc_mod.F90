@@ -1,4 +1,6 @@
 module Xcpot_libxc_mod
+   use Precision_mod
+   use Output_mod
    use Xc_f90_types_m
    use Xc_f90_lib_m
    implicit none
@@ -18,7 +20,7 @@ contains
       logical, intent(in) :: spinpol
       real(kind=DP), intent(in) :: density(:)
       real(kind=DP), optional, intent(in) :: gradient(:)
-      real(kind=DP), intent(out) :: energy(:)
+      real(kind=DP), intent(out) :: enerdens(:)
 
       enerdens(:) = 0.0_DP
 
@@ -32,13 +34,13 @@ contains
       select case ( Xc_f90_info_family( xcinfo ) )
          !lda, simple
          case( XC_FAMILY_LDA )
-            call Xc_f90_lda_exc( xcfunc, ngpt, density, enerdens )
+            call Xc_f90_lda_exc( xcfunc, ngpt, density(1), enerdens(1) )
          !gga, needs gradient, returns also de/dsigma, where sigma is gradrho*gradrho
          !needs some formula to yield the correct potential
          case( XC_FAMILY_GGA )
             if( .not. Present( gradient ) ) &
                call Error( "Xc_pot: GGA functional specified but no gradient given!" )
-            call Xc_f90_gga_exc( xcfunc, ngpt, density, gradient, enerdens )
+            call Xc_f90_gga_exc( xcfunc, ngpt, density(1), gradient(1), enerdens(1) )
          !all other cases are impossible
          case default
             call Error( "Xc_pot: only LDA and GGA possible!" )
@@ -69,7 +71,7 @@ contains
       select case ( Xc_f90_info_family( xcinfo ) )
          !lda, simple
          case( XC_FAMILY_LDA )
-            call Xc_f90_lda_vxc( xcfunc, ngpt, density, potential )
+            call Xc_f90_lda_vxc( xcfunc, ngpt, density(1), potential(1) )
          !gga, needs gradient, returns also de/dsigma, where sigma is gradrho*gradrho
          !needs some formula to yield the correct potential
          case( XC_FAMILY_GGA )
@@ -80,22 +82,22 @@ contains
             else
                allocate( vsigma(1:ngpt) )
             endif
-            call Xc_f90_gga_vxc( xcfunc, ngpt, density, gradient, potential, vsigma )
+            call Xc_f90_gga_vxc( xcfunc, ngpt, density(1), gradient(1), potential(1), vsigma(1) )
             !TODO tatsächliche formel einsetzen?
             !entälht vermutlich NOCH MEHR GRADIENTEN
             deallocate( vsigma )
          !all other cases are impossible
          case default
-            call Error( "xc_pot: only LDA and GGA possible!" )
+            call Error( "Xc_pot: only LDA and GGA possible!" )
       end select
 
       call Xc_f90_func_end( xcfunc )
    end subroutine Xc_pot
 
    subroutine Xc_parse( funcstring, funcid, functype )
-      character(:), intent(in) :: funcstring
+      character(len=*), intent(in) :: funcstring
       integer, intent(out) :: funcid
-      character(len=:), intent(out) :: functype
+      character(len=:), allocatable, intent(out) :: functype
 
       select case( Trim( funcstring ) )
          case( "LDA" )
@@ -112,4 +114,4 @@ contains
 
    end subroutine Xc_parse
 
-end module Xc_pot_libxc_mod
+end module Xcpot_libxc_mod

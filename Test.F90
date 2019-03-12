@@ -3,11 +3,13 @@ program Test
    use Types_mod
    use System_mod
    use Utils_mod
+   use XCpot_mod
    implicit none
    integer :: ngpt, natoms, i
    real(kind=DP)  :: dens(1:3), vnuc(1:3), q(1:4), pos(1:3, 1:4), cell(1:3, 1:3), dens2(1:2)
    type(molecule_t) :: mol1, mol2, mol3
    type(grid_t) :: grid1
+   real(kind=DP) :: ener, pot(1:3)
 
    ngpt = 3
    dens = (/ 1.0_DP, 2.0_DP, 3.0_DP /)
@@ -69,6 +71,16 @@ program Test
       & weights = (/ 0.1_DP, 0.2_DP, 0.3_DP /) )
 
    write(*,*) "Weighted density integral:", Integrate( dens, grid1 )
+
+   call Xc_energy( mol1, "LDA", ener )
+   write(*,*) "LDA Energy:", ener
+
+   call Xc_potential( mol1, "LDA", pot )
+   write(*,*) "LDA Potential:", pot
+
+   call Xc_energy( mol3, "PBE", ener )
+   write(*,*) "PBE Energy:", ener
+   
 
 
    dens2 = (/ 1.0_DP, 2.0_DP /)

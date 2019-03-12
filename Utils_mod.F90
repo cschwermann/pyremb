@@ -45,4 +45,9 @@ contains
 
    end function Integrate
 
+   subroutine Gradient( molecule )
+      type(molecule_t) :: molecule
+
+   end subroutine Gradient
+
 end module Utils_mod
