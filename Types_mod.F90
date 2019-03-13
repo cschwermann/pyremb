@@ -372,7 +372,7 @@ contains
       iend2 = Ubound( cell, 2 )
 
       if( .not. Grid_has_cell( this ) ) allocate( this%cell(1:3, 1:3) )
-      this%cell(1:3, 1:3) = cell(istart1:iend1, istart1:iend2)
+      this%cell(1:3, 1:3) = cell(istart1:iend1, istart2:iend2)
    end subroutine Grid_set_cell
 
 !Ions functions

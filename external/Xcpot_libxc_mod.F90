@@ -98,18 +98,18 @@ contains
       character(len=*), intent(in) :: funcstring
       integer, intent(out) :: funcid
       character(len=:), allocatable, intent(out) :: functype
+      integer :: family
 
-      select case( Trim( funcstring ) )
-         case( "LDA" )
-            funcid = 1
+      funcid = Xc_f90_functional_get_number( Trim( funcstring ) )
+      family = Xc_f90_family_from_id( funcid )
+
+      select case( family )
+         case( XC_FAMILY_LDA )
             functype = "LDA"
-         case( "PBE" )
-            funcid = 2
+         case( XC_FAMILY_GGA )
             functype = "GGA"
-         !TODO weitere
-         !TODO aufschlüsseln, X, C, K
          case default
-            call Error( "Xc_parse: Unknown functional!" )
+            functype = "UNSUPPORTED"
       end select
 
    end subroutine Xc_parse

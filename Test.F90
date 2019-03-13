@@ -11,17 +11,21 @@ program Test
    type(grid_t) :: grid1
    real(kind=DP) :: ener, pot(1:3)
 
+   write(*,*) "Test Program"
+
    ngpt = 3
    dens = (/ 1.0_DP, 2.0_DP, 3.0_DP /)
    vnuc = (/ 4.0_DP, 5.0_DP, 6.0_DP /)
    natoms = 4
    q = (/ 1.0_DP, 2.0_DP, 3.0_DP, 4.0_DP /)
+   pos=0.0_DP
    do i = 1, 4
       pos(1, i) = i * 0.1_DP
       pos(2, i) = i * 0.2_DP
       pos(3, i) = i * 0.3_DP
    end do
 
+   cell=0.0_DP
    do i = 1, 3
       cell(i, i) = 5.0_DP
    end do
@@ -72,13 +76,13 @@ program Test
 
    write(*,*) "Weighted density integral:", Integrate( dens, grid1 )
 
-   call Xc_energy( mol1, "LDA", ener )
+   call Xc_energy( mol1, "LDA_XC_TETER93", ener )
    write(*,*) "LDA Energy:", ener
 
-   call Xc_potential( mol1, "LDA", pot )
+   call Xc_potential( mol1, "LDA_XC_TETER93", pot )
    write(*,*) "LDA Potential:", pot
 
-   call Xc_energy( mol3, "PBE", ener )
+   call Xc_energy( mol3, "GGA_XC_PBE1W", ener )
    write(*,*) "PBE Energy:", ener
    
 
