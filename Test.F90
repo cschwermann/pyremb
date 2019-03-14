@@ -117,8 +117,18 @@ program Test
       write(*,'(F5.1,F5.1)') positions1(1, i), func(i)
    end do
 
+   !ALso check exponential / sinh weights
+   call Shepard_interpolate( positions2, res_func, positions1, func, texp = .true. )
+   write(*,*) "Interpolation: reference backwards, sinh weights"
+   write(*,*) "Integral:", Integrate(func)*2.0_DP
+   write(*,'(A5,A5)') "X", "Y"
+   do i = 1, 4
+      write(*,'(F5.1,F5.1)') positions1(1, i), func(i)
+   end do
+
    !Test already known positions
-   positions2(1, :) = (/ 1.0_DP, 2.0_DP, 3.0_DP, 6.0_DP, 8.0_DP /)
+   positions1(1, :) = (/ 5.0_DP, 3.0_DP, 5.0_DP, 7.0_DP /)
+   positions2(1, :) = (/ 2.0_DP, 3.0_DP, 5.0_DP, 6.0_DP, 8.0_DP /)
    call Shepard_interpolate( positions1, func, positions2, res_func )
    write(*,*) "Interpolation: result"
    write(*,*) "Integral:", Integrate(res_func)*2.0_DP

@@ -81,17 +81,36 @@ contains
       RESULTS: do concurrent ( i = istart:iend )
          sum_func = 0.0_DP
          sum_weights = 0.0_DP
-         !loop over reference grid
-         !TODO OpenMP stuff
-         REFERENCES: do concurrent ( j = ref_istart:ref_iend )
-            value = ref_func(j)
-            weight = Sum( ( pos(:, i) - ref_pos(:, j) ) ** 2 )
-            weight = 1.0_DP / weight
-            sum_func = sum_func + weight * value
-            sum_weights = sum_weights + weight
-         end do REFERENCES
-         !new value is quotient of sums
-         func(i) = sum_func / sum_weights
+         izero = -1
+         !calculate distances beforehand, as we have to know if one of them is zero
+         DISTANCE: do concurrent ( j = ref_istart:ref_iend )
+            value = Sum( ( pos(:, i) - ref_pos(:, j) ) ** 2 )
+            distances(j) = value
+            !this doesnt need to be safe, as the ref_func value shoudl be the same wherever the distance is zero!
+            if( value <= 1.0E-6_DP ) izero = j
+         end do DISTANCE
+         if( Present( texp ) ) then
+            if( texp ) distances(:) = Sinh( Sqrt( distances(:) ) )
+         end if
+         !find minimum to check if the grid point is known
+         !It might be worth it to sort here instead of Minloc, that way one could later on
+         !sum over N values nearest to reference grid point
+         if( izero > 0 ) then 
+            !if grid point is known, just use that value
+            func(i) = ref_func(izero)
+         else
+            !loop over reference grid
+            !TODO OpenMP stuff
+            REFERENCES: do concurrent ( j = ref_istart:ref_iend )
+               value = ref_func(j)
+               !weight = Sum( ( pos(:, i) - ref_pos(:, j) ) ** 2 )
+               weight = 1.0_DP / distances(j)
+               sum_func = sum_func + weight * value
+               sum_weights = sum_weights + weight
+            end do REFERENCES
+            !new value is quotient of sums
+            func(i) = sum_func / sum_weights
+         end if
 
          !TODO IEEE error handling? important maths here!
 
