@@ -97,13 +97,13 @@ program Test
 
    call Shepard_interpolate( positions1, func, positions2, res_func )
    write(*,*) "Interpolation: reference"
-   write(*,*) "Integral:", Integrate(func)*2.0_DP
+   write(*,*) "Integral:", Integrate( func ) * 2.0_DP
    write(*,'(A5,A5)') "X", "Y"
    do i = 1, 4
       write(*,'(F5.1,F5.1)') positions1(1, i), func(i)
    end do
    write(*,*) "Interpolation: result"
-   write(*,*) "Integral:", Integrate(res_func)*2.0_DP
+   write(*,*) "Integral:", Integrate( res_func ) * 2.0_DP
    write(*,'(A5,A5)') "X", "Y"
    do i = 1, 5
       write(*,'(F5.1,F5.1)') positions2(1, i), res_func(i)
@@ -111,7 +111,7 @@ program Test
    !Also see what happens if we try to get our reference from the result
    call Shepard_interpolate( positions2, res_func, positions1, func )
    write(*,*) "Interpolation: reference backwards"
-   write(*,*) "Integral:", Integrate(func)*2.0_DP
+   write(*,*) "Integral:", Integrate( func ) * 2.0_DP
    write(*,'(A5,A5)') "X", "Y"
    do i = 1, 4
       write(*,'(F5.1,F5.1)') positions1(1, i), func(i)
@@ -120,7 +120,7 @@ program Test
    !ALso check exponential / sinh weights
    call Shepard_interpolate( positions2, res_func, positions1, func, texp = .true. )
    write(*,*) "Interpolation: reference backwards, sinh weights"
-   write(*,*) "Integral:", Integrate(func)*2.0_DP
+   write(*,*) "Integral:", Integrate( func ) * 2.0_DP
    write(*,'(A5,A5)') "X", "Y"
    do i = 1, 4
       write(*,'(F5.1,F5.1)') positions1(1, i), func(i)
@@ -131,12 +131,15 @@ program Test
    positions2(1, :) = (/ 2.0_DP, 3.0_DP, 5.0_DP, 6.0_DP, 8.0_DP /)
    call Shepard_interpolate( positions1, func, positions2, res_func )
    write(*,*) "Interpolation: result"
-   write(*,*) "Integral:", Integrate(res_func)*2.0_DP
+   write(*,*) "Integral:", Integrate( res_func ) * 2.0_DP
    write(*,'(A5,A5)') "X", "Y"
    do i = 1, 5
       write(*,'(F5.1,F5.1)') positions2(1, i), res_func(i)
    end do
 
+   !TODO test Mol_interpolate
+
+   call exit(25)
 
    dens2 = (/ 1.0_DP, 2.0_DP /)
    call Mol_set_density( mol2, dens2 )

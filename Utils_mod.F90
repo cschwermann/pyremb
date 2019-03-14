@@ -46,16 +46,93 @@ contains
 
    end function Integrate
 
+   !Interpolate all values of a molecule onto some grid
+   subroutine Mol_interpolate( molecule, grid )
+      type(molecule_t), intent(inout) :: molecule
+      type(grid_t), intent(in) :: grid
+      integer :: ngpt
+      real(kind=DP), allocatable :: newvalues(:)
+
+      !Catch some errors
+      if( .not. Mol_has_grid( molecule ) )&
+         & call Error( "Mol_interpolate: Molecule has no grid!" )
+
+      !TODO Calculate positions from cell, if cell exists
+      if( .not. Grid_has_positions( molecule%grid ) ) &
+         & call Error( "Mol_interpolate: Molecule%grid has no positions!" )
+      if( .not. Grid_has_positions( grid ) ) &
+         & call Error( "Mol_interpolate: Grid has no positions!" )
+
+      !Set new grid points, so all the "Mol_set" later on works
+      !New values always have dimension of grid
+      ngpt = grid%ngpt
+      molecule%ngpt = ngpt
+      allocate( newvalues(ngpt) )
+
+      !for spin polarized case, all the arrays are different sizes
+      if( molecule%spinpol ) then
+         !interpolate density
+         if( Mol_has_density( molecule ) ) then
+            call Shepard_interpolate( molecule%grid%positions, &
+            & molecule%density(1:ngpt), grid%positions, newvalues, .true. )
+            call Mol_set_density_a( molecule, newvalues )
+            call Shepard_interpolate( molecule%grid%positions, &
+            & molecule%density(ngpt+1:2*ngpt), grid%positions, newvalues, .true. )
+            call Mol_set_density_b( molecule, newvalues )
+         endif
+         !interpolate gradient
+         if( Mol_has_gradient( molecule ) ) then
+            call Shepard_interpolate( molecule%grid%positions, &
+            & molecule%gradient(1:ngpt), grid%positions, newvalues, .true. )
+            call Mol_set_gradient_aa( molecule, newvalues )
+            call Shepard_interpolate( molecule%grid%positions, &
+            & molecule%gradient(ngpt+1:2*ngpt), grid%positions, newvalues, .true. )
+            call Mol_set_gradient_ab( molecule, newvalues )
+            call Shepard_interpolate( molecule%grid%positions, &
+            & molecule%gradient(2*ngpt+1:3*ngpt), grid%positions, newvalues, .true. )
+            call Mol_set_gradient_bb( molecule, newvalues )
+         endif
+
+      else
+         !interpolate density
+         if( Mol_has_density( molecule ) ) then
+            call Shepard_interpolate( molecule%grid%positions, &
+            & molecule%density, grid%positions, newvalues, .true. )
+            call Mol_set_density( molecule, newvalues )
+         endif
+         !interpolate gradient
+         if( Mol_has_gradient( molecule ) ) then
+            call Shepard_interpolate( molecule%grid%positions, &
+            & molecule%gradient, grid%positions, newvalues, .true. )
+            call Mol_set_gradient( molecule, newvalues )
+         endif
+
+      end if
+
+      !interpolate nuclear potential
+      if( Mol_has_vnuc( molecule ) ) then
+         call Shepard_interpolate( molecule%grid%positions, &
+         & molecule%vnuc, grid%positions, newvalues )
+         call Mol_set_vnuc( molecule, newvalues )
+      endif
+
+      !Finally, set molecular grid to new grid
+      call Mol_set_grid( molecule, grid )
+
+   end subroutine Mol_interpolate
+
    !Interpolate the function ref_func, which exists on grid with positions ref_pos
    !onto the grid pos, which results in function values func
    !Imporant: Might need to rescale everything if the integral has to be the same!
-   subroutine Shepard_interpolate( ref_pos, ref_func, pos, func )
+   subroutine Shepard_interpolate( ref_pos, ref_func, pos, func, texp )
       real(kind=DP), intent(in) :: ref_pos(:, :), pos(:, :)
       real(kind=DP), intent(in) :: ref_func(:)
       real(kind=DP), intent(out) :: func(:)
+      logical, optional, intent(in) :: texp
       !internal
-      integer :: ref_istart, ref_iend, istart, iend, i, j
+      integer :: ref_istart, ref_iend, istart, iend, i, j, izero
       real(kind=DP) :: sum_func, sum_weights, value, weight
+      real(kind=DP), allocatable :: distances(:)
 
       !reference start and end index
       ref_istart = Lbound( ref_func, 1 )
@@ -72,9 +149,13 @@ contains
          & call Error( "Shepard_Interpolate: LBound( func ) /= LBound( pos )", istart, LBound( pos, 2 ) )
       if( iend /= UBound( pos, 2 ) ) &
          & call Error( "Shepard_Interpolate: UBound( func ) /= UBound( pos )", ref_iend, UBound( pos, 2 ) )
+
 !TODO add check for first dimension of positions
 !      if( istart /= LBound( pos, 2 ) ) &
 !         & call Error( "Shepard_Interpolate: LBound( func ) /= LBound( pos )", istart, LBound( pos, 2 ) )
+
+      !allocate distances, they have the length of the reference value array
+      allocate( distances(ref_istart:ref_iend) )
 
       !Actual interpolation
       !loop over result grid
