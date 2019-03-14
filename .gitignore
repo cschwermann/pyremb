@@ -6,3 +6,4 @@ test
 Test
 *.f90
 *.swp
+doc/*

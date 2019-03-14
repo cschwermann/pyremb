@@ -1,6 +1,19 @@
-!Types Module
-!Contains all used types, including
-!Molecule, Grid and Ions
+!! project: PEREMB
+!!
+!!
+!! file: Types_mod.F90
+!!
+!! summary: Definition of all Data Types and their functions
+!!
+!! author: Christian Schwermann
+!!
+!! e-mail: c.schwermann@wwu.de
+!!
+!! date: 14/03/1019
+!!
+!! ALL RIGHTS RESERVED
+!! Copyright © Christian Schwermann 2019
+!!
 module Types_mod
    use Precision_mod
    use Output_mod
@@ -13,94 +26,115 @@ module Types_mod
       & Mol_set_density_a, Mol_set_density_b, Mol_set_gradient, Mol_set_gradient_aa, &
       & Mol_set_gradient_ab, Mol_set_gradient_bb, Mol_init_grid, Mol_init_ions
 
-   public :: Grid_has_weights, Grid_has_cell
-   public :: Grid_set_weights, Grid_set_cell
+   public :: Grid_has_weights, Grid_has_cell, Grid_has_positions
+   public :: Grid_set_weights, Grid_set_cell, Grid_set_positions
 
    public :: Ions_has_charges, Ions_has_positions
    public :: Ions_set_charges, Ions_set_positions
 
 
-   !Grid type, contains points, weights and cell
+   !!Grid type, contains points, weights and cell
    type :: grid_t
-      !#Grid Points
+      !! #Grid Points
       integer               :: ngpt
-      !weights,optional
+      !! weights, optional
       real(kind=DP), allocatable    :: weights(:)
-      !cell vectors,optional
+      !! cell vectors, optional
       real(kind=DP), allocatable    :: cell(:, :)
+      !! @TODO need more cell information: zero point, #points in each vector direction @ENDTODO
+      !! Positions,first index is x,y,z, optional
+      real(kind=DP), allocatable    :: positions(:, :)
    end type grid_t
 
-   !Ions class, contains number, charges and positions
+   !! Ions class, contains number, charges and positions
    type :: ions_t
-      !#ions
+      !! #ions
       integer               :: nions
-      !Charges
+      !! Charges
       real(kind=DP), allocatable    :: charges(:)
-      !Positions,first index is x,y,z
+      !! Positions, first index is x,y,z
       real(kind=DP), allocatable    :: positions(:, :)
    end type ions_t
 
-   !Molecule type, contains points, grid, density, nuclear potential and ions
+   !! Molecule type, contains points, grid, density, nuclear potential and ions
    type :: molecule_t
-      !#Grid Points
+      !! #Grid Points
       integer                  :: ngpt
-      !Grid, may contain weights and cell
+      !! Grid, may contain weights and cell
       type(grid_t), pointer     :: grid => null()
-      !Electron Density; Size=2*ngpt for spin polarized, beta is from ngpt+1:2*ngpt
+      !! Electron Density; Size=2*ngpt for spin polarized, beta is from ngpt+1:2*ngpt
       real(kind=DP), allocatable       :: density(:)
-      !Density Gradient; Size=3*ngpt for spin polarized, order is aa,ab,bb
+      !! Density Gradient; Size=3*ngpt for spin polarized, order is aa,ab,bb
       real(kind=DP), allocatable       :: gradient(:)
-      !Nuclear Potential, alternative to ions
+      !! Nuclear Potential, alternative to ions
       real(kind=DP), allocatable       :: vnuc(:)
-      !Ions,contains #ions, charges and positions
+      !! Ions, contains #ions, charges and positions
       type(ions_t), pointer     :: ions => null()
-      !Spin polarized or not
+      !! Spin polarized or not
       logical                  :: spinpol = .false.
-      !Active or not
+      !! Active or not
       logical                  :: active = .false.
    end type molecule_t
 
 contains
 
 !Molecule functions
-
+   
+   !! Return .true. if the molecule has a grid.
    pure function Mol_has_grid( this ) result( hasgrid )
+      !! Input: molecule 
       type(molecule_t), intent(in) :: this
+      !! Output: whether the molecule has a grid
       logical                      :: hasgrid
 
       hasgrid = Associated( this%grid )
    end function Mol_has_grid
 
+   !! Return .true. if the molecule has a vnuc (nuclear potential).
    pure function Mol_has_vnuc( this ) result( hasvnuc )
+      !! Input: molecule 
       type(molecule_t), intent(in) :: this
+      !! Output: whether the molecule has a vnuc
       logical                      :: hasvnuc
 
       hasvnuc = Allocated( this%vnuc )
    end function Mol_has_vnuc
 
+   !! Return .true. if the molecule has ions.
    pure function Mol_has_ions( this ) result( hasions )
+      !! Input: molecule 
       type(molecule_t), intent(in) :: this
+      !! Output: whether the molecule has ions
       logical                      :: hasions
 
-      hasions = associated( this%ions )
+      hasions = Associated( this%ions )
    end function Mol_has_ions
 
+   !! Return .true. if the molecule has a density.
    pure function Mol_has_density( this ) result( hasdensity )
+      !! Input: molecule 
       type(molecule_t), intent(in) :: this
+      !! Output: whether the molecule has a density
       logical                      :: hasdensity
 
       hasdensity = Allocated( this%density )
    end function Mol_has_density
 
+   !! Return .true. if the molecule has a density gradient.
    pure function Mol_has_gradient( this ) result( hasgradient )
+      !! Input: molecule 
       type(molecule_t), intent(in) :: this
+      !! Output: whether the molecule has a gradient
       logical                      :: hasgradient
 
       hasgradient = Allocated( this%gradient )
    end function Mol_has_gradient
 
+   !! Set the grid of a molecule. Initialize a grid if none exists.
    subroutine Mol_set_grid( this, grid )
+      !! Input: molecule
       type(molecule_t), intent(inout) :: this
+      !! Input: grid, grid%ngpt has to be this%ngpt
       type(grid_t), intent(in)      :: grid
 
       if( grid%ngpt /= this%ngpt ) &
@@ -110,9 +144,13 @@ contains
       this%grid = grid
    end subroutine Mol_set_grid
 
+   !! Set the nuclear potential of a molecule. Initialize one if none exists.
    subroutine Mol_set_vnuc( this, vnuc )
+      !! Input: molecule 
       type(molecule_t), intent(inout) :: this
+      !! Input: nuclear potential, size has to be this%ngpt
       real(kind=DP), intent(in)      :: vnuc(:)
+      !! Internal: start and end index of vnuc. 
       integer :: istart, iend
 
       if( Size( vnuc ) /= this%ngpt ) &
@@ -125,16 +163,22 @@ contains
       this%vnuc(1:this%ngpt) = vnuc(istart:iend)
    end subroutine Mol_set_vnuc
 
+   !! Set the ions of a molecule. Initialize if none exist.
    pure subroutine Mol_set_ions( this, ions )
+      !! Input: molecule 
       type(molecule_t), intent(inout) :: this
+      !! Input: ions 
       type(ions_t), intent(in)      :: ions
 
       if( .not. Mol_has_ions( this ) ) allocate( this%ions )
       this%ions = ions
    end subroutine Mol_set_ions
 
+   !! Set the spin of a molecule. If density or gradient exist, they are deallocated!
    subroutine Mol_set_spin( this, spinpol )
+      !! Input: molecule 
       type(molecule_t), intent(inout) :: this
+      !! Input: spin ( .true. = spin polarized, .false. = unpolarized )
       logical, intent(in)             :: spinpol
 
       this%spinpol = spinpol
@@ -143,7 +187,6 @@ contains
          call Warning( "Mol_set_spin: setting spin after density! Deallocating density!" )
          deallocate( this%density )
       endif
-
       if( Mol_has_gradient( this ) ) then 
          call Warning( "Mol_set_spin: setting spin after gradient! Deallocating gradient!" )
          deallocate( this%gradient )
@@ -292,10 +335,11 @@ contains
       this%gradient(2*this%ngpt+1:dsize) = gradient(istart:iend)
    end subroutine Mol_set_gradient_bb
 
-   subroutine Mol_init_grid( this, weights, cell )
+   subroutine Mol_init_grid( this, weights, cell, positions )
       type(molecule_t), intent(inout) :: this
       real(kind=DP), optional, intent(in)  :: weights(:)
       real(kind=DP), optional, intent(in)  :: cell(:, :)
+      real(kind=DP), optional, intent(in)  :: positions(:, :)
 
       if( Mol_has_grid( this ) ) &
          & call Error( "Mol_init_grid: grid already initialized" )
@@ -309,6 +353,10 @@ contains
 
       if( Present( cell ) ) then
          call Grid_set_cell( this%grid, cell )
+      end if
+
+      if( Present( positions ) ) then
+         call Grid_set_positions( this%grid, positions )
       end if
    end subroutine Mol_init_grid
 
@@ -343,6 +391,13 @@ contains
       hascell = Allocated( this%cell )
    end function Grid_has_cell
 
+   pure function Grid_has_positions( this ) result( haspositions )
+      type(grid_t), intent(in)     :: this
+      logical                      :: haspositions
+
+      haspositions = Allocated( this%positions )
+   end function Grid_has_positions
+
    subroutine Grid_set_weights( this, weights )
       type(grid_t), intent(inout) :: this
       real(kind=DP), intent(in)      :: weights(:)
@@ -374,6 +429,23 @@ contains
       if( .not. Grid_has_cell( this ) ) allocate( this%cell(1:3, 1:3) )
       this%cell(1:3, 1:3) = cell(istart1:iend1, istart2:iend2)
    end subroutine Grid_set_cell
+
+   subroutine Grid_set_positions( this, positions )
+      type(grid_t), intent(inout) :: this
+      real(kind=DP), intent(in)      :: positions(:, :)
+      integer :: istart1, iend1, istart2, iend2
+
+      if( Size( positions ) /= 3 * this%ngpt ) &
+         & call Error( "Grid_set_positions: shape(positions) incorrect", Size( positions ), 3 * this%ngpt )
+
+      istart1 = Lbound( positions, 1 )
+      iend1 = Ubound( positions, 1 )
+      istart2 = Lbound( positions, 2 )
+      iend2 = Ubound( positions, 2 )
+
+      if( .not. Grid_has_positions( this ) ) allocate( this%positions(1:3, 1:this%ngpt) )
+      this%positions(1:3, 1:this%ngpt) = positions(istart1:iend1, istart2:iend2)
+   end subroutine Grid_set_positions
 
 !Ions functions
    pure function Ions_has_charges( this ) result( hascharges )
