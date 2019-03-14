@@ -10,6 +10,8 @@ program Test
    type(molecule_t) :: mol1, mol2, mol3
    type(grid_t) :: grid1
    real(kind=DP) :: ener, pot(1:3)
+   !Interpolat test
+   real(kind=DP) :: positions1(1:3, 1:4), positions2(1:3, 1:5), func(1:4), res_func(1:5)
 
    write(*,*) "Test Program"
 
@@ -85,6 +87,45 @@ program Test
    call Xc_energy( mol3, "GGA_XC_PBE1W", ener )
    write(*,*) "PBE Energy:", ener
    
+   !Interpolation test
+   positions1(:, :) = 0.0_DP
+   positions1(1, :) = (/ 1.0_DP, 3.0_DP, 5.0_DP, 7.0_DP /)
+   positions2(:, :) = 0.0_DP
+   positions2(1, :) = (/ 0.0_DP, 2.0_DP, 4.0_DP, 6.0_DP, 8.0_DP /)
+   !simple x**2 function as test
+   func(:) = positions1(1, :) ** 2
+
+   call Shepard_interpolate( positions1, func, positions2, res_func )
+   write(*,*) "Interpolation: reference"
+   write(*,*) "Integral:", Integrate(func)*2.0_DP
+   write(*,'(A5,A5)') "X", "Y"
+   do i = 1, 4
+      write(*,'(F5.1,F5.1)') positions1(1, i), func(i)
+   end do
+   write(*,*) "Interpolation: result"
+   write(*,*) "Integral:", Integrate(res_func)*2.0_DP
+   write(*,'(A5,A5)') "X", "Y"
+   do i = 1, 5
+      write(*,'(F5.1,F5.1)') positions2(1, i), res_func(i)
+   end do
+   !Also see what happens if we try to get our reference from the result
+   call Shepard_interpolate( positions2, res_func, positions1, func )
+   write(*,*) "Interpolation: reference backwards"
+   write(*,*) "Integral:", Integrate(func)*2.0_DP
+   write(*,'(A5,A5)') "X", "Y"
+   do i = 1, 4
+      write(*,'(F5.1,F5.1)') positions1(1, i), func(i)
+   end do
+
+   !Test already known positions
+   positions2(1, :) = (/ 1.0_DP, 2.0_DP, 3.0_DP, 6.0_DP, 8.0_DP /)
+   call Shepard_interpolate( positions1, func, positions2, res_func )
+   write(*,*) "Interpolation: result"
+   write(*,*) "Integral:", Integrate(res_func)*2.0_DP
+   write(*,'(A5,A5)') "X", "Y"
+   do i = 1, 5
+      write(*,'(F5.1,F5.1)') positions2(1, i), res_func(i)
+   end do
 
 
    dens2 = (/ 1.0_DP, 2.0_DP /)
