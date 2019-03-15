@@ -5,7 +5,11 @@
 !! File:    Types_mod.F90 
 !! Copyright: © 2019 Christian Schwermann, ALL RIGHTS RESERVED
 !!
+!!***********************************************************************
+!!
 !! Definition of all Data Types and their functions
+!!
+!!***********************************************************************
 module Types_mod
    use Precision_mod ! IEEE precision
    use Output_mod    ! Error and warning
@@ -181,7 +185,7 @@ contains
       type(molecule_t), intent(inout) :: this
       !! Input: nuclear potential, 1D array of size ngpt
       real(kind=DP), intent(in)       :: vnuc(:)
-      !! Internal: start and end index of vnuc. 
+      !! Internal: start and end index of vnuc
       integer :: istart, iend
       !!
 

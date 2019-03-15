@@ -5,7 +5,11 @@
 !! File:    Output_mod.F90 
 !! Copyright: © 2019 Christian Schwermann, ALL RIGHTS RESERVED
 !!
+!!***********************************************************************
+!!
 !! Definition of Error and Warning functions used throughout all of PEREMB
+!!
+!!***********************************************************************
 module Output_mod
    use Precision_mod ! IEEE precision
    implicit none

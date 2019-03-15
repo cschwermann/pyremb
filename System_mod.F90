@@ -5,7 +5,11 @@
 !! File:    System_mod.F90 
 !! Copyright: © 2019 Christian Schwermann, ALL RIGHTS RESERVED
 !!
+!!***********************************************************************
+!!
 !! Definition of the GLOBAL total system, which can contain any number of molecules.
+!!
+!!***********************************************************************
 module System_mod
    use Output_mod ! Error and warning
    use Types_mod  ! molecule type

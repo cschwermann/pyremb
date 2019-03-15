@@ -5,7 +5,11 @@
 !! File:    Precision_mod.F90 
 !! Copyright: © 2019 Christian Schwermann, ALL RIGHTS RESERVED
 !!
+!!***********************************************************************
+!!
 !! Consistent definition of precisions, should be IEE-754 standard
+!!
+!!***********************************************************************
 module Precision_mod
    implicit none
 
