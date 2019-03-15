@@ -139,8 +139,6 @@ program Test
 
    !TODO test Mol_interpolate
 
-   call exit(25)
-
    dens2 = (/ 1.0_DP, 2.0_DP /)
    call Mol_set_density( mol2, dens2 )
 
