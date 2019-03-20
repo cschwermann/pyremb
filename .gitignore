@@ -7,3 +7,4 @@ Test
 *.f90
 *.swp
 doc/*
+Do_test
