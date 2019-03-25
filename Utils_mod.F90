@@ -1,4 +1,3 @@
-!Utility module, contains useful subroutines like integration, etc.
 !! Author:  Christian Schwermann
 !! E-mail:  c.schwermann@wwu.de
 !! Date:    15/03/2019
@@ -20,6 +19,8 @@ module Utils_mod
 
    ! Basic integration, Shepard interpolation and general interpolation for molecules
    public :: Integrate, Shepard_interpolate, Mol_interpolate
+   ! Grid volume, cross product, grid positions
+   public :: Grid_volume, Cross, Grid_pos_from_cell
    ! Arbitrary gradients
    public :: Gradient
 
@@ -44,6 +45,8 @@ contains
       real(kind=DP) :: integral
       !! Internal: loop index, start and end of array
       integer :: i, istart, iend
+      !! Internal: volume of periodic cell
+      real(kind=DP) :: volume
       !!
       !!@TODO Specific method for cells @ENDTODO
 
@@ -63,23 +66,99 @@ contains
             if( iend /= Ubound( grid%weights, 1 ) ) &
                & call Error( "Integrate: Ubound( array ) /= UBound( grid%weights )", iend, UBound( grid%weights, 1 ) )
             integral = Sum( grid%weights(:) * array(:) )
-!            do i = istart, iend
-!               integral = integral + grid%weights(i) * array(i)
-!            end do
          else ! no weights
             integral = Sum( array )
-            !do i = istart, iend
-            !   integral = integral + array(i)
-            !end do
+            
+            ! weight with cell volume
+            if( Grid_has_cell( grid ) ) then
+               volume = Grid_volume( grid )
+               integral = integral / volume
+            end if
          end if
       else ! no grid
          integral = Sum( array )
-         !do i = istart, iend
-         !   integral = integral + array(i)
-         !end do
       end if
 
    end function Integrate
+
+
+   !!********************************************************************
+   !! Calculation of the volume of the cell associated with a given grid.
+   !!********************************************************************
+   function Grid_volume( grid ) result( volume )
+      !! Input: grid, has to have a cell
+      type(grid_t), intent(in) :: grid
+      !! Output: the calculated volume
+      real(kind=DP) :: volume
+      !! Internal: cell
+      real(kind=DP) :: cell(1:3, 1:3)
+      !!
+
+      ! Calculation depends on the grid having weights, a cell or nothing
+      if( .not. Grid_has_cell( grid ) ) &
+         & call Error( "Grid_volume: Need a cell to calculate volume!" )
+
+      cell(1:3, 1:3) = grid%cell(1:3, 1:3)
+
+      volume = Dot_product( Cross( cell(1, :), cell(2, :) ), cell(3, :) )
+
+   end function Grid_volume
+
+
+   !!********************************************************************
+   !! Calculation of the cross product of two vectors
+   !!********************************************************************
+   pure function Cross( a, b ) result( c )
+      !! Input: two 3D vectors
+      real(kind=DP), intent(in) :: a(1:3), b(1:3)
+      !! Output: one 3D vector
+      real(kind=DP) :: c(1:3)
+      !!
+
+      c(1)=a(2)*b(3)-a(3)*b(2)
+      c(2)=a(3)*b(1)-a(1)*b(3)
+      c(3)=a(1)*b(2)-a(2)*b(1)
+
+   end function Cross
+
+
+   !!********************************************************************
+   !! Calculation of grid positions from cell vectors and grid points.
+   !!********************************************************************
+   subroutine Grid_pos_from_cell( grid )
+      !! Input: grid, has to have a cell
+      type(grid_t), intent(inout) :: grid
+      !! Internal: calculated positions
+      real(kind=DP), allocatable :: positions(:, :)
+      !! Internal: loop indices
+      integer :: ix, iy, iz, ii
+      !!
+
+      ! Calculation depends on the grid having weights, a cell or nothing
+      if( .not. Grid_has_periodicity( grid ) ) &
+         & call Error( "Grid_pos_from_cell: Need a cell and points in each direction to calculate positions!" )
+
+      allocate( positions(1:3, 1:grid%ngpt) )
+
+      ii = 0
+
+      !! @NOTE here, x is the fastest dimension,
+      !! this is different for cube files, where z is fastest,
+      !! thus, reading cubes and converting into our format will be slow @ENDNOTE
+      do concurrent ( ix = 1:grid%ngptx )
+         do concurrent ( iy = 1:grid%ngpty )
+            do concurrent ( iz = 1:grid%ngptz )
+               ii = ii + 1
+               positions(:, ii) = ix * grid%cell(1, :) + iy * grid%cell(2, :) + iz * grid%cell(3, :)
+            end do
+         end do
+      end do
+
+      call Grid_set_positions( grid, positions )
+
+      deallocate( positions )
+
+   end subroutine Grid_pos_from_cell
 
 
    !!********************************************************************
@@ -89,26 +168,41 @@ contains
    !! of a molecule onto a given grid.
    !! An implementation of Shepards method is used.
    !!********************************************************************
-   subroutine Mol_interpolate( molecule, grid )
+   subroutine Mol_interpolate( molecule, ingrid )
       !! Input: molecule, will be modified
       type(molecule_t), intent(inout) :: molecule
       !! Input: grid
-      type(grid_t), intent(in) :: grid
+      type(grid_t), intent(in) :: ingrid
+      !! Internal: grid, because the input grid shall not be modified
+      type(grid_t)             :: grid
       !! Internal: number of grid points of given grid
       integer :: ngpt
       !! Internal: new / interpolated function values, size = ngpt
       real(kind=DP), allocatable :: newvalues(:)
       !! 
 
+      grid = ingrid
+
       ! Catch some errors
       if( .not. Mol_has_grid( molecule ) )&
          & call Error( "Mol_interpolate: Molecule has no grid!" )
 
-      ! TODO Calculate positions from cell, if cell exists
-      if( .not. Grid_has_positions( molecule%grid ) ) &
-         & call Error( "Mol_interpolate: Molecule%grid has no positions!" )
-      if( .not. Grid_has_positions( grid ) ) &
-         & call Error( "Mol_interpolate: Grid has no positions!" )
+      ! Can calculate positions from cell, if cell exists
+      if( .not. Grid_has_positions( molecule%grid ) ) then
+         if( Grid_has_periodicity( molecule%grid ) ) then
+            call Grid_pos_from_cell( molecule%grid )
+         else
+            call Error( "Mol_interpolate: Molecule%grid has no positions!" )
+         end if
+      end if
+
+      if( .not. Grid_has_positions( grid ) ) then
+         if( Grid_has_periodicity( grid ) ) then
+            call Grid_pos_from_cell( grid )
+         else
+            call Error( "Mol_interpolate: Grid has no positions!" )
+         end if
+      end if
 
       ! Set new grid points, so all the "Mol_set" later on works
       ! New values always have dimension of grid
@@ -167,6 +261,7 @@ contains
       call Mol_set_grid( molecule, grid )
 
    end subroutine Mol_interpolate
+
 
    !!********************************************************************
    !! Shepard interpolation of a 3D function \(f_j\) given on positions \(\pmb{r}_{ref,j}\)
