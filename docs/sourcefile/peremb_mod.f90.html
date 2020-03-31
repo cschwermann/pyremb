@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   
+   <meta name="description" content="A Subsystem DFT package able to combine arbitrary - periodic and non-periodic - molecular systems">
+    
+    <meta name="author" content="Christian Schwermann" >
+    <link rel="icon" href="../favicon.png">
+
+    <title>Peremb_mod.F90 &ndash; PYREMB</title>
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/pygments.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/local.css" rel="stylesheet">
+    
+    <link  href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <script src="../js/jquery-2.1.3.min.js"></script>
+    <script src="../js/svg-pan-zoom.min.js"></script>
+
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../index.html">PYREMB </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+        
+            <li class="dropdown hidden-xs visible-sm visible-md hidden-lg">
+              <a href="#" class="dropdown-toggle"
+              data-toggle="dropdown" role="button"
+              aria-haspopup="true"
+     aria-expanded="false">Contents <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          
+              
+            <li><a href="../lists/files.html">Source Files</a></li>
+        
+        
+        
+            <li><a href="../lists/modules.html">Modules</a></li>
+        
+            
+                                
+            <li><a href="../lists/procedures.html">Procedures</a></li>
+        
+               
+            <li><a href="../lists/types.html">Derived Types</a></li>
+        
+        
+            <li><a href="../lists/programs.html">Programs</a></li>
+        
+            </ul>
+            </li>
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/files.html">Source Files</a></li>
+
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/modules.html">Modules</a></li>
+
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/procedures.html">Procedures</a></li>
+
+                             
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/types.html">Derived Types</a></li>
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/programs.html">Programs</a></li>
+
+          </ul>
+        
+        <form action="../search.html" class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+        </div>
+<!--
+        <button type="submit" class="btn btn-default">Submit</button>
+-->
+        </form>
+        
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+    
+  
+  <div class="row">
+    <h1>Peremb_mod.F90
+    <small>Source File</small>
+    
+    </h1>
+    
+<div class="row">
+  <div class="col-lg-12">
+<div class="well well-sm">
+  <ul class="list-inline" style="margin-bottom:0px;display:inline">
+     
+     
+     
+     
+    
+    
+     <li><i class="fa fa-list-ol"></i>
+       <a data-toggle="tooltip"
+    data-placement="bottom" data-html="true"
+    title=" 9.8% of total for source files.">100 statements</a>
+     </li> 
+     
+     
+     
+    <li><i class="fa fa-code"></i><a href="../src/Peremb_mod.F90"> Source File</a></li>
+     
+     
+  </ul>
+  <ol class="breadcrumb in-well text-right">
+  
+    
+  
+     <li class="active">Peremb_mod.F90</li>
+  </ol>
+</div>
+</div>
+</div>
+<script>
+  $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
+
+  </div>
+  <div class="row">
+    <div class="col-md-3 hidden-xs hidden-sm visible-md visible-lg">
+    
+<div id="sidebar">
+  
+<h3>Contents</h3>
+ 
+
+
+
+
+
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#mods-0">Modules</a></h3></div>
+  <div id="mods-0" class="panel-collapse collapse">
+    <div class="list-group">
+      
+      <a class="list-group-item" href="../module/peremb_mod.html">Peremb_mod</a>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
+  <div class="list-group">
+    <a class="list-group-item" href="../sourcefile/peremb_mod.f90.html#src">Peremb_mod.F90</a>
+  </div>
+</div>
+
+
+
+</div>
+
+    </div>
+    <div class="col-md-9" id='text'>
+      
+      <br>
+    
+    <div class="panel panel-default">
+      <div class="panel-heading">
+  <h3 class="panel-title">This file depends on</h3>
+      </div>
+      <div class="panel-body">
+  <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: sourcefile~~peremb_mod.f90~~EfferentGraph Pages: 1 -->
+<svg id="sourcefileperemb_modf90EfferentGraph" width="638pt" height="126pt"
+ viewBox="0.00 0.00 638.00 125.96" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="sourcefile~~peremb_mod.f90~~EfferentGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 121.9643)">
+<title>sourcefile~~peremb_mod.f90~~EfferentGraph</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-121.9643 634,-121.9643 634,4 -4,4"/>
+<!-- sourcefile~peremb_mod.f90 -->
+<g id="sourcefile~~peremb_mod.f90~~EfferentGraph_node1" class="node">
+<title>sourcefile~peremb_mod.f90</title>
+<polygon fill="none" stroke="#000000" points="630,-76.4052 531,-76.4052 531,-52.4052 630,-52.4052 630,-76.4052"/>
+<text text-anchor="middle" x="580.5" y="-62.0052" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#000000">Peremb_mod.F90</text>
+</g>
+<!-- sourcefile~system_mod.f90 -->
+<g id="sourcefile~~peremb_mod.f90~~EfferentGraph_node2" class="node">
+<title>sourcefile~system_mod.f90</title>
+<g id="a_sourcefile~~peremb_mod.f90~~EfferentGraph_node2"><a xlink:href=".././sourcefile/system_mod.f90.html" xlink:title="System_mod.F90">
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="495,-55.4052 398,-55.4052 398,-31.4052 495,-31.4052 495,-55.4052"/>
+<text text-anchor="middle" x="446.5" y="-41.0052" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">System_mod.F90</text>
+</a>
+</g>
+</g>
+<!-- sourcefile~peremb_mod.f90&#45;&gt;sourcefile~system_mod.f90 -->
+<g id="sourcefile~~peremb_mod.f90~~EfferentGraph_edge2" class="edge">
+<title>sourcefile~peremb_mod.f90&#45;&gt;sourcefile~system_mod.f90</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M530.9841,-56.6453C522.6247,-55.3352 513.8749,-53.964 505.3066,-52.6212"/>
+<polygon fill="#000000" stroke="#000000" points="505.7872,-49.1539 495.3658,-51.0633 504.7033,-56.0695 505.7872,-49.1539"/>
+</g>
+<!-- sourcefile~precision_mod.f90 -->
+<g id="sourcefile~~peremb_mod.f90~~EfferentGraph_node3" class="node">
+<title>sourcefile~precision_mod.f90</title>
+<g id="a_sourcefile~~peremb_mod.f90~~EfferentGraph_node3"><a xlink:href=".././sourcefile/precision_mod.f90.html" xlink:title="Precision_mod.F90">
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="105,-79.4052 0,-79.4052 0,-55.4052 105,-55.4052 105,-79.4052"/>
+<text text-anchor="middle" x="52.5" y="-65.0052" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Precision_mod.F90</text>
+</a>
+</g>
+</g>
+<!-- sourcefile~peremb_mod.f90&#45;&gt;sourcefile~precision_mod.f90 -->
+<g id="sourcefile~~peremb_mod.f90~~EfferentGraph_edge3" class="edge">
+<title>sourcefile~peremb_mod.f90&#45;&gt;sourcefile~precision_mod.f90</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M562.0846,-76.55C545.3728,-86.7949 519.6466,-100.6785 495,-106.4052 398.0036,-128.9427 370.0503,-111.6663 271,-101.4052 233.7892,-97.5504 225.3166,-90.0471 188,-87.4052"/>
+</g>
+<!-- sourcefile~utils_mod.f90 -->
+<g id="sourcefile~~peremb_mod.f90~~EfferentGraph_node4" class="node">
+<title>sourcefile~utils_mod.f90</title>
+<g id="a_sourcefile~~peremb_mod.f90~~EfferentGraph_node4"><a xlink:href=".././sourcefile/utils_mod.f90.html" xlink:title="Utils_mod.F90">
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="487.5,-97.4052 405.5,-97.4052 405.5,-73.4052 487.5,-73.4052 487.5,-97.4052"/>
+<text text-anchor="middle" x="446.5" y="-83.0052" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Utils_mod.F90</text>
+</a>
+</g>
+</g>
+<!-- sourcefile~peremb_mod.f90&#45;&gt;sourcefile~utils_mod.f90 -->
+<g id="sourcefile~~peremb_mod.f90~~EfferentGraph_edge1" class="edge">
+<title>sourcefile~peremb_mod.f90&#45;&gt;sourcefile~utils_mod.f90</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M530.9841,-72.1652C520.2495,-73.8475 508.8711,-75.6307 498.0599,-77.325"/>
+<polygon fill="#000000" stroke="#000000" points="497.2453,-73.9098 487.9078,-78.916 498.3292,-80.8254 497.2453,-73.9098"/>
+</g>
+<!-- sourcefile~output_mod.f90 -->
+<g id="sourcefile~~peremb_mod.f90~~EfferentGraph_node5" class="node">
+<title>sourcefile~output_mod.f90</title>
+<g id="a_sourcefile~~peremb_mod.f90~~EfferentGraph_node5"><a xlink:href=".././sourcefile/output_mod.f90.html" xlink:title="Output_mod.F90">
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="235,-59.4052 141,-59.4052 141,-35.4052 235,-35.4052 235,-59.4052"/>
+<text text-anchor="middle" x="188" y="-45.0052" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Output_mod.F90</text>
+</a>
+</g>
+</g>
+<!-- sourcefile~peremb_mod.f90&#45;&gt;sourcefile~output_mod.f90 -->
+<g id="sourcefile~~peremb_mod.f90~~EfferentGraph_edge4" class="edge">
+<title>sourcefile~peremb_mod.f90&#45;&gt;sourcefile~output_mod.f90</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M560.9207,-52.3083C544.0898,-42.5282 518.8318,-29.2924 495,-22.4052 418.3548,-.2557 395.9684,3.6561 316.5,-3.4052"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M316.5,-3.4052C282.5102,-5.9138 245.94,-19.6153 220.5379,-31.0712"/>
+<polygon fill="#000000" stroke="#000000" points="218.9742,-27.9384 211.3778,-35.3239 221.9218,-34.2875 218.9742,-27.9384"/>
+</g>
+<!-- sourcefile~system_mod.f90&#45;&gt;sourcefile~output_mod.f90 -->
+<g id="sourcefile~~peremb_mod.f90~~EfferentGraph_edge6" class="edge">
+<title>sourcefile~system_mod.f90&#45;&gt;sourcefile~output_mod.f90</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M424.9848,-31.2304C399.6531,-18.2178 356.0153,.106 316.5,-3.4052"/>
+</g>
+<!-- sourcefile~types_mod.f90 -->
+<g id="sourcefile~~peremb_mod.f90~~EfferentGraph_node6" class="node">
+<title>sourcefile~types_mod.f90</title>
+<g id="a_sourcefile~~peremb_mod.f90~~EfferentGraph_node6"><a xlink:href=".././sourcefile/types_mod.f90.html" xlink:title="Types_mod.F90">
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="362,-59.4052 271,-59.4052 271,-35.4052 362,-35.4052 362,-59.4052"/>
+<text text-anchor="middle" x="316.5" y="-45.0052" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Types_mod.F90</text>
+</a>
+</g>
+</g>
+<!-- sourcefile~system_mod.f90&#45;&gt;sourcefile~types_mod.f90 -->
+<g id="sourcefile~~peremb_mod.f90~~EfferentGraph_edge5" class="edge">
+<title>sourcefile~system_mod.f90&#45;&gt;sourcefile~types_mod.f90</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M397.7229,-44.9061C389.4252,-45.1614 380.7506,-45.4283 372.2885,-45.6887"/>
+<polygon fill="#000000" stroke="#000000" points="371.9994,-42.1958 362.1118,-46.0018 372.2147,-49.1925 371.9994,-42.1958"/>
+</g>
+<!-- sourcefile~utils_mod.f90&#45;&gt;sourcefile~precision_mod.f90 -->
+<g id="sourcefile~~peremb_mod.f90~~EfferentGraph_edge8" class="edge">
+<title>sourcefile~utils_mod.f90&#45;&gt;sourcefile~precision_mod.f90</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M316.5,-87.4052C259.5268,-83.4387 244.9685,-91.4384 188,-87.4052"/>
+</g>
+<!-- sourcefile~utils_mod.f90&#45;&gt;sourcefile~output_mod.f90 -->
+<g id="sourcefile~~peremb_mod.f90~~EfferentGraph_edge9" class="edge">
+<title>sourcefile~utils_mod.f90&#45;&gt;sourcefile~output_mod.f90</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M405.4668,-87.8149C379.8574,-88.8782 346.2232,-89.4746 316.5,-87.4052"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M316.5,-87.4052C284.1941,-85.156 249.203,-73.6172 223.904,-63.5071"/>
+<polygon fill="#000000" stroke="#000000" points="224.9499,-60.1528 214.3705,-59.5816 222.2846,-66.6255 224.9499,-60.1528"/>
+</g>
+<!-- sourcefile~utils_mod.f90&#45;&gt;sourcefile~types_mod.f90 -->
+<g id="sourcefile~~peremb_mod.f90~~EfferentGraph_edge7" class="edge">
+<title>sourcefile~utils_mod.f90&#45;&gt;sourcefile~types_mod.f90</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M405.3672,-73.3818C393.3933,-69.8817 380.1645,-66.0149 367.6535,-62.3578"/>
+<polygon fill="#000000" stroke="#000000" points="368.3918,-58.9272 357.8114,-59.4809 366.4278,-65.6461 368.3918,-58.9272"/>
+</g>
+<!-- sourcefile~output_mod.f90&#45;&gt;sourcefile~precision_mod.f90 -->
+<g id="sourcefile~~peremb_mod.f90~~EfferentGraph_edge10" class="edge">
+<title>sourcefile~output_mod.f90&#45;&gt;sourcefile~precision_mod.f90</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M140.989,-54.3441C132.7481,-55.5605 124.0542,-56.8437 115.4635,-58.1117"/>
+<polygon fill="#000000" stroke="#000000" points="114.8411,-54.6656 105.4594,-59.5884 115.8633,-61.5906 114.8411,-54.6656"/>
+</g>
+<!-- sourcefile~types_mod.f90&#45;&gt;sourcefile~precision_mod.f90 -->
+<g id="sourcefile~~peremb_mod.f90~~EfferentGraph_edge11" class="edge">
+<title>sourcefile~types_mod.f90&#45;&gt;sourcefile~precision_mod.f90</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M294.8185,-59.5466C269.7464,-72.2991 226.9219,-90.1608 188,-87.4052"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M188,-87.4052C164.0319,-85.7084 137.8741,-82.2351 114.9894,-78.6521"/>
+<polygon fill="#000000" stroke="#000000" points="115.4907,-75.1879 105.0625,-77.0597 114.3819,-82.0995 115.4907,-75.1879"/>
+</g>
+<!-- sourcefile~types_mod.f90&#45;&gt;sourcefile~output_mod.f90 -->
+<g id="sourcefile~~peremb_mod.f90~~EfferentGraph_edge12" class="edge">
+<title>sourcefile~types_mod.f90&#45;&gt;sourcefile~output_mod.f90</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M270.8339,-47.4052C262.6282,-47.4052 253.98,-47.4052 245.491,-47.4052"/>
+<polygon fill="#000000" stroke="#000000" points="245.2557,-43.9053 235.2556,-47.4052 245.2556,-50.9053 245.2557,-43.9053"/>
+</g>
+</g>
+</svg>
+</div><div><a type="button" class="graph-help" data-toggle="modal" href="#graph-help-text">Help</a></div><div class="modal fade" id="graph-help-text" tabindex="-1" role="dialog"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="-graph-help-label">Graph Key</h4></div><div class="modal-body">
+    <p>Nodes of different colours represent the following: </p>
+    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="190pt" height="32pt"
+ viewBox="0.00 0.00 190.00 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 28)">
+<title>Graph Key</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-28 186,-28 186,4 -4,4"/>
+<!-- Source File -->
+<g id="node1" class="node">
+<title>Source File</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="67,-24 0,-24 0,0 67,0 67,-24"/>
+<text text-anchor="middle" x="33.5" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Source File</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node2" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="#000000" points="182,-24 85,-24 85,0 182,0 182,-24"/>
+<text text-anchor="middle" x="133.5" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#000000">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+    
+    <p>Solid arrows point from a file to a file which it depends on. A file
+    is dependent upon another if the latter must be compiled before the former
+    can be.
+    </p>
+    </div></div></div></div>
+      </div>
+    </div>
+    
+      
+      <br>
+
+    <section class="visible-xs visible-sm hidden-md">
+      
+<h3>Contents</h3>
+ 
+
+
+
+
+
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#mods-1">Modules</a></h3></div>
+  <div id="mods-1" class="panel-collapse collapse">
+    <div class="list-group">
+      
+      <a class="list-group-item" href="../module/peremb_mod.html">Peremb_mod</a>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
+  <div class="list-group">
+    <a class="list-group-item" href="../sourcefile/peremb_mod.f90.html#src">Peremb_mod.F90</a>
+  </div>
+</div>
+
+
+
+    </section>
+    <br class="visible-xs visible-sm hidden-md">
+
+    <section>
+      <h2><span class="anchor" id="src"></span>Source Code</h2>
+    <div class="hl"><pre><span></span><a name="ln-1"></a><span class="c">!! Author:  Christian Schwermann</span>
+<a name="ln-2"></a><span class="c">!! E-mail:  c.schwermann@wwu.de</span>
+<a name="ln-3"></a><span class="c">!! Date:    14/03/2019</span>
+<a name="ln-4"></a><span class="c">!! Project: PEREMB </span>
+<a name="ln-5"></a><span class="c">!! File:    Peremb_mod.F90 </span>
+<a name="ln-6"></a><span class="c">!! Copyright: © 2019 Christian Schwermann, ALL RIGHTS RESERVED</span>
+<a name="ln-7"></a><span class="c">!!</span>
+<a name="ln-8"></a><span class="c">!!***********************************************************************</span>
+<a name="ln-9"></a><span class="c">!!</span>
+<a name="ln-10"></a><span class="c">!! Main subroutines for periodic subystem DFT calculations</span>
+<a name="ln-11"></a><span class="c">!!</span>
+<a name="ln-12"></a><span class="c">!!***********************************************************************</span>
+<a name="ln-13"></a><span class="k">module </span><span class="n">Peremb_mod</span>
+<a name="ln-14"></a>   <span class="k">use </span><span class="n">Precision_mod</span> <span class="c">! IEEE precision</span>
+<a name="ln-15"></a>   <span class="k">use </span><span class="n">Output_mod</span>    <span class="c">! Error and warning</span>
+<a name="ln-16"></a>   <span class="k">use </span><span class="n">utils_mod</span>     <span class="c">! Some maths</span>
+<a name="ln-17"></a>   <span class="k">use </span><span class="n">System_mod</span>    <span class="c">! System and subsystems </span>
+<a name="ln-18"></a>   <span class="k">implicit none</span>
+<a name="ln-19"></a>
+<a name="ln-20"></a>   <span class="c">! Embedding potential for predefined system</span>
+<a name="ln-21"></a>   <span class="k">public</span> <span class="kd">::</span> <span class="n">Embedding_potential</span>
+<a name="ln-22"></a>   <span class="c">! Embedding energy for predefined system</span>
+<a name="ln-23"></a>   <span class="k">public</span> <span class="kd">::</span> <span class="n">Embedding_energy</span>
+<a name="ln-24"></a>
+<a name="ln-25"></a><span class="k">contains</span>
+<a name="ln-26"></a>
+<a name="ln-27"></a>
+<a name="ln-28"></a>   <span class="c">!!********************************************************************</span>
+<a name="ln-29"></a>   <span class="c">!! Calculation of embedding potential for the global system.</span>
+<a name="ln-30"></a>   <span class="c">!! </span>
+<a name="ln-31"></a>   <span class="c">!! Only needs eXchange, Correlation and Kinetic functionals as input</span>
+<a name="ln-32"></a>   <span class="c">!! and returns the effective embedding potential</span>
+<a name="ln-33"></a>   <span class="c">!!********************************************************************</span>
+<a name="ln-34"></a>   <span class="k">subroutine </span><span class="n">Embedding_potential</span><span class="p">(</span> <span class="n">x_func</span><span class="p">,</span> <span class="n">c_func</span><span class="p">,</span> <span class="n">k_func</span><span class="p">,</span> <span class="n">potential</span> <span class="p">)</span>
+<a name="ln-35"></a>      <span class="c">!! Input: exchange functional</span>
+<a name="ln-36"></a>      <span class="kt">character</span><span class="p">(</span><span class="o">*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">x_func</span>
+<a name="ln-37"></a>      <span class="c">!! Input: correlation functional</span>
+<a name="ln-38"></a>      <span class="kt">character</span><span class="p">(</span><span class="o">*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">c_func</span>
+<a name="ln-39"></a>      <span class="c">!! Input: kinetic functional</span>
+<a name="ln-40"></a>      <span class="kt">character</span><span class="p">(</span><span class="o">*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">k_func</span>
+<a name="ln-41"></a>      <span class="c">!! Output: embedding potential</span>
+<a name="ln-42"></a>      <span class="kt">real</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">DP</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">potential</span><span class="p">(:)</span>
+<a name="ln-43"></a>      <span class="c">!! Internal: temporary molecule, total system</span>
+<a name="ln-44"></a>      <span class="k">type</span><span class="p">(</span><span class="n">molecule_t</span><span class="p">)</span> <span class="kd">::</span> <span class="n">molecule</span><span class="p">,</span> <span class="n">total</span>
+<a name="ln-45"></a>      <span class="c">!! Internal: temporary grid</span>
+<a name="ln-46"></a>      <span class="k">type</span><span class="p">(</span><span class="n">grid_t</span><span class="p">)</span> <span class="kd">::</span> <span class="n">grid</span>
+<a name="ln-47"></a>      <span class="c">!! Internal: #points for active system, index of active subsystem, loop index</span>
+<a name="ln-48"></a>      <span class="kt">integer</span> <span class="kd">::</span> <span class="n">ngpt</span><span class="p">,</span> <span class="n">iactive</span><span class="p">,</span> <span class="n">i</span>
+<a name="ln-49"></a>      <span class="c">!! Internal: temporary potential</span>
+<a name="ln-50"></a>      <span class="kt">real</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">DP</span><span class="p">),</span> <span class="k">allocatable</span> <span class="kd">::</span> <span class="n">temppot</span><span class="p">(:)</span>
+<a name="ln-51"></a>      <span class="c">!! </span>
+<a name="ln-52"></a>
+<a name="ln-53"></a>      <span class="k">do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">nsys</span>
+<a name="ln-54"></a>         <span class="k">if</span><span class="p">(</span> <span class="nb">system</span><span class="p">(</span><span class="n">i</span><span class="p">)%</span><span class="n">active</span> <span class="p">)</span> <span class="k">then</span>
+<a name="ln-55"></a><span class="k">            </span><span class="n">ngpt</span> <span class="o">=</span> <span class="nb">system</span><span class="p">(</span><span class="n">i</span><span class="p">)%</span><span class="n">ngpt</span>
+<a name="ln-56"></a>            <span class="n">grid</span> <span class="o">=</span> <span class="nb">system</span><span class="p">(</span><span class="n">i</span><span class="p">)%</span><span class="n">grid</span>
+<a name="ln-57"></a>            <span class="n">total</span> <span class="o">=</span> <span class="nb">system</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> 
+<a name="ln-58"></a>            <span class="n">iactive</span> <span class="o">=</span> <span class="n">i</span>
+<a name="ln-59"></a>         <span class="k">end if</span>
+<a name="ln-60"></a><span class="k">      end do</span>
+<a name="ln-61"></a>
+<a name="ln-62"></a><span class="k">      </span><span class="n">potential</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">ngpt</span><span class="p">)</span> <span class="o">=</span> <span class="mf">0.0_DP</span>
+<a name="ln-63"></a>      <span class="k">allocate</span><span class="p">(</span> <span class="n">temppot</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">ngpt</span><span class="p">)</span> <span class="p">)</span>
+<a name="ln-64"></a>
+<a name="ln-65"></a>      <span class="k">do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">nsys</span>
+<a name="ln-66"></a>         <span class="n">molecule</span> <span class="o">=</span> <span class="nb">system</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<a name="ln-67"></a>         <span class="k">if</span><span class="p">(</span> <span class="p">.</span><span class="nb">not</span><span class="p">.</span> <span class="n">molecule</span><span class="p">%</span><span class="n">active</span> <span class="p">)</span> <span class="k">then</span>
+<a name="ln-68"></a><span class="k">            call </span><span class="n">Mol_interpolate</span><span class="p">(</span> <span class="n">molecule</span><span class="p">,</span> <span class="n">grid</span> <span class="p">)</span>
+<a name="ln-69"></a>            <span class="k">if</span><span class="p">(</span> <span class="n">Mol_has_vnuc</span><span class="p">(</span> <span class="n">molecule</span> <span class="p">)</span> <span class="p">)</span> <span class="k">then</span>
+<a name="ln-70"></a><span class="k">               </span><span class="n">potential</span><span class="p">(:)</span> <span class="o">=</span> <span class="n">potential</span><span class="p">(:)</span> <span class="o">+</span> <span class="n">molecule</span><span class="p">%</span><span class="n">vnuc</span><span class="p">(:)</span>
+<a name="ln-71"></a>            <span class="k">else</span>
+<a name="ln-72"></a>               <span class="c">!TODO calculate vnuc from ions</span>
+<a name="ln-73"></a>               <span class="k">call </span><span class="n">Error</span><span class="p">(</span> <span class="s2">&quot;Embedding_potential: Need vnuc!&quot;</span> <span class="p">)</span>
+<a name="ln-74"></a>            <span class="k">end if</span>
+<a name="ln-75"></a><span class="k">         end if</span>
+<a name="ln-76"></a><span class="k">         call </span><span class="n">Mol_set_density</span><span class="p">(</span> <span class="n">total</span><span class="p">,</span> <span class="n">total</span><span class="p">%</span><span class="n">density</span><span class="p">(:)</span> <span class="o">+</span> <span class="n">molecule</span><span class="p">%</span><span class="n">density</span><span class="p">(:)</span> <span class="p">)</span>
+<a name="ln-77"></a>      <span class="k">end do</span>
+<a name="ln-78"></a>
+<a name="ln-79"></a>      <span class="c">! Total system DFT energy</span>
+<a name="ln-80"></a>      <span class="k">call </span><span class="n">Xc_potential</span><span class="p">(</span> <span class="n">total</span><span class="p">,</span> <span class="n">x_func</span><span class="p">,</span> <span class="n">temppot</span> <span class="p">)</span>
+<a name="ln-81"></a>      <span class="n">potential</span><span class="p">(:)</span> <span class="o">=</span> <span class="n">potential</span><span class="p">(:)</span> <span class="o">+</span> <span class="n">temppot</span><span class="p">(:)</span>
+<a name="ln-82"></a>      <span class="k">call </span><span class="n">Xc_potential</span><span class="p">(</span> <span class="n">total</span><span class="p">,</span> <span class="n">c_func</span><span class="p">,</span> <span class="n">temppot</span> <span class="p">)</span>
+<a name="ln-83"></a>      <span class="n">potential</span><span class="p">(:)</span> <span class="o">=</span> <span class="n">potential</span><span class="p">(:)</span> <span class="o">+</span> <span class="n">temppot</span><span class="p">(:)</span>
+<a name="ln-84"></a>      <span class="k">call </span><span class="n">Xc_potential</span><span class="p">(</span> <span class="n">total</span><span class="p">,</span> <span class="n">k_func</span><span class="p">,</span> <span class="n">temppot</span> <span class="p">)</span>
+<a name="ln-85"></a>      <span class="n">potential</span><span class="p">(:)</span> <span class="o">=</span> <span class="n">potential</span><span class="p">(:)</span> <span class="o">+</span> <span class="n">temppot</span><span class="p">(:)</span>
+<a name="ln-86"></a>
+<a name="ln-87"></a>      <span class="c">! active system DFT energy</span>
+<a name="ln-88"></a>      <span class="k">call </span><span class="n">Xc_potential</span><span class="p">(</span> <span class="nb">system</span><span class="p">(</span><span class="n">iactive</span><span class="p">),</span> <span class="n">x_func</span><span class="p">,</span> <span class="n">temppot</span> <span class="p">)</span>
+<a name="ln-89"></a>      <span class="n">potential</span><span class="p">(:)</span> <span class="o">=</span> <span class="n">potential</span><span class="p">(:)</span> <span class="o">-</span> <span class="n">temppot</span><span class="p">(:)</span>
+<a name="ln-90"></a>      <span class="k">call </span><span class="n">Xc_potential</span><span class="p">(</span> <span class="nb">system</span><span class="p">(</span><span class="n">iactive</span><span class="p">),</span> <span class="n">c_func</span><span class="p">,</span> <span class="n">temppot</span> <span class="p">)</span>
+<a name="ln-91"></a>      <span class="n">potential</span><span class="p">(:)</span> <span class="o">=</span> <span class="n">potential</span><span class="p">(:)</span> <span class="o">-</span> <span class="n">temppot</span><span class="p">(:)</span>
+<a name="ln-92"></a>      <span class="k">call </span><span class="n">Xc_potential</span><span class="p">(</span> <span class="nb">system</span><span class="p">(</span><span class="n">iactive</span><span class="p">),</span> <span class="n">k_func</span><span class="p">,</span> <span class="n">temppot</span> <span class="p">)</span>
+<a name="ln-93"></a>      <span class="n">potential</span><span class="p">(:)</span> <span class="o">=</span> <span class="n">potential</span><span class="p">(:)</span> <span class="o">-</span> <span class="n">temppot</span><span class="p">(:)</span>
+<a name="ln-94"></a>
+<a name="ln-95"></a>      <span class="k">deallocate</span><span class="p">(</span> <span class="n">temppot</span> <span class="p">)</span>
+<a name="ln-96"></a>
+<a name="ln-97"></a>   <span class="k">end subroutine </span><span class="n">Embedding_potential</span>
+<a name="ln-98"></a>
+<a name="ln-99"></a>
+<a name="ln-100"></a>   <span class="c">!!********************************************************************</span>
+<a name="ln-101"></a>   <span class="c">!! Calculation of embedding energy for the global system.</span>
+<a name="ln-102"></a>   <span class="c">!! </span>
+<a name="ln-103"></a>   <span class="c">!! Only needs eXchange, Correlation and Kinetic functionals as input</span>
+<a name="ln-104"></a>   <span class="c">!! and returns the effective embedding energy on the active grid</span>
+<a name="ln-105"></a>   <span class="c">!! @TODO calculate energy on a common supergrid @ENDTODO</span>
+<a name="ln-106"></a>   <span class="c">!!********************************************************************</span>
+<a name="ln-107"></a>   <span class="k">subroutine </span><span class="n">Embedding_energy</span><span class="p">(</span> <span class="n">x_func</span><span class="p">,</span> <span class="n">c_func</span><span class="p">,</span> <span class="n">k_func</span><span class="p">,</span> <span class="n">energy</span> <span class="p">)</span>
+<a name="ln-108"></a>      <span class="c">!! Input: exchange functional</span>
+<a name="ln-109"></a>      <span class="kt">character</span><span class="p">(</span><span class="o">*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">x_func</span>
+<a name="ln-110"></a>      <span class="c">!! Input: correlation functional</span>
+<a name="ln-111"></a>      <span class="kt">character</span><span class="p">(</span><span class="o">*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">c_func</span>
+<a name="ln-112"></a>      <span class="c">!! Input: kinetic functional</span>
+<a name="ln-113"></a>      <span class="kt">character</span><span class="p">(</span><span class="o">*</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">k_func</span>
+<a name="ln-114"></a>      <span class="c">!! Output: embedding potential</span>
+<a name="ln-115"></a>      <span class="kt">real</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">DP</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">energy</span>
+<a name="ln-116"></a>      <span class="c">!! Internal: temporary molecule</span>
+<a name="ln-117"></a>      <span class="k">type</span><span class="p">(</span><span class="n">molecule_t</span><span class="p">)</span> <span class="kd">::</span> <span class="n">molecule</span><span class="p">,</span> <span class="n">total</span>
+<a name="ln-118"></a>      <span class="c">!! Internal: temporary grid</span>
+<a name="ln-119"></a>      <span class="k">type</span><span class="p">(</span><span class="n">grid_t</span><span class="p">)</span> <span class="kd">::</span> <span class="n">grid</span>
+<a name="ln-120"></a>      <span class="c">!! Internal: #points for active system, index of active system, loop index</span>
+<a name="ln-121"></a>      <span class="kt">integer</span> <span class="kd">::</span> <span class="n">ngpt</span><span class="p">,</span> <span class="n">iactive</span><span class="p">,</span> <span class="n">i</span>
+<a name="ln-122"></a>      <span class="c">!! Internal: temporary energy</span>
+<a name="ln-123"></a>      <span class="kt">real</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">DP</span><span class="p">)</span> <span class="kd">::</span> <span class="n">tempener</span>
+<a name="ln-124"></a>      <span class="c">!! </span>
+<a name="ln-125"></a>
+<a name="ln-126"></a>      <span class="k">do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">nsys</span>
+<a name="ln-127"></a>         <span class="k">if</span><span class="p">(</span> <span class="nb">system</span><span class="p">(</span><span class="n">i</span><span class="p">)%</span><span class="n">active</span> <span class="p">)</span> <span class="k">then</span>
+<a name="ln-128"></a><span class="k">            </span><span class="n">ngpt</span> <span class="o">=</span> <span class="nb">system</span><span class="p">(</span><span class="n">i</span><span class="p">)%</span><span class="n">ngpt</span>
+<a name="ln-129"></a>            <span class="n">grid</span> <span class="o">=</span> <span class="nb">system</span><span class="p">(</span><span class="n">i</span><span class="p">)%</span><span class="n">grid</span>
+<a name="ln-130"></a>            <span class="n">total</span> <span class="o">=</span> <span class="nb">system</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> 
+<a name="ln-131"></a>            <span class="n">iactive</span> <span class="o">=</span> <span class="n">i</span>
+<a name="ln-132"></a>         <span class="k">end if</span>
+<a name="ln-133"></a><span class="k">      end do</span>
+<a name="ln-134"></a>
+<a name="ln-135"></a><span class="k">      </span><span class="n">energy</span> <span class="o">=</span> <span class="mf">0.0_DP</span>
+<a name="ln-136"></a>      <span class="k">do  </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">nsys</span>
+<a name="ln-137"></a>         <span class="n">molecule</span> <span class="o">=</span> <span class="nb">system</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<a name="ln-138"></a>         <span class="k">if</span><span class="p">(</span> <span class="p">.</span><span class="nb">not</span><span class="p">.</span> <span class="n">molecule</span><span class="p">%</span><span class="n">active</span> <span class="p">)</span> <span class="k">then</span>
+<a name="ln-139"></a><span class="k">            call </span><span class="n">Mol_interpolate</span><span class="p">(</span> <span class="n">molecule</span><span class="p">,</span> <span class="n">grid</span> <span class="p">)</span>
+<a name="ln-140"></a>            <span class="k">if</span><span class="p">(</span> <span class="n">Mol_has_vnuc</span><span class="p">(</span> <span class="n">molecule</span> <span class="p">)</span> <span class="p">)</span> <span class="k">then</span>
+<a name="ln-141"></a><span class="k">               call </span><span class="n">Mol_set_vnuc</span><span class="p">(</span> <span class="n">total</span><span class="p">,</span> <span class="n">total</span><span class="p">%</span><span class="n">vnuc</span><span class="p">(:)</span> <span class="o">+</span> <span class="n">molecule</span><span class="p">%</span><span class="n">vnuc</span><span class="p">(:)</span> <span class="p">)</span>
+<a name="ln-142"></a>            <span class="k">else</span>
+<a name="ln-143"></a>               <span class="c">!TODO calculate vnuc from ions</span>
+<a name="ln-144"></a>               <span class="k">call </span><span class="n">Error</span><span class="p">(</span> <span class="s2">&quot;Embedding_potential: Need vnuc!&quot;</span> <span class="p">)</span>
+<a name="ln-145"></a>            <span class="k">end if</span>
+<a name="ln-146"></a><span class="k">         end if</span>
+<a name="ln-147"></a><span class="k">         call </span><span class="n">Mol_set_density</span><span class="p">(</span> <span class="n">total</span><span class="p">,</span> <span class="n">total</span><span class="p">%</span><span class="n">density</span><span class="p">(:)</span> <span class="o">+</span> <span class="n">molecule</span><span class="p">%</span><span class="n">density</span><span class="p">(:)</span> <span class="p">)</span>
+<a name="ln-148"></a>      <span class="k">end do</span>
+<a name="ln-149"></a>
+<a name="ln-150"></a>      <span class="c">! Electrostatic energy</span>
+<a name="ln-151"></a>      <span class="n">energy</span> <span class="o">=</span> <span class="n">energy</span> <span class="o">+</span> <span class="n">Integrate</span><span class="p">(</span> <span class="nb">system</span><span class="p">(</span><span class="n">iactive</span><span class="p">)%</span><span class="n">vnuc</span><span class="p">(:)</span> <span class="o">*</span> <span class="n">total</span><span class="p">%</span><span class="n">density</span><span class="p">(:),</span> <span class="n">grid</span> <span class="p">)</span>
+<a name="ln-152"></a>      <span class="n">energy</span> <span class="o">=</span> <span class="n">energy</span> <span class="o">+</span> <span class="n">Integrate</span><span class="p">(</span> <span class="n">molecule</span><span class="p">%</span><span class="n">vnuc</span><span class="p">(:)</span> <span class="o">*</span> <span class="nb">system</span><span class="p">(</span><span class="n">iactive</span><span class="p">)%</span><span class="n">density</span><span class="p">(:),</span> <span class="n">grid</span> <span class="p">)</span>
+<a name="ln-153"></a>
+<a name="ln-154"></a>      <span class="c">! Total system DFT energy</span>
+<a name="ln-155"></a>      <span class="k">call </span><span class="n">Xc_energy</span><span class="p">(</span> <span class="n">total</span><span class="p">,</span> <span class="n">x_func</span><span class="p">,</span> <span class="n">tempener</span> <span class="p">)</span>
+<a name="ln-156"></a>      <span class="n">energy</span> <span class="o">=</span> <span class="n">energy</span> <span class="o">+</span> <span class="n">tempener</span>
+<a name="ln-157"></a>      <span class="k">call </span><span class="n">Xc_energy</span><span class="p">(</span> <span class="n">total</span><span class="p">,</span> <span class="n">c_func</span><span class="p">,</span> <span class="n">tempener</span> <span class="p">)</span>
+<a name="ln-158"></a>      <span class="n">energy</span> <span class="o">=</span> <span class="n">energy</span> <span class="o">+</span> <span class="n">tempener</span>
+<a name="ln-159"></a>      <span class="k">call </span><span class="n">Xc_energy</span><span class="p">(</span> <span class="n">total</span><span class="p">,</span> <span class="n">k_func</span><span class="p">,</span> <span class="n">tempener</span> <span class="p">)</span>
+<a name="ln-160"></a>      <span class="n">energy</span> <span class="o">=</span> <span class="n">energy</span> <span class="o">+</span> <span class="n">tempener</span>
+<a name="ln-161"></a>
+<a name="ln-162"></a>      <span class="c">! active system DFT energy</span>
+<a name="ln-163"></a>      <span class="k">call </span><span class="n">Xc_energy</span><span class="p">(</span> <span class="nb">system</span><span class="p">(</span><span class="n">iactive</span><span class="p">),</span> <span class="n">x_func</span><span class="p">,</span> <span class="n">tempener</span> <span class="p">)</span>
+<a name="ln-164"></a>      <span class="n">energy</span> <span class="o">=</span> <span class="n">energy</span> <span class="o">-</span> <span class="n">tempener</span>
+<a name="ln-165"></a>      <span class="k">call </span><span class="n">Xc_energy</span><span class="p">(</span> <span class="nb">system</span><span class="p">(</span><span class="n">iactive</span><span class="p">),</span> <span class="n">c_func</span><span class="p">,</span> <span class="n">tempener</span> <span class="p">)</span>
+<a name="ln-166"></a>      <span class="n">energy</span> <span class="o">=</span> <span class="n">energy</span> <span class="o">-</span> <span class="n">tempener</span>
+<a name="ln-167"></a>      <span class="k">call </span><span class="n">Xc_energy</span><span class="p">(</span> <span class="nb">system</span><span class="p">(</span><span class="n">iactive</span><span class="p">),</span> <span class="n">k_func</span><span class="p">,</span> <span class="n">tempener</span> <span class="p">)</span>
+<a name="ln-168"></a>      <span class="n">energy</span> <span class="o">=</span> <span class="n">energy</span> <span class="o">-</span> <span class="n">tempener</span>
+<a name="ln-169"></a>
+<a name="ln-170"></a>   <span class="k">end subroutine </span><span class="n">Embedding_energy</span>
+<a name="ln-171"></a>
+<a name="ln-172"></a><span class="k">end module </span><span class="n">Peremb_mod</span>
+<a name="ln-173"></a>            
+</pre></div>
+
+    </section>
+    </div>
+  </div>
+
+  
+    <hr>    
+    </div> <!-- /container -->
+    <footer>
+      <div class="container">
+      <div class="row">
+        <div class="col-xs-6 col-md-4"><p>&copy; 2020 Christian Schwermann <br/> ALL RIGHTS RESERVED 
+                                          </p></div>
+        <div class="col-xs-6 col-md-4 col-md-push-4">
+          <p class="text-right">
+            Documentation generated by 
+            <a href="https://github.com/cmacmackin/ford">FORD</a>
+             on 2020-03-31T12:11:07.561075 
+          </p>
+        </div>
+        <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> PYREMB was developed by Christian Schwermann</p></div>
+      </div>
+      <br>
+      </div> <!-- /container -->    
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+<!--
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+-->
+    <script src="../js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../js/ie10-viewport-bug-workaround.js"></script>
+
+    <!-- MathJax JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } },
+        jax: ['input/TeX','input/MathML','output/HTML-CSS'],
+        extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']
+      });
+    </script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
+    <script src="../tipuesearch/tipuesearch_content.js"></script>
+    <script src="../tipuesearch/tipuesearch_set.js"></script>
+    <script src="../tipuesearch/tipuesearch.js"></script>
+    
+    
+  </body>
+</html>

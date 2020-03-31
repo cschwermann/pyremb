@@ -10,7 +10,7 @@
     <meta name="author" content="Christian Schwermann" >
     <link rel="icon" href="./favicon.png">
 
-    <title> PEREMB </title>
+    <title> PYREMB </title>
 
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <link href="./css/pygments.css" rel="stylesheet">
@@ -44,7 +44,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="./index.html">PEREMB </a>
+          <a class="navbar-brand" href="./index.html">PYREMB </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -71,8 +71,8 @@
             <li><a href="./lists/types.html">Derived Types</a></li>
         
         
-            <li><a href="./program/test.html">Program</a></li>
-      
+            <li><a href="./lists/programs.html">Programs</a></li>
+        
             </ul>
             </li>
 
@@ -91,7 +91,7 @@
 <li class="visible-xs hidden-sm visible-lg"><a href="./lists/types.html">Derived Types</a></li>
 
 
-<li class="visible-xs hidden-sm visible-lg"><a href="./program/test.html">Program</a></li>
+<li class="visible-xs hidden-sm visible-lg"><a href="./lists/programs.html">Programs</a></li>
 
           </ul>
         
@@ -122,31 +122,30 @@
 		  
         <div class="col-md-8">
 		  
-          <h1>PEREMB</h1>
-          <h1>Usage</h1>
-<p>PEREMB uses <em>densities</em> (as well as other molecular information, e.g. <em>density gradients</em>, <em>nuclear potential</em> or <em>nuclear positions</em>) 
-of multiple subsystems as input and returns an effective <em>embedding potential</em> generated from inactive subsystems acting on an 
-active subsystem as output.  </p>
-<p></p><div class="alert alert-info" role="alert"><h4>Note</h4><p>This is a note
-</p></div>
-<p>
-<blockquote>
-<p><strong>Test</strong><br>
-blockquotes etc.</p>
-</blockquote>
+          <h1>PYREMB</h1>
+          <h1>PYREMB #</h1>
+<p>The periodic embedding code PEREMB provides an interface between -- in principle -- arbitrary DFT codes to facilitate subsystem DFT calculations with isolated, periodic and mixed isolated--periodic systems.</p>
+<p>The program uses provided densities and atomic positions to calculate the non-additive kinetic potential, the non-additive exchange-correlation potential, the Hartree potential and the nuclear potential. Those potentials together yield the embedding potential, which can be printed out and used in DFT calculations with external programs.</p>
+<p><strong>Note</strong> The program is incomplete and not in a usable state. </p>
+<h2>Features</h2>
 <ul>
-<li>lists</li>
-<li>nice</li>
-<li>code:
-    call peremb( density, gradient, potential )</li>
-<li>doesnt seem to work</li>
-<li>equations!
-    <script type="math/tex; mode=display">\begin{equation}
-      \hat{H}\psi(\textbf{r},t) = i\hbar\frac{\partial}{\partial t}\psi(\textbf{r},t)  
-    \end{equation}</script>
-</li>
+<li>The subroutines calculating the individual contributions to the embedding potential are clearly structured to be easily accessible in external programs by including specific modules. In particular, the subroutines could be called individually if not all contributions are needed (such as the electrostatic terms).</li>
+<li>An interpolation of all data belonging to a "subsystem" type onto the arbitrary grid of another "subsystem" type was implemented to allow the combination of arbitrary subsystems on arbitrary grids. This first implementation uses a basic Shepard algorithm.</li>
+<li>Integration subroutines for arbitrary grids were implemented, aiming at energy evaluations by integrating input potentials.</li>
+<li>In order to allow the usage of GGA functionals, the density functional subroutines were generalized to in principle call the respective libXC subroutines for GGA functionals, if a density gradient is provided. Calls to the libXC energy subroutines were also implemented.    </li>
 </ul>
-<p>Research group website: <a href="https://www.uni-muenster.de/Physik.FT/Forschung/agdoltsinis/index.html">Doltsinis group</a></p>
+<h2>Non-Features</h2>
+<p>While the individual subroutines were tested and found to be working, the current implementation of PEREMB is incomplete. In particular, 
+ * no python interface exists, as f2py is incompatible with the used Fortran types. Tests with F90Wrap were inconclusive.
+ * The Shepard interpolation routine works well for small arrays, but scales quadratically with the number of grid points, which makes application to actual molecular systems unfeasible. 
+ * The energy evaluation is incomplete. The most difficult part is the calculation of inter-subsystem nuclei-nuclei interaction, as this might require an immensely fine grid or some kind of Ewald summation. Attempts to implement an Ewald summation method failed due to convergence difficulties.
+ *Also, the libXC interface is not entirely clear as to what exactly is the output of the energy subroutines. The output is an array containing a value for each grid point; however, integration as well as integration of the product of the array with the density did not yield any meaningful value -- not even scaled by factors such as multiples of pi or the cell volume.  </p>
+<h2>Outlook ##</h2>
+<p>Thus, further work is needed to develop a fully functional PEREMB version which enables FDE calculations with BAND:
+ * Python wrappers might be created using "forpy". Otherwise, they have to be written manually (which should be possible).
+ * More efficient implementations  of the Shepard interpolation exist  (e.g. within the NAG library), which reduce the quadratic scaling by only considering close-lying grid points. Otherwise, more sophisticated interpolation routines might be needed.
+ * easily yield all the elctrostatic terms. 
+ * libXC could be entirely avoided by using XCfun; however, the documentation also does not seem very clear.</p>
         </div>
 		  
         <div class="col-md-4">
@@ -184,7 +183,15 @@ blockquotes etc.</p>
               <ul>
                 
                   
+                    <li><a href='./sourcefile/do_test.f90.html'>Do_test.F90</a></li>
+                  
+                
+                  
                     <li><a href='./sourcefile/output_mod.f90.html'>Output_mod.F90</a></li>
+                  
+                
+                  
+                    <li><a href='./sourcefile/peremb_mod.f90.html'>Peremb_mod.F90</a></li>
                   
                 
                   
@@ -227,6 +234,10 @@ blockquotes etc.</p>
                   
                 
                   
+                    <li><a href='./module/peremb_mod.html'>Peremb_mod</a></li>
+                  
+                
+                  
                     <li><a href='./module/precision_mod.html'>Precision_mod</a></li>
                   
                 
@@ -259,6 +270,18 @@ blockquotes etc.</p>
               <ul>
                 
                   
+                    <li><a href='./proc/cross.html'>Cross</a></li>
+                  
+                
+                  
+                    <li><a href='./proc/embedding_energy.html'>Embedding_energy</a></li>
+                  
+                
+                  
+                    <li><a href='./proc/embedding_potential.html'>Embedding_potential</a></li>
+                  
+                
+                  
                     <li><a href='./proc/error.html'>Error</a></li>
                   
                 
@@ -271,6 +294,14 @@ blockquotes etc.</p>
                   
                 
                   
+                    <li><a href='./proc/grid_has_periodicity.html'>Grid_has_periodicity</a></li>
+                  
+                
+                  
+                    <li><a href='./proc/grid_has_points_xyz.html'>Grid_has_points_xyz</a></li>
+                  
+                
+                  
                     <li><a href='./proc/grid_has_positions.html'>Grid_has_positions</a></li>
                   
                 
@@ -279,27 +310,25 @@ blockquotes etc.</p>
                   
                 
                   
-                    <li><a href='./proc/grid_set_cell.html'>Grid_set_cell</a></li>
-                  
-                
-                  
-                    <li><a href='./proc/grid_set_positions.html'>Grid_set_positions</a></li>
-                  
-                
-                  
-                    <li><a href='./proc/grid_set_weights.html'>Grid_set_weights</a></li>
-                  
-                
-                  
-                    <li><a href='./proc/integrate.html'>Integrate</a></li>
-                  
-                
-                  
-                    <li><a href='./proc/ions_has_charges.html'>Ions_has_charges</a></li>
-                  
-                
-                  
                     <li><a href="./lists/procedures.html"><em>All procedures&hellip;</em></a></li>
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
+                  
+                
                   
                 
                   
@@ -390,16 +419,16 @@ blockquotes etc.</p>
     <footer>
       <div class="container">
       <div class="row">
-        <div class="col-xs-6 col-md-4"><p>&copy; 2019 Christian Schwermann <br/> ALL RIGHTS RESERVED 
+        <div class="col-xs-6 col-md-4"><p>&copy; 2020 Christian Schwermann <br/> ALL RIGHTS RESERVED 
                                           </p></div>
         <div class="col-xs-6 col-md-4 col-md-push-4">
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2019-03-16T17:37:11.792028 
+             on 2020-03-31T12:11:07.561075 
           </p>
         </div>
-        <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> PEREMB was developed by Christian Schwermann</p></div>
+        <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> PYREMB was developed by Christian Schwermann</p></div>
       </div>
       <br>
       </div> <!-- /container -->    

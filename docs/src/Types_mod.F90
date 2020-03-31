@@ -25,8 +25,9 @@ module Types_mod
       & Mol_set_gradient_ab, Mol_set_gradient_bb, Mol_init_grid, Mol_init_ions
 
    ! Grid functions and subroutines
-   public :: Grid_has_weights, Grid_has_cell, Grid_has_positions
-   public :: Grid_set_weights, Grid_set_cell, Grid_set_positions
+   public :: Grid_has_weights, Grid_has_cell, Grid_has_positions, Grid_has_points_xyz, &
+      & Grid_has_periodicity
+   public :: Grid_set_weights, Grid_set_cell, Grid_set_positions, Grid_set_points_xyz
 
    ! Ions functions and subroutines
    public :: Ions_has_charges, Ions_has_positions
@@ -38,11 +39,12 @@ module Types_mod
    type :: grid_t
       !! Number of grid points
       integer                       :: ngpt
+      !! Number of grid points in each direction, for periodic cells
+      integer                       :: ngptx = -1.0_DP, ngpty = -1.0_DP, ngptz = -1.0_DP
       !! Weights; size = ngpt, optional
       real(kind=DP), allocatable    :: weights(:)
       !! Cell vectors; size = (3, 3), optional
       real(kind=DP), allocatable    :: cell(:, :)
-      !TODO need more cell information: zero point, #points in each vector direction
       !! Positions; size = (3, ngpt), first index is x,y,z, optional
       real(kind=DP), allocatable    :: positions(:, :)
       !!
@@ -527,6 +529,34 @@ contains
    end function Grid_has_positions
 
 
+   !! Return .true. if the grid has points for all directions
+   pure function Grid_has_points_xyz( this ) result( haspointsxyz )
+      !! Input: grid
+      type(grid_t), intent(in) :: this
+      !! Output: whether the grid has points for all directions
+      logical                  :: haspointsxyz
+      !!
+
+      haspointsxyz = ( this%ngptx >= 0.0_DP &
+         & .and. this%ngpty >= 0.0_DP &
+         & .and. this%ngptz >= 0.0_DP )
+
+   end function Grid_has_points_xyz
+
+
+   !! Return .true. if the grid has all properties associated with periodicity
+   pure function Grid_has_periodicity( this ) result( hasperiodicity )
+      !! Input: grid
+      type(grid_t), intent(in) :: this
+      !! Output: whether the grid has all properties associated with periodicity
+      logical                  :: hasperiodicity
+      !!
+
+      hasperiodicity = Grid_has_cell( this ) .and. Grid_has_points_xyz( this )
+
+   end function Grid_has_periodicity
+
+
    !! Set the weights of a grid. Initialize weights if none exist.
    subroutine Grid_set_weights( this, weights )
       !! Input: grid
@@ -549,15 +579,49 @@ contains
    end subroutine Grid_set_weights
 
 
-   !! Set the cell of a grid. Initialize cell if none exists.
-   subroutine Grid_set_cell( this, cell )
+   !! Set the x y and z points of a grid.
+   subroutine Grid_set_points_xyz( this, ngptx, ngpty, ngptz )
       !! Input: grid
       type(grid_t), intent(inout) :: this
-      !! Input: cell, 2D array of size (3, 3), contains cell vectors
-      real(kind=DP), intent(in)   :: cell(:, :)
-      !! Internal :: start and end of input cell for each dimension
-      integer                     :: istart1, iend1, istart2, iend2
+      !! Input: grid points in each direction
+      integer, intent(in)         :: ngptx, ngpty, ngptz
       !!
+
+      if( this%ngptx < 0.0_DP &
+         & .or. this%ngpty < 0.0_DP &
+         & .or. this%ngptz < 0.0_DP ) &
+            & call Error( "Grid_set_points_xyz: Number of points must be non-negative!" )
+
+      if( ngptx * ngpty * ngptz /= this%ngpt ) & 
+         & call Error( "Grid_set_points_xyz: ngptx * ngpty * ngptz /= this%ngpt!", ngptx * ngpty * ngptz, this%ngpt )
+
+      this%ngptx = ngptx
+      this%ngptx = ngpty
+      this%ngptx = ngptz
+
+   end subroutine Grid_set_points_xyz
+
+
+   !! Set the cell of a grid. Initialize cell if none exists.
+   subroutine Grid_set_cell( this, cell, ngptx, ngpty, ngptz )
+      !! Input: grid
+      type(grid_t), intent(inout)   :: this
+      !! Input: cell, 2D array of size (3, 3), contains cell vectors
+      real(kind=DP), intent(in)     :: cell(:, :)
+      !! Input, optional: grid points in each direction
+      integer, optional, intent(in) :: ngptx, ngpty, ngptz
+      !! Internal :: start and end of input cell for each dimension
+      integer                       :: istart1, iend1, istart2, iend2
+      !!
+
+      ! If grid points for cell are given, set them
+      if( Present( ngptx ) ) then
+         if( Present( ngpty ) .and. Present( ngptz ) ) then
+            call Grid_set_points_xyz( this, ngptx, ngpty, ngptz )
+         else
+            call Error( "Grid_set_cell: Need number of points in all three directions for periodic cells!" )
+         end if
+      end if
 
       if( Size( cell ) /= 9 ) &
          & call Error( "Grid_set_cell: shape(cell) incorrect", Size( cell ), 9 )

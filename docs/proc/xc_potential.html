@@ -10,7 +10,7 @@
     <meta name="author" content="Christian Schwermann" >
     <link rel="icon" href="../favicon.png">
 
-    <title>Xc_potential &ndash; PEREMB</title>
+    <title>Xc_potential &ndash; PYREMB</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -44,7 +44,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="../index.html">PEREMB </a>
+          <a class="navbar-brand" href="../index.html">PYREMB </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -71,8 +71,8 @@
             <li><a href="../lists/types.html">Derived Types</a></li>
         
         
-            <li><a href="../program/test.html">Program</a></li>
-      
+            <li><a href="../lists/programs.html">Programs</a></li>
+        
             </ul>
             </li>
 
@@ -91,7 +91,7 @@
 <li class="visible-xs hidden-sm visible-lg"><a href="../lists/types.html">Derived Types</a></li>
 
 
-<li class="visible-xs hidden-sm visible-lg"><a href="../program/test.html">Program</a></li>
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/programs.html">Programs</a></li>
 
           </ul>
         
@@ -130,7 +130,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title=" 3.8% of total for procedures.">19 statements</a>
+    title=" 2.7% of total for procedures.">19 statements</a>
      </li> 
      
      
@@ -256,7 +256,7 @@ public subroutine Xc_potential(molecule, functional, potential)
   
 <tr>
   
-  <td><span class="anchor" id="variable-potential"></span>real(kind=DP),</td>
+  <td><span class="anchor" id="variable-potential%7E2"></span>real(kind=DP),</td>
   <td>intent(out)</td>
   <td></td>
   
@@ -296,57 +296,57 @@ public subroutine Xc_potential(molecule, functional, potential)
 <polygon fill="none" stroke="#000000" points="71,-87 0,-87 0,-63 71,-63 71,-87"/>
 <text text-anchor="middle" x="35.5" y="-72.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#000000">Xc_potential</text>
 </g>
-<!-- proc~mol_has_gradient -->
-<g id="proc~~xc_potential~~CallsGraph_node2" class="node">
-<title>proc~mol_has_gradient</title>
-<g id="a_proc~~xc_potential~~CallsGraph_node2"><a xlink:href=".././proc/mol_has_gradient.html" xlink:title="Mol_has_gradient">
-<polygon fill="#d94e8f" stroke="#d94e8f" points="205,-150 107,-150 107,-126 205,-126 205,-150"/>
-<text text-anchor="middle" x="156" y="-135.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Mol_has_gradient</text>
-</a>
-</g>
-</g>
-<!-- proc~xc_potential&#45;&gt;proc~mol_has_gradient -->
-<g id="proc~~xc_potential~~CallsGraph_edge1" class="edge">
-<title>proc~xc_potential&#45;&gt;proc~mol_has_gradient</title>
-<path fill="none" stroke="#000000" d="M54.5542,-87.0823C68.7519,-95.8643 88.7553,-107.7781 107,-117 110.1517,-118.5931 113.4525,-120.1778 116.7878,-121.7212"/>
-<polygon fill="#000000" stroke="#000000" points="115.6274,-125.0366 126.1842,-125.9344 118.4915,-118.6493 115.6274,-125.0366"/>
-</g>
 <!-- xc_parse -->
-<g id="proc~~xc_potential~~CallsGraph_node3" class="node">
+<g id="proc~~xc_potential~~CallsGraph_node2" class="node">
 <title>xc_parse</title>
-<polygon fill="#777777" stroke="#777777" points="184,-108 128,-108 128,-84 184,-84 184,-108"/>
-<text text-anchor="middle" x="156" y="-93.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">xc_parse</text>
+<polygon fill="#777777" stroke="#777777" points="184,-150 128,-150 128,-126 184,-126 184,-150"/>
+<text text-anchor="middle" x="156" y="-135.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">xc_parse</text>
 </g>
 <!-- proc~xc_potential&#45;&gt;xc_parse -->
 <g id="proc~~xc_potential~~CallsGraph_edge2" class="edge">
 <title>proc~xc_potential&#45;&gt;xc_parse</title>
-<path fill="none" stroke="#000000" d="M71.0022,-81.1871C85.6678,-83.7429 102.7012,-86.7114 117.6518,-89.3169"/>
-<polygon fill="#000000" stroke="#000000" points="117.1624,-92.7843 127.6148,-91.0532 118.3642,-85.8882 117.1624,-92.7843"/>
-</g>
-<!-- xc_pot -->
-<g id="proc~~xc_potential~~CallsGraph_node4" class="node">
-<title>xc_pot</title>
-<polygon fill="#777777" stroke="#777777" points="183,-66 129,-66 129,-42 183,-42 183,-66"/>
-<text text-anchor="middle" x="156" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">xc_pot</text>
-</g>
-<!-- proc~xc_potential&#45;&gt;xc_pot -->
-<g id="proc~~xc_potential~~CallsGraph_edge3" class="edge">
-<title>proc~xc_potential&#45;&gt;xc_pot</title>
-<path fill="none" stroke="#000000" d="M71.0022,-68.8129C86.0063,-66.1981 103.4886,-63.1514 118.6835,-60.5033"/>
-<polygon fill="#000000" stroke="#000000" points="119.5284,-63.9089 128.779,-58.7439 118.3265,-57.0128 119.5284,-63.9089"/>
+<path fill="none" stroke="#000000" d="M54.5542,-87.0823C68.7519,-95.8643 88.7553,-107.7781 107,-117 110.7635,-118.9023 114.7395,-120.7926 118.7331,-122.615"/>
+<polygon fill="#000000" stroke="#000000" points="117.4314,-125.8664 127.992,-126.7177 120.2672,-119.4665 117.4314,-125.8664"/>
 </g>
 <!-- proc~error -->
-<g id="proc~~xc_potential~~CallsGraph_node5" class="node">
+<g id="proc~~xc_potential~~CallsGraph_node3" class="node">
 <title>proc~error</title>
-<g id="a_proc~~xc_potential~~CallsGraph_node5"><a xlink:href=".././proc/error.html" xlink:title="Error">
-<polygon fill="#d9534f" stroke="#d9534f" points="183,-24 129,-24 129,0 183,0 183,-24"/>
-<text text-anchor="middle" x="156" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Error</text>
+<g id="a_proc~~xc_potential~~CallsGraph_node3"><a xlink:href=".././proc/error.html" xlink:title="Error">
+<polygon fill="#d9534f" stroke="#d9534f" points="183,-108 129,-108 129,-84 183,-84 183,-108"/>
+<text text-anchor="middle" x="156" y="-93.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Error</text>
 </a>
 </g>
 </g>
 <!-- proc~xc_potential&#45;&gt;proc~error -->
-<g id="proc~~xc_potential~~CallsGraph_edge4" class="edge">
+<g id="proc~~xc_potential~~CallsGraph_edge1" class="edge">
 <title>proc~xc_potential&#45;&gt;proc~error</title>
+<path fill="none" stroke="#000000" d="M71.0022,-81.1871C86.0063,-83.8019 103.4886,-86.8486 118.6835,-89.4967"/>
+<polygon fill="#000000" stroke="#000000" points="118.3265,-92.9872 128.779,-91.2561 119.5284,-86.0911 118.3265,-92.9872"/>
+</g>
+<!-- proc~mol_has_gradient -->
+<g id="proc~~xc_potential~~CallsGraph_node4" class="node">
+<title>proc~mol_has_gradient</title>
+<g id="a_proc~~xc_potential~~CallsGraph_node4"><a xlink:href=".././proc/mol_has_gradient.html" xlink:title="Mol_has_gradient">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="205,-66 107,-66 107,-42 205,-42 205,-66"/>
+<text text-anchor="middle" x="156" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Mol_has_gradient</text>
+</a>
+</g>
+</g>
+<!-- proc~xc_potential&#45;&gt;proc~mol_has_gradient -->
+<g id="proc~~xc_potential~~CallsGraph_edge4" class="edge">
+<title>proc~xc_potential&#45;&gt;proc~mol_has_gradient</title>
+<path fill="none" stroke="#000000" d="M71.0022,-68.8129C79.1735,-67.3888 88.0799,-65.8367 96.9515,-64.2906"/>
+<polygon fill="#000000" stroke="#000000" points="97.6614,-67.7197 106.912,-62.5548 96.4596,-60.8237 97.6614,-67.7197"/>
+</g>
+<!-- xc_pot -->
+<g id="proc~~xc_potential~~CallsGraph_node5" class="node">
+<title>xc_pot</title>
+<polygon fill="#777777" stroke="#777777" points="183,-24 129,-24 129,0 183,0 183,-24"/>
+<text text-anchor="middle" x="156" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">xc_pot</text>
+</g>
+<!-- proc~xc_potential&#45;&gt;xc_pot -->
+<g id="proc~~xc_potential~~CallsGraph_edge3" class="edge">
+<title>proc~xc_potential&#45;&gt;xc_pot</title>
 <path fill="none" stroke="#000000" d="M54.5542,-62.9177C68.7519,-54.1357 88.7553,-42.2219 107,-33 111.0113,-30.9725 115.264,-28.9585 119.5222,-27.0259"/>
 <polygon fill="#000000" stroke="#000000" points="121.0237,-30.189 128.7612,-22.9514 118.1991,-23.7842 121.0237,-30.189"/>
 </g>
@@ -577,16 +577,16 @@ public subroutine Xc_potential(molecule, functional, potential)
     <footer>
       <div class="container">
       <div class="row">
-        <div class="col-xs-6 col-md-4"><p>&copy; 2019 Christian Schwermann <br/> ALL RIGHTS RESERVED 
+        <div class="col-xs-6 col-md-4"><p>&copy; 2020 Christian Schwermann <br/> ALL RIGHTS RESERVED 
                                           </p></div>
         <div class="col-xs-6 col-md-4 col-md-push-4">
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2019-03-16T17:37:11.792028 
+             on 2020-03-31T12:11:07.561075 
           </p>
         </div>
-        <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> PEREMB was developed by Christian Schwermann</p></div>
+        <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> PYREMB was developed by Christian Schwermann</p></div>
       </div>
       <br>
       </div> <!-- /container -->    
