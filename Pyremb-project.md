@@ -14,7 +14,7 @@ graph: true
 
 # PYREMB 
 
-The periodic embedding code PEREMB provides an interface between -in principle - arbitrary DFT codes to facilitate subsystem DFT calculations with isolated, periodic and mixed isolated--periodic systems.
+The periodic embedding code PEREMB provides an interface between - in principle - arbitrary DFT codes to facilitate subsystem DFT calculations with isolated, periodic and mixed isolated-periodic systems.
 
 The program uses provided densities and atomic positions to calculate the non-additive kinetic potential, the non-additive exchange-correlation potential, the Hartree potential and the nuclear potential. Those potentials together yield the embedding potential, which can be printed out and used in DFT calculations with external programs.
 
