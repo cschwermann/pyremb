@@ -6,5 +6,5 @@ test
 Test
 *.f90
 *.swp
-doc/*
+#doc/*
 Do_test

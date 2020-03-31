@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   
+   <meta name="description" content="A Subsystem DFT package able to combine arbitrary - periodic and non-periodic - molecular systems">
+    
+    <meta name="author" content="Christian Schwermann" >
+    <link rel="icon" href="../favicon.png">
+
+    <title>Xcpot_mod &ndash; PEREMB</title>
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/pygments.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/local.css" rel="stylesheet">
+    
+    <link  href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <script src="../js/jquery-2.1.3.min.js"></script>
+    <script src="../js/svg-pan-zoom.min.js"></script>
+
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../index.html">PEREMB </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+        
+            <li class="dropdown hidden-xs visible-sm visible-md hidden-lg">
+              <a href="#" class="dropdown-toggle"
+              data-toggle="dropdown" role="button"
+              aria-haspopup="true"
+     aria-expanded="false">Contents <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          
+              
+            <li><a href="../lists/files.html">Source Files</a></li>
+        
+        
+        
+            <li><a href="../lists/modules.html">Modules</a></li>
+        
+            
+                                
+            <li><a href="../lists/procedures.html">Procedures</a></li>
+        
+               
+            <li><a href="../lists/types.html">Derived Types</a></li>
+        
+        
+            <li><a href="../program/test.html">Program</a></li>
+      
+            </ul>
+            </li>
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/files.html">Source Files</a></li>
+
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/modules.html">Modules</a></li>
+
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/procedures.html">Procedures</a></li>
+
+                             
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/types.html">Derived Types</a></li>
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../program/test.html">Program</a></li>
+
+          </ul>
+        
+        <form action="../search.html" class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+        </div>
+<!--
+        <button type="submit" class="btn btn-default">Submit</button>
+-->
+        </form>
+        
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+    
+  
+  <div class="row">
+    <h1>Xcpot_mod 
+    <small>Module</small>
+    
+    </h1>
+    
+<div class="row">
+  <div class="col-lg-12">
+<div class="well well-sm">
+  <ul class="list-inline" style="margin-bottom:0px;display:inline">
+     
+     
+     
+     
+    
+    
+     <li><i class="fa fa-list-ol"></i>
+       <a data-toggle="tooltip"
+    data-placement="bottom" data-html="true"
+    title=" 8.4% of total for modules and submodules.">50 statements</a>
+     </li> 
+     
+     
+     
+    <li><i class="fa fa-code"></i><a href="../src/Xcpot_mod.F90"> Source File</a></li>
+     
+     
+  </ul>
+  <ol class="breadcrumb in-well text-right">
+  
+    
+     <li><a href='../sourcefile/xcpot_mod.f90.html'>Xcpot_mod.F90</a></li>
+    
+  
+     <li class="active">Xcpot_mod</li>
+  </ol>
+</div>
+</div>
+</div>
+<script>
+  $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
+
+  </div>
+  
+  <div class="row">
+    <div class="col-md-3 hidden-xs hidden-sm visible-md visible-lg">
+    
+<div id="sidebar">
+  
+<h3>Contents</h3>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#subs-0">Subroutines</a></h3></div>
+  <div class="list-group">
+    <div id="subs-0" class="panel-collapse collapse">
+      
+      <a class="list-group-item" href="../module/xcpot_mod.html#proc-xc_energy">Xc_energy</a>
+      
+      <a class="list-group-item" href="../module/xcpot_mod.html#proc-xc_potential">Xc_potential</a>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+    </div>
+    
+    <div class="col-md-9" id='text'>
+    
+      <br>
+    
+  
+    <div class="panel panel-default">
+      <div class="panel-heading">
+  <h3 class="panel-title">Uses</h3>
+      </div>
+      <ul class="list-group">
+      
+      <li class="list-group-item">
+  <ul class="list-inline">
+    
+    <li><a href='../module/precision_mod.html'>Precision_mod</a></li>
+    
+    <li><a href='../module/output_mod.html'>Output_mod</a></li>
+    
+    <li><a href='../module/types_mod.html'>Types_mod</a></li>
+    
+    <li><a href='../module/utils_mod.html'>Utils_mod</a></li>
+    
+  </ul>
+      </li>
+      
+      
+      
+      <li class="list-group-item">
+  <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: module~~xcpot_mod~~UsesGraph Pages: 1 -->
+<svg id="modulexcpot_modUsesGraph" width="503pt" height="132pt"
+ viewBox="0.00 0.00 503.00 131.94" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="module~~xcpot_mod~~UsesGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 127.9398)">
+<title>module~~xcpot_mod~~UsesGraph</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-127.9398 499,-127.9398 499,4 -4,4"/>
+<!-- module~xcpot_mod -->
+<g id="module~~xcpot_mod~~UsesGraph_node1" class="node">
+<title>module~xcpot_mod</title>
+<polygon fill="none" stroke="#000000" points="495,-71.3589 428,-71.3589 428,-47.3589 495,-47.3589 495,-71.3589"/>
+<text text-anchor="middle" x="461.5" y="-56.9589" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#000000">Xcpot_mod</text>
+</g>
+<!-- module~types_mod -->
+<g id="module~~xcpot_mod~~UsesGraph_node2" class="node">
+<title>module~types_mod</title>
+<g id="a_module~~xcpot_mod~~UsesGraph_node2"><a xlink:href=".././module/types_mod.html" xlink:title="Types_mod">
+<polygon fill="#337ab7" stroke="#337ab7" points="296,-91.3589 227,-91.3589 227,-67.3589 296,-67.3589 296,-91.3589"/>
+<text text-anchor="middle" x="261.5" y="-76.9589" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Types_mod</text>
+</a>
+</g>
+</g>
+<!-- module~xcpot_mod&#45;&gt;module~types_mod -->
+<g id="module~~xcpot_mod~~UsesGraph_edge1" class="edge">
+<title>module~xcpot_mod&#45;&gt;module~types_mod</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M362,-79.3589C343.8837,-81.1616 323.8392,-81.4948 306.4482,-81.2569"/>
+<polygon fill="#000000" stroke="#000000" points="306.0733,-77.7485 296.0037,-81.043 305.9299,-84.7471 306.0733,-77.7485"/>
+</g>
+<!-- module~precision_mod -->
+<g id="module~~xcpot_mod~~UsesGraph_node3" class="node">
+<title>module~precision_mod</title>
+<g id="a_module~~xcpot_mod~~UsesGraph_node3"><a xlink:href=".././module/precision_mod.html" xlink:title="Precision_mod">
+<polygon fill="#337ab7" stroke="#337ab7" points="83,-53.3589 0,-53.3589 0,-29.3589 83,-29.3589 83,-53.3589"/>
+<text text-anchor="middle" x="41.5" y="-38.9589" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Precision_mod</text>
+</a>
+</g>
+</g>
+<!-- module~xcpot_mod&#45;&gt;module~precision_mod -->
+<g id="module~~xcpot_mod~~UsesGraph_edge2" class="edge">
+<title>module~xcpot_mod&#45;&gt;module~precision_mod</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M362,-79.3589C331.4417,-83.0661 326.0337,-93.6113 296,-100.3589 234.3048,-114.2199 216.8671,-132.4312 155,-119.3589"/>
+</g>
+<!-- module~output_mod -->
+<g id="module~~xcpot_mod~~UsesGraph_node4" class="node">
+<title>module~output_mod</title>
+<g id="a_module~~xcpot_mod~~UsesGraph_node4"><a xlink:href=".././module/output_mod.html" xlink:title="Output_mod">
+<polygon fill="#337ab7" stroke="#337ab7" points="191,-53.3589 119,-53.3589 119,-29.3589 191,-29.3589 191,-53.3589"/>
+<text text-anchor="middle" x="155" y="-38.9589" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Output_mod</text>
+</a>
+</g>
+</g>
+<!-- module~xcpot_mod&#45;&gt;module~output_mod -->
+<g id="module~~xcpot_mod~~UsesGraph_edge3" class="edge">
+<title>module~xcpot_mod&#45;&gt;module~output_mod</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M427.6748,-67.8926C408.5408,-72.2813 384.0919,-77.1606 362,-79.3589"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M362,-79.3589C331.3689,-82.4069 326.0801,-64.8968 296,-58.3589 264.8078,-51.5793 229.1046,-47.3091 201.4299,-44.7441"/>
+<polygon fill="#000000" stroke="#000000" points="201.5121,-41.2378 191.2425,-43.8428 200.8952,-48.2105 201.5121,-41.2378"/>
+</g>
+<!-- module~utils_mod -->
+<g id="module~~xcpot_mod~~UsesGraph_node5" class="node">
+<title>module~utils_mod</title>
+<g id="a_module~~xcpot_mod~~UsesGraph_node5"><a xlink:href=".././module/utils_mod.html" xlink:title="Utils_mod">
+<polygon fill="#337ab7" stroke="#337ab7" points="392,-51.3589 332,-51.3589 332,-27.3589 392,-27.3589 392,-51.3589"/>
+<text text-anchor="middle" x="362" y="-36.9589" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Utils_mod</text>
+</a>
+</g>
+</g>
+<!-- module~xcpot_mod&#45;&gt;module~utils_mod -->
+<g id="module~~xcpot_mod~~UsesGraph_edge4" class="edge">
+<title>module~xcpot_mod&#45;&gt;module~utils_mod</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M427.8138,-52.5878C419.6372,-50.9443 410.8121,-49.1704 402.3619,-47.4718"/>
+<polygon fill="#000000" stroke="#000000" points="402.803,-43.9906 392.3093,-45.4512 401.4235,-50.8533 402.803,-43.9906"/>
+</g>
+<!-- module~types_mod&#45;&gt;module~precision_mod -->
+<g id="module~~xcpot_mod~~UsesGraph_edge5" class="edge">
+<title>module~types_mod&#45;&gt;module~precision_mod</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M245.7166,-91.4741C225.3141,-105.6721 188.4306,-126.4227 155,-119.3589"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M155,-119.3589C116.4182,-111.2067 80.4395,-81.1835 59.7238,-60.8541"/>
+<polygon fill="#000000" stroke="#000000" points="62.0767,-58.2557 52.558,-53.6031 57.0977,-63.1761 62.0767,-58.2557"/>
+</g>
+<!-- module~types_mod&#45;&gt;module~output_mod -->
+<g id="module~~xcpot_mod~~UsesGraph_edge6" class="edge">
+<title>module~types_mod&#45;&gt;module~output_mod</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M227.8027,-67.3355C218.4789,-64.0087 208.2264,-60.3505 198.4328,-56.8561"/>
+<polygon fill="#000000" stroke="#000000" points="199.4382,-53.4987 188.8436,-53.4345 197.0858,-60.0916 199.4382,-53.4987"/>
+</g>
+<!-- module~output_mod&#45;&gt;module~precision_mod -->
+<g id="module~~xcpot_mod~~UsesGraph_edge7" class="edge">
+<title>module~output_mod&#45;&gt;module~precision_mod</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M118.7758,-41.3589C110.7505,-41.3589 102.0921,-41.3589 93.5752,-41.3589"/>
+<polygon fill="#000000" stroke="#000000" points="93.3086,-37.859 83.3086,-41.3589 93.3086,-44.859 93.3086,-37.859"/>
+</g>
+<!-- module~utils_mod&#45;&gt;module~types_mod -->
+<g id="module~~xcpot_mod~~UsesGraph_edge8" class="edge">
+<title>module~utils_mod&#45;&gt;module~types_mod</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M331.8467,-51.3602C322.2949,-55.1619 311.5833,-59.4252 301.4547,-63.4565"/>
+<polygon fill="#000000" stroke="#000000" points="299.9762,-60.2779 291.9794,-67.2278 302.5648,-66.7817 299.9762,-60.2779"/>
+</g>
+<!-- module~utils_mod&#45;&gt;module~precision_mod -->
+<g id="module~~xcpot_mod~~UsesGraph_edge9" class="edge">
+<title>module~utils_mod&#45;&gt;module~precision_mod</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M340.4783,-27.2698C320.6716,-17.1205 290.1154,-3.8816 261.5,-1.3589"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M261.5,-1.3589C199.843,4.0767 129.6497,-12.7746 85.4701,-26.2599"/>
+<polygon fill="#000000" stroke="#000000" points="84.4068,-22.9252 75.9075,-29.2507 86.4963,-29.606 84.4068,-22.9252"/>
+</g>
+<!-- module~utils_mod&#45;&gt;module~output_mod -->
+<g id="module~~xcpot_mod~~UsesGraph_edge10" class="edge">
+<title>module~utils_mod&#45;&gt;module~output_mod</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M261.5,-1.3589C232.8791,1.1643 202.396,-12.0966 181.4091,-24.0176"/>
+<polygon fill="#000000" stroke="#000000" points="179.5581,-21.0462 172.7527,-29.1664 183.1365,-27.0624 179.5581,-21.0462"/>
+</g>
+</g>
+</svg>
+</div><div><a type="button" class="graph-help" data-toggle="modal" href="#graph-help-text">Help</a></div><div class="modal fade" id="graph-help-text" tabindex="-1" role="dialog"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="-graph-help-label">Graph Key</h4></div><div class="modal-body">
+    <p>Nodes of different colours represent the following: </p>
+    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="490pt" height="32pt"
+ viewBox="0.00 0.00 489.50 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 28)">
+<title>Graph Key</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-28 485.5,-28 485.5,4 -4,4"/>
+<!-- Module -->
+<g id="node1" class="node">
+<title>Module</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="54,-24 0,-24 0,0 54,0 54,-24"/>
+<text text-anchor="middle" x="27" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Module</text>
+</g>
+<!-- Submodule -->
+<g id="node2" class="node">
+<title>Submodule</title>
+<polygon fill="#5bc0de" stroke="#5bc0de" points="139.5,-24 72.5,-24 72.5,0 139.5,0 139.5,-24"/>
+<text text-anchor="middle" x="106" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Submodule</text>
+</g>
+<!-- Subroutine -->
+<g id="node3" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="222,-24 158,-24 158,0 222,0 222,-24"/>
+<text text-anchor="middle" x="190" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node4" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="294,-24 240,-24 240,0 294,0 294,-24"/>
+<text text-anchor="middle" x="267" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Function</text>
+</g>
+<!-- Program -->
+<g id="node5" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="366,-24 312,-24 312,0 366,0 366,-24"/>
+<text text-anchor="middle" x="339" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node6" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="#000000" points="481.5,-24 384.5,-24 384.5,0 481.5,0 481.5,-24"/>
+<text text-anchor="middle" x="433" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#000000">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+    
+    <p>Solid arrows point from a submodule to the (sub)module which it is
+    descended from. Dashed arrows point from a module or program unit to 
+    modules which it uses.
+    </p>
+    </div></div></div></div>
+      </li>
+      
+      </ul>
+    </div>
+    
+
+    
+    
+    <div class="panel panel-default">
+      <div class="panel-heading">
+  <h3 class="panel-title">Used by</h3>
+      </div>
+      <ul class="list-group">
+  
+  
+  <li class="list-group-item">
+    <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: module~~xcpot_mod~~UsedByGraph Pages: 1 -->
+<svg id="modulexcpot_modUsedByGraph" width="165pt" height="32pt"
+ viewBox="0.00 0.00 165.00 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="module~~xcpot_mod~~UsedByGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 28)">
+<title>module~~xcpot_mod~~UsedByGraph</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-28 161,-28 161,4 -4,4"/>
+<!-- module~xcpot_mod -->
+<g id="module~~xcpot_mod~~UsedByGraph_node1" class="node">
+<title>module~xcpot_mod</title>
+<polygon fill="none" stroke="#000000" points="67,-24 0,-24 0,0 67,0 67,-24"/>
+<text text-anchor="middle" x="33.5" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#000000">Xcpot_mod</text>
+</g>
+<!-- program~test -->
+<g id="module~~xcpot_mod~~UsedByGraph_node2" class="node">
+<title>program~test</title>
+<g id="a_module~~xcpot_mod~~UsedByGraph_node2"><a xlink:href=".././program/test.html" xlink:title="Test">
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="157,-24 103,-24 103,0 157,0 157,-24"/>
+<text text-anchor="middle" x="130" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Test</text>
+</a>
+</g>
+</g>
+<!-- program~test&#45;&gt;module~xcpot_mod -->
+<g id="module~~xcpot_mod~~UsedByGraph_edge1" class="edge">
+<title>program~test&#45;&gt;module~xcpot_mod</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M102.8626,-12C94.9291,-12 86.0471,-12 77.3567,-12"/>
+<polygon fill="#000000" stroke="#000000" points="77.3114,-8.5001 67.3114,-12 77.3113,-15.5001 77.3114,-8.5001"/>
+</g>
+</g>
+</svg>
+</div><div><a type="button" class="graph-help" data-toggle="modal" href="#graph-help-text">Help</a></div><div class="modal fade" id="graph-help-text" tabindex="-1" role="dialog"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="-graph-help-label">Graph Key</h4></div><div class="modal-body">
+    <p>Nodes of different colours represent the following: </p>
+    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="490pt" height="32pt"
+ viewBox="0.00 0.00 489.50 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 28)">
+<title>Graph Key</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-28 485.5,-28 485.5,4 -4,4"/>
+<!-- Module -->
+<g id="node1" class="node">
+<title>Module</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="54,-24 0,-24 0,0 54,0 54,-24"/>
+<text text-anchor="middle" x="27" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Module</text>
+</g>
+<!-- Submodule -->
+<g id="node2" class="node">
+<title>Submodule</title>
+<polygon fill="#5bc0de" stroke="#5bc0de" points="139.5,-24 72.5,-24 72.5,0 139.5,0 139.5,-24"/>
+<text text-anchor="middle" x="106" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Submodule</text>
+</g>
+<!-- Subroutine -->
+<g id="node3" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="222,-24 158,-24 158,0 222,0 222,-24"/>
+<text text-anchor="middle" x="190" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node4" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="294,-24 240,-24 240,0 294,0 294,-24"/>
+<text text-anchor="middle" x="267" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Function</text>
+</g>
+<!-- Program -->
+<g id="node5" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="366,-24 312,-24 312,0 366,0 366,-24"/>
+<text text-anchor="middle" x="339" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node6" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="#000000" points="481.5,-24 384.5,-24 384.5,0 481.5,0 481.5,-24"/>
+<text text-anchor="middle" x="433" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#000000">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+    
+    <p>Solid arrows point from a submodule to the (sub)module which it is
+    descended from. Dashed arrows point from a module or program unit to 
+    modules which it uses.
+    </p>
+    </div></div></div></div>
+  </li>
+  
+      </ul>
+    </div>
+    
+
+    <br>
+
+    <section class="visible-xs visible-sm hidden-md">
+      
+<h3>Contents</h3>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#subs-1">Subroutines</a></h3></div>
+  <div class="list-group">
+    <div id="subs-1" class="panel-collapse collapse">
+      
+      <a class="list-group-item" href="../module/xcpot_mod.html#proc-xc_energy">Xc_energy</a>
+      
+      <a class="list-group-item" href="../module/xcpot_mod.html#proc-xc_potential">Xc_potential</a>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+    </section>
+    <br class="visible-xs visible-sm hidden-md">
+
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    <section>
+    <h2>Subroutines</h2>
+    
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-xc_energy"></span><h3>
+public subroutine <a href='../proc/xc_energy.html'>Xc_energy</a>(molecule, functional, energy)
+    
+    
+   
+</h3></div>
+  <div class="panel-body">
+       
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/molecule_t.html'>molecule_t</a>),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>molecule</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>functional</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=DP),</td>
+  <td>intent(out)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>energy</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  </div>
+  </div>
+
+    
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-xc_potential"></span><h3>
+public subroutine <a href='../proc/xc_potential.html'>Xc_potential</a>(molecule, functional, potential)
+    
+    
+   
+</h3></div>
+  <div class="panel-body">
+       
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/molecule_t.html'>molecule_t</a>),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>molecule</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(len=*),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>functional</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real(kind=DP),</td>
+  <td>intent(out)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>potential</strong>(:)</td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  </div>
+  </div>
+
+    
+    </section>    
+    <br>
+    
+    
+    
+    </div>
+  </div>
+
+  
+    <hr>    
+    </div> <!-- /container -->
+    <footer>
+      <div class="container">
+      <div class="row">
+        <div class="col-xs-6 col-md-4"><p>&copy; 2019 Christian Schwermann <br/> ALL RIGHTS RESERVED 
+                                          </p></div>
+        <div class="col-xs-6 col-md-4 col-md-push-4">
+          <p class="text-right">
+            Documentation generated by 
+            <a href="https://github.com/cmacmackin/ford">FORD</a>
+             on 2019-03-16T17:37:11.792028 
+          </p>
+        </div>
+        <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> PEREMB was developed by Christian Schwermann</p></div>
+      </div>
+      <br>
+      </div> <!-- /container -->    
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+<!--
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+-->
+    <script src="../js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../js/ie10-viewport-bug-workaround.js"></script>
+
+    <!-- MathJax JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } },
+        jax: ['input/TeX','input/MathML','output/HTML-CSS'],
+        extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']
+      });
+    </script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
+    <script src="../tipuesearch/tipuesearch_content.js"></script>
+    <script src="../tipuesearch/tipuesearch_set.js"></script>
+    <script src="../tipuesearch/tipuesearch.js"></script>
+    
+    
+  </body>
+</html>

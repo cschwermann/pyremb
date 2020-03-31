@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   
+   <meta name="description" content="A Subsystem DFT package able to combine arbitrary - periodic and non-periodic - molecular systems">
+    
+    <meta name="author" content="Christian Schwermann" >
+    <link rel="icon" href="../favicon.png">
+
+    <title>Utils_mod.F90 &ndash; PEREMB</title>
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/pygments.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/local.css" rel="stylesheet">
+    
+    <link  href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <script src="../js/jquery-2.1.3.min.js"></script>
+    <script src="../js/svg-pan-zoom.min.js"></script>
+
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../index.html">PEREMB </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+        
+            <li class="dropdown hidden-xs visible-sm visible-md hidden-lg">
+              <a href="#" class="dropdown-toggle"
+              data-toggle="dropdown" role="button"
+              aria-haspopup="true"
+     aria-expanded="false">Contents <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          
+              
+            <li><a href="../lists/files.html">Source Files</a></li>
+        
+        
+        
+            <li><a href="../lists/modules.html">Modules</a></li>
+        
+            
+                                
+            <li><a href="../lists/procedures.html">Procedures</a></li>
+        
+               
+            <li><a href="../lists/types.html">Derived Types</a></li>
+        
+        
+            <li><a href="../program/test.html">Program</a></li>
+      
+            </ul>
+            </li>
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/files.html">Source Files</a></li>
+
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/modules.html">Modules</a></li>
+
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/procedures.html">Procedures</a></li>
+
+                             
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/types.html">Derived Types</a></li>
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../program/test.html">Program</a></li>
+
+          </ul>
+        
+        <form action="../search.html" class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+        </div>
+<!--
+        <button type="submit" class="btn btn-default">Submit</button>
+-->
+        </form>
+        
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+    
+  
+  <div class="row">
+    <h1>Utils_mod.F90
+    <small>Source File</small>
+    
+    </h1>
+    
+<div class="row">
+  <div class="col-lg-12">
+<div class="well well-sm">
+  <ul class="list-inline" style="margin-bottom:0px;display:inline">
+     
+     
+     
+     
+    
+    
+     <li><i class="fa fa-list-ol"></i>
+       <a data-toggle="tooltip"
+    data-placement="bottom" data-html="true"
+    title="16.7% of total for source files.">117 statements</a>
+     </li> 
+     
+     
+     
+    <li><i class="fa fa-code"></i><a href="../src/Utils_mod.F90"> Source File</a></li>
+     
+     
+  </ul>
+  <ol class="breadcrumb in-well text-right">
+  
+    
+  
+     <li class="active">Utils_mod.F90</li>
+  </ol>
+</div>
+</div>
+</div>
+<script>
+  $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
+
+  </div>
+  <div class="row">
+    <div class="col-md-3 hidden-xs hidden-sm visible-md visible-lg">
+    
+<div id="sidebar">
+  
+<h3>Contents</h3>
+ 
+
+
+
+
+
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#mods-0">Modules</a></h3></div>
+  <div id="mods-0" class="panel-collapse collapse">
+    <div class="list-group">
+      
+      <a class="list-group-item" href="../module/utils_mod.html">Utils_mod</a>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
+  <div class="list-group">
+    <a class="list-group-item" href="../sourcefile/utils_mod.f90.html#src">Utils_mod.F90</a>
+  </div>
+</div>
+
+
+
+</div>
+
+    </div>
+    <div class="col-md-9" id='text'>
+      
+      <br>
+    
+    <div class="panel panel-default">
+      <div class="panel-heading">
+  <h3 class="panel-title">This file depends on</h3>
+      </div>
+      <div class="panel-body">
+  <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: sourcefile~~utils_mod.f90~~EfferentGraph Pages: 1 -->
+<svg id="sourcefileutils_modf90EfferentGraph" width="488pt" height="73pt"
+ viewBox="0.00 0.00 488.00 72.91" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="sourcefile~~utils_mod.f90~~EfferentGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 68.9138)">
+<title>sourcefile~~utils_mod.f90~~EfferentGraph</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-68.9138 484,-68.9138 484,4 -4,4"/>
+<!-- sourcefile~utils_mod.f90 -->
+<g id="sourcefile~~utils_mod.f90~~EfferentGraph_node1" class="node">
+<title>sourcefile~utils_mod.f90</title>
+<polygon fill="none" stroke="#000000" points="480,-56.8409 398,-56.8409 398,-32.8409 480,-32.8409 480,-56.8409"/>
+<text text-anchor="middle" x="439" y="-42.4409" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#000000">Utils_mod.F90</text>
+</g>
+<!-- sourcefile~output_mod.f90 -->
+<g id="sourcefile~~utils_mod.f90~~EfferentGraph_node2" class="node">
+<title>sourcefile~output_mod.f90</title>
+<g id="a_sourcefile~~utils_mod.f90~~EfferentGraph_node2"><a xlink:href=".././sourcefile/output_mod.f90.html" xlink:title="Output_mod.F90">
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="235,-36.8409 141,-36.8409 141,-12.8409 235,-12.8409 235,-36.8409"/>
+<text text-anchor="middle" x="188" y="-22.4409" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Output_mod.F90</text>
+</a>
+</g>
+</g>
+<!-- sourcefile~utils_mod.f90&#45;&gt;sourcefile~output_mod.f90 -->
+<g id="sourcefile~~utils_mod.f90~~EfferentGraph_edge1" class="edge">
+<title>sourcefile~utils_mod.f90&#45;&gt;sourcefile~output_mod.f90</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M397.8794,-54.8806C374.2291,-59.8162 343.867,-64.7391 316.5,-64.8409"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M316.5,-64.8409C282.7298,-64.9664 246.1313,-52.1997 220.6628,-41.0584"/>
+<polygon fill="#000000" stroke="#000000" points="222.0292,-37.835 211.4758,-36.8982 219.1416,-44.2117 222.0292,-37.835"/>
+</g>
+<!-- sourcefile~precision_mod.f90 -->
+<g id="sourcefile~~utils_mod.f90~~EfferentGraph_node3" class="node">
+<title>sourcefile~precision_mod.f90</title>
+<g id="a_sourcefile~~utils_mod.f90~~EfferentGraph_node3"><a xlink:href=".././sourcefile/precision_mod.f90.html" xlink:title="Precision_mod.F90">
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="105,-36.8409 0,-36.8409 0,-12.8409 105,-12.8409 105,-36.8409"/>
+<text text-anchor="middle" x="52.5" y="-22.4409" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Precision_mod.F90</text>
+</a>
+</g>
+</g>
+<!-- sourcefile~utils_mod.f90&#45;&gt;sourcefile~precision_mod.f90 -->
+<g id="sourcefile~~utils_mod.f90~~EfferentGraph_edge2" class="edge">
+<title>sourcefile~utils_mod.f90&#45;&gt;sourcefile~precision_mod.f90</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M316.5,-64.8409C238.0448,-65.1325 218.3194,-59.1459 141,-45.8409 130.5038,-44.0347 119.3955,-41.7226 108.726,-39.2965"/>
+<polygon fill="#000000" stroke="#000000" points="109.1991,-35.813 98.6653,-36.9484 107.6081,-42.6298 109.1991,-35.813"/>
+</g>
+<!-- sourcefile~types_mod.f90 -->
+<g id="sourcefile~~utils_mod.f90~~EfferentGraph_node4" class="node">
+<title>sourcefile~types_mod.f90</title>
+<g id="a_sourcefile~~utils_mod.f90~~EfferentGraph_node4"><a xlink:href=".././sourcefile/types_mod.f90.html" xlink:title="Types_mod.F90">
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="362,-36.8409 271,-36.8409 271,-12.8409 362,-12.8409 362,-36.8409"/>
+<text text-anchor="middle" x="316.5" y="-22.4409" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Types_mod.F90</text>
+</a>
+</g>
+</g>
+<!-- sourcefile~utils_mod.f90&#45;&gt;sourcefile~types_mod.f90 -->
+<g id="sourcefile~~utils_mod.f90~~EfferentGraph_edge3" class="edge">
+<title>sourcefile~utils_mod.f90&#45;&gt;sourcefile~types_mod.f90</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M397.8685,-38.1255C389.6754,-36.7879 380.942,-35.362 372.3513,-33.9594"/>
+<polygon fill="#000000" stroke="#000000" points="372.8064,-30.4875 362.3731,-32.3303 371.6784,-37.396 372.8064,-30.4875"/>
+</g>
+<!-- sourcefile~output_mod.f90&#45;&gt;sourcefile~precision_mod.f90 -->
+<g id="sourcefile~~utils_mod.f90~~EfferentGraph_edge4" class="edge">
+<title>sourcefile~output_mod.f90&#45;&gt;sourcefile~precision_mod.f90</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M140.989,-24.8409C132.7481,-24.8409 124.0542,-24.8409 115.4635,-24.8409"/>
+<polygon fill="#000000" stroke="#000000" points="115.4594,-21.341 105.4594,-24.8409 115.4593,-28.341 115.4594,-21.341"/>
+</g>
+<!-- sourcefile~types_mod.f90&#45;&gt;sourcefile~output_mod.f90 -->
+<g id="sourcefile~~utils_mod.f90~~EfferentGraph_edge5" class="edge">
+<title>sourcefile~types_mod.f90&#45;&gt;sourcefile~output_mod.f90</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M270.8339,-24.8409C262.6282,-24.8409 253.98,-24.8409 245.491,-24.8409"/>
+<polygon fill="#000000" stroke="#000000" points="245.2557,-21.341 235.2556,-24.8409 245.2556,-28.341 245.2557,-21.341"/>
+</g>
+<!-- sourcefile~types_mod.f90&#45;&gt;sourcefile~precision_mod.f90 -->
+<g id="sourcefile~~utils_mod.f90~~EfferentGraph_edge6" class="edge">
+<title>sourcefile~types_mod.f90&#45;&gt;sourcefile~precision_mod.f90</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M277.9197,-12.7749C264.4784,-9.1411 249.2056,-5.6416 235,-3.8409 193.5539,1.413 182.4946,1.0148 141,-3.8409 128.9918,-5.2461 116.2504,-7.6891 104.2885,-10.4234"/>
+<polygon fill="#000000" stroke="#000000" points="103.3698,-7.0443 94.457,-12.7725 104.9966,-13.8527 103.3698,-7.0443"/>
+</g>
+</g>
+</svg>
+</div><div><a type="button" class="graph-help" data-toggle="modal" href="#graph-help-text">Help</a></div><div class="modal fade" id="graph-help-text" tabindex="-1" role="dialog"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="-graph-help-label">Graph Key</h4></div><div class="modal-body">
+    <p>Nodes of different colours represent the following: </p>
+    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="190pt" height="32pt"
+ viewBox="0.00 0.00 190.00 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 28)">
+<title>Graph Key</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-28 186,-28 186,4 -4,4"/>
+<!-- Source File -->
+<g id="node1" class="node">
+<title>Source File</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="67,-24 0,-24 0,0 67,0 67,-24"/>
+<text text-anchor="middle" x="33.5" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Source File</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node2" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="#000000" points="182,-24 85,-24 85,0 182,0 182,-24"/>
+<text text-anchor="middle" x="133.5" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#000000">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+    
+    <p>Solid arrows point from a file to a file which it depends on. A file
+    is dependent upon another if the latter must be compiled before the former
+    can be.
+    </p>
+    </div></div></div></div>
+      </div>
+    </div>
+    
+      
+    <div class="panel panel-default">
+      <div class="panel-heading">
+  <h3 class="panel-title">Files dependent on this one</h3>
+      </div>
+      <div class="panel-body">
+  <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: sourcefile~~utils_mod.f90~~AfferentGraph Pages: 1 -->
+<svg id="sourcefileutils_modf90AfferentGraph" width="305pt" height="52pt"
+ viewBox="0.00 0.00 305.00 52.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="sourcefile~~utils_mod.f90~~AfferentGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 48)">
+<title>sourcefile~~utils_mod.f90~~AfferentGraph</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-48 301,-48 301,4 -4,4"/>
+<!-- sourcefile~utils_mod.f90 -->
+<g id="sourcefile~~utils_mod.f90~~AfferentGraph_node1" class="node">
+<title>sourcefile~utils_mod.f90</title>
+<polygon fill="none" stroke="#000000" points="82,-44 0,-44 0,-20 82,-20 82,-44"/>
+<text text-anchor="middle" x="41" y="-29.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#000000">Utils_mod.F90</text>
+</g>
+<!-- sourcefile~xcpot_mod.f90 -->
+<g id="sourcefile~~utils_mod.f90~~AfferentGraph_node2" class="node">
+<title>sourcefile~xcpot_mod.f90</title>
+<g id="a_sourcefile~~utils_mod.f90~~AfferentGraph_node2"><a xlink:href=".././sourcefile/xcpot_mod.f90.html" xlink:title="Xcpot_mod.F90">
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="206,-24 118,-24 118,0 206,0 206,-24"/>
+<text text-anchor="middle" x="162" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Xcpot_mod.F90</text>
+</a>
+</g>
+</g>
+<!-- sourcefile~xcpot_mod.f90&#45;&gt;sourcefile~utils_mod.f90 -->
+<g id="sourcefile~~utils_mod.f90~~AfferentGraph_edge1" class="edge">
+<title>sourcefile~xcpot_mod.f90&#45;&gt;sourcefile~utils_mod.f90</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M117.9739,-19.277C109.6203,-20.6578 100.8132,-22.1135 92.2585,-23.5275"/>
+<polygon fill="#000000" stroke="#000000" points="91.6696,-20.0773 82.3742,-25.1613 92.8112,-26.9836 91.6696,-20.0773"/>
+</g>
+<!-- sourcefile~test.f90 -->
+<g id="sourcefile~~utils_mod.f90~~AfferentGraph_node3" class="node">
+<title>sourcefile~test.f90</title>
+<g id="a_sourcefile~~utils_mod.f90~~AfferentGraph_node3"><a xlink:href=".././sourcefile/test.f90.html" xlink:title="Test.F90">
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="297,-44 242,-44 242,-20 297,-20 297,-44"/>
+<text text-anchor="middle" x="269.5" y="-29.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Test.F90</text>
+</a>
+</g>
+</g>
+<!-- sourcefile~test.f90&#45;&gt;sourcefile~utils_mod.f90 -->
+<g id="sourcefile~~utils_mod.f90~~AfferentGraph_edge2" class="edge">
+<title>sourcefile~test.f90&#45;&gt;sourcefile~utils_mod.f90</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M241.9958,-32.5275C230.8259,-32.7172 217.7971,-32.9071 206,-33 166.8901,-33.3079 157.1103,-33.254 118,-33 109.7311,-32.9463 100.9631,-32.8602 92.4198,-32.7604"/>
+<polygon fill="#000000" stroke="#000000" points="92.2015,-29.2576 82.1589,-32.6333 92.1147,-36.257 92.2015,-29.2576"/>
+</g>
+<!-- sourcefile~test.f90&#45;&gt;sourcefile~xcpot_mod.f90 -->
+<g id="sourcefile~~utils_mod.f90~~AfferentGraph_edge3" class="edge">
+<title>sourcefile~test.f90&#45;&gt;sourcefile~xcpot_mod.f90</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M241.8161,-26.8495C233.9514,-25.3863 225.1043,-23.7403 216.2395,-22.0911"/>
+<polygon fill="#000000" stroke="#000000" points="216.7461,-18.6253 206.2746,-20.2371 215.4657,-25.5073 216.7461,-18.6253"/>
+</g>
+</g>
+</svg>
+</div><div><a type="button" class="graph-help" data-toggle="modal" href="#graph-help-text">Help</a></div><div class="modal fade" id="graph-help-text" tabindex="-1" role="dialog"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="-graph-help-label">Graph Key</h4></div><div class="modal-body">
+    <p>Nodes of different colours represent the following: </p>
+    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="190pt" height="32pt"
+ viewBox="0.00 0.00 190.00 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 28)">
+<title>Graph Key</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-28 186,-28 186,4 -4,4"/>
+<!-- Source File -->
+<g id="node1" class="node">
+<title>Source File</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="67,-24 0,-24 0,0 67,0 67,-24"/>
+<text text-anchor="middle" x="33.5" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Source File</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node2" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="#000000" points="182,-24 85,-24 85,0 182,0 182,-24"/>
+<text text-anchor="middle" x="133.5" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#000000">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+    
+    <p>Solid arrows point from a file to a file which it depends on. A file
+    is dependent upon another if the latter must be compiled before the former
+    can be.
+    </p>
+    </div></div></div></div>
+      </div>
+    </div>
+      
+      <br>
+
+    <section class="visible-xs visible-sm hidden-md">
+      
+<h3>Contents</h3>
+ 
+
+
+
+
+
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#mods-1">Modules</a></h3></div>
+  <div id="mods-1" class="panel-collapse collapse">
+    <div class="list-group">
+      
+      <a class="list-group-item" href="../module/utils_mod.html">Utils_mod</a>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title">Source Code</h3></div>
+  <div class="list-group">
+    <a class="list-group-item" href="../sourcefile/utils_mod.f90.html#src">Utils_mod.F90</a>
+  </div>
+</div>
+
+
+
+    </section>
+    <br class="visible-xs visible-sm hidden-md">
+
+    <section>
+      <h2><span class="anchor" id="src"></span>Source Code</h2>
+    <div class="hl"><pre><span></span><a name="ln-1"></a><span class="c">!Utility module, contains useful subroutines like integration, etc.</span>
+<a name="ln-2"></a><span class="c">!! Author:  Christian Schwermann</span>
+<a name="ln-3"></a><span class="c">!! E-mail:  c.schwermann@wwu.de</span>
+<a name="ln-4"></a><span class="c">!! Date:    15/03/2019</span>
+<a name="ln-5"></a><span class="c">!! Project: PEREMB </span>
+<a name="ln-6"></a><span class="c">!! File:    Utils_mod.F90 </span>
+<a name="ln-7"></a><span class="c">!! Copyright: © 2019 Christian Schwermann, ALL RIGHTS RESERVED</span>
+<a name="ln-8"></a><span class="c">!!</span>
+<a name="ln-9"></a><span class="c">!!***********************************************************************</span>
+<a name="ln-10"></a><span class="c">!!</span>
+<a name="ln-11"></a><span class="c">!! Utility module, contains generally useful subroutines and functions</span>
+<a name="ln-12"></a><span class="c">!! like integration, interpolation and other &quot;light&quot; math</span>
+<a name="ln-13"></a><span class="c">!!</span>
+<a name="ln-14"></a><span class="c">!!***********************************************************************</span>
+<a name="ln-15"></a><span class="k">module </span><span class="n">Utils_mod</span>
+<a name="ln-16"></a>   <span class="k">use </span><span class="n">Precision_mod</span> <span class="c">! IEEE precision</span>
+<a name="ln-17"></a>   <span class="k">use </span><span class="n">Types_mod</span>     <span class="c">! molecule and grid</span>
+<a name="ln-18"></a>   <span class="k">use </span><span class="n">Output_mod</span>    <span class="c">! Error and warning</span>
+<a name="ln-19"></a>   <span class="k">implicit none</span>
+<a name="ln-20"></a>
+<a name="ln-21"></a>   <span class="c">! Basic integration, Shepard interpolation and general interpolation for molecules</span>
+<a name="ln-22"></a>   <span class="k">public</span> <span class="kd">::</span> <span class="n">Integrate</span><span class="p">,</span> <span class="n">Shepard_interpolate</span><span class="p">,</span> <span class="n">Mol_interpolate</span>
+<a name="ln-23"></a>   <span class="c">! Arbitrary gradients</span>
+<a name="ln-24"></a>   <span class="k">public</span> <span class="kd">::</span> <span class="n">Gradient</span>
+<a name="ln-25"></a>
+<a name="ln-26"></a>
+<a name="ln-27"></a><span class="k">contains</span>
+<a name="ln-28"></a>
+<a name="ln-29"></a>
+<a name="ln-30"></a>   <span class="c">!!********************************************************************</span>
+<a name="ln-31"></a>   <span class="c">!! Integration of arbitrary functions \(a_i\)  on arbitrary grids.</span>
+<a name="ln-32"></a>   <span class="c">!!</span>
+<a name="ln-33"></a>   <span class="c">!! This is simply a sum, i. e. \( \sum_{i=1}^{N_{gpt}} w_i \cdot a_i \)</span>
+<a name="ln-34"></a>   <span class="c">!! when weights \(w_i\) are given and \( \sum_{i=1}^{N_{gpt}} a_i \) else.</span>
+<a name="ln-35"></a>   <span class="c">!! </span>
+<a name="ln-36"></a>   <span class="c">!! Here array is \(a_i\), grid%weights is \(w_i\), ngpot is \(N_{gpt}\).</span>
+<a name="ln-37"></a>   <span class="c">!!********************************************************************</span>
+<a name="ln-38"></a>   <span class="k">function </span><span class="n">Integrate</span><span class="p">(</span> <span class="k">array</span><span class="p">,</span> <span class="n">grid</span> <span class="p">)</span> <span class="k">result</span><span class="p">(</span> <span class="n">integral</span> <span class="p">)</span>
+<a name="ln-39"></a>      <span class="c">!! Input: any array</span>
+<a name="ln-40"></a>      <span class="kt">real</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">DP</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="k">array</span><span class="p">(:)</span>
+<a name="ln-41"></a>      <span class="c">!! Input: grid, has to have the same number of points as the array</span>
+<a name="ln-42"></a>      <span class="k">type</span><span class="p">(</span><span class="n">grid_t</span><span class="p">),</span> <span class="k">optional</span><span class="p">,</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">grid</span>
+<a name="ln-43"></a>      <span class="c">!! Output: the calculated integral</span>
+<a name="ln-44"></a>      <span class="kt">real</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">DP</span><span class="p">)</span> <span class="kd">::</span> <span class="n">integral</span>
+<a name="ln-45"></a>      <span class="c">!! Internal: loop index, start and end of array</span>
+<a name="ln-46"></a>      <span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span><span class="p">,</span> <span class="n">istart</span><span class="p">,</span> <span class="n">iend</span>
+<a name="ln-47"></a>      <span class="c">!!</span>
+<a name="ln-48"></a>      <span class="c">!!@TODO Specific method for cells @ENDTODO</span>
+<a name="ln-49"></a>
+<a name="ln-50"></a>      <span class="n">integral</span> <span class="o">=</span> <span class="mf">0.0_DP</span>
+<a name="ln-51"></a>
+<a name="ln-52"></a>      <span class="n">istart</span> <span class="o">=</span> <span class="nb">Lbound</span><span class="p">(</span> <span class="k">array</span><span class="p">,</span> <span class="mi">1</span> <span class="p">)</span>
+<a name="ln-53"></a>      <span class="n">iend</span> <span class="o">=</span> <span class="nb">Ubound</span><span class="p">(</span> <span class="k">array</span><span class="p">,</span> <span class="mi">1</span> <span class="p">)</span>
+<a name="ln-54"></a>
+<a name="ln-55"></a>      <span class="c">! Calculation depends on the grid having weights, a cell or nothing</span>
+<a name="ln-56"></a>      <span class="k">if</span><span class="p">(</span> <span class="nb">Present</span><span class="p">(</span> <span class="n">grid</span> <span class="p">)</span> <span class="p">)</span> <span class="k">then</span>
+<a name="ln-57"></a><span class="k">         if</span><span class="p">(</span> <span class="n">Size</span><span class="p">(</span> <span class="k">array</span> <span class="p">)</span> <span class="o">/=</span> <span class="n">grid</span><span class="p">%</span><span class="n">ngpt</span> <span class="p">)</span> <span class="p">&amp;</span>
+<a name="ln-58"></a>            <span class="p">&amp;</span> <span class="k">call </span><span class="n">Error</span><span class="p">(</span> <span class="s2">&quot;Integrate: Size( array ) /= grid%ngpt&quot;</span><span class="p">,</span> <span class="n">Size</span><span class="p">(</span> <span class="k">array</span> <span class="p">),</span> <span class="n">grid</span><span class="p">%</span><span class="n">ngpt</span> <span class="p">)</span>
+<a name="ln-59"></a>
+<a name="ln-60"></a>         <span class="k">if</span><span class="p">(</span> <span class="n">Grid_has_weights</span><span class="p">(</span> <span class="n">grid</span> <span class="p">)</span> <span class="p">)</span> <span class="k">then</span>
+<a name="ln-61"></a><span class="k">            if</span><span class="p">(</span> <span class="n">istart</span> <span class="o">/=</span> <span class="nb">Lbound</span><span class="p">(</span> <span class="n">grid</span><span class="p">%</span><span class="n">weights</span><span class="p">,</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">)</span> <span class="p">&amp;</span>
+<a name="ln-62"></a>               <span class="p">&amp;</span> <span class="k">call </span><span class="n">Error</span><span class="p">(</span> <span class="s2">&quot;Integrate: Lbound( array ) /= LBound( grid%weights )&quot;</span><span class="p">,</span> <span class="n">istart</span><span class="p">,</span> <span class="nb">LBound</span><span class="p">(</span> <span class="n">grid</span><span class="p">%</span><span class="n">weights</span><span class="p">,</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">)</span>
+<a name="ln-63"></a>            <span class="k">if</span><span class="p">(</span> <span class="n">iend</span> <span class="o">/=</span> <span class="nb">Ubound</span><span class="p">(</span> <span class="n">grid</span><span class="p">%</span><span class="n">weights</span><span class="p">,</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">)</span> <span class="p">&amp;</span>
+<a name="ln-64"></a>               <span class="p">&amp;</span> <span class="k">call </span><span class="n">Error</span><span class="p">(</span> <span class="s2">&quot;Integrate: Ubound( array ) /= UBound( grid%weights )&quot;</span><span class="p">,</span> <span class="n">iend</span><span class="p">,</span> <span class="nb">UBound</span><span class="p">(</span> <span class="n">grid</span><span class="p">%</span><span class="n">weights</span><span class="p">,</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">)</span>
+<a name="ln-65"></a>            <span class="n">integral</span> <span class="o">=</span> <span class="nb">Sum</span><span class="p">(</span> <span class="n">grid</span><span class="p">%</span><span class="n">weights</span><span class="p">(:)</span> <span class="o">*</span> <span class="k">array</span><span class="p">(:)</span> <span class="p">)</span>
+<a name="ln-66"></a><span class="c">!            do i = istart, iend</span>
+<a name="ln-67"></a><span class="c">!               integral = integral + grid%weights(i) * array(i)</span>
+<a name="ln-68"></a><span class="c">!            end do</span>
+<a name="ln-69"></a>         <span class="k">else</span> <span class="c">! no weights</span>
+<a name="ln-70"></a>            <span class="n">integral</span> <span class="o">=</span> <span class="nb">Sum</span><span class="p">(</span> <span class="k">array</span> <span class="p">)</span>
+<a name="ln-71"></a>            <span class="c">!do i = istart, iend</span>
+<a name="ln-72"></a>            <span class="c">!   integral = integral + array(i)</span>
+<a name="ln-73"></a>            <span class="c">!end do</span>
+<a name="ln-74"></a>         <span class="k">end if</span>
+<a name="ln-75"></a><span class="k">      else</span> <span class="c">! no grid</span>
+<a name="ln-76"></a>         <span class="n">integral</span> <span class="o">=</span> <span class="nb">Sum</span><span class="p">(</span> <span class="k">array</span> <span class="p">)</span>
+<a name="ln-77"></a>         <span class="c">!do i = istart, iend</span>
+<a name="ln-78"></a>         <span class="c">!   integral = integral + array(i)</span>
+<a name="ln-79"></a>         <span class="c">!end do</span>
+<a name="ln-80"></a>      <span class="k">end if</span>
+<a name="ln-81"></a>
+<a name="ln-82"></a><span class="k">   end function </span><span class="n">Integrate</span>
+<a name="ln-83"></a>
+<a name="ln-84"></a>
+<a name="ln-85"></a>   <span class="c">!!********************************************************************</span>
+<a name="ln-86"></a>   <span class="c">!! Interpolation of all functions in a molecule onto some grid.</span>
+<a name="ln-87"></a>   <span class="c">!!</span>
+<a name="ln-88"></a>   <span class="c">!! This subroutine interpolates density, gradient and nuclear potential</span>
+<a name="ln-89"></a>   <span class="c">!! of a molecule onto a given grid.</span>
+<a name="ln-90"></a>   <span class="c">!! An implementation of Shepards method is used.</span>
+<a name="ln-91"></a>   <span class="c">!!********************************************************************</span>
+<a name="ln-92"></a>   <span class="k">subroutine </span><span class="n">Mol_interpolate</span><span class="p">(</span> <span class="n">molecule</span><span class="p">,</span> <span class="n">grid</span> <span class="p">)</span>
+<a name="ln-93"></a>      <span class="c">!! Input: molecule, will be modified</span>
+<a name="ln-94"></a>      <span class="k">type</span><span class="p">(</span><span class="n">molecule_t</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">inout</span><span class="p">)</span> <span class="kd">::</span> <span class="n">molecule</span>
+<a name="ln-95"></a>      <span class="c">!! Input: grid</span>
+<a name="ln-96"></a>      <span class="k">type</span><span class="p">(</span><span class="n">grid_t</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">grid</span>
+<a name="ln-97"></a>      <span class="c">!! Internal: number of grid points of given grid</span>
+<a name="ln-98"></a>      <span class="kt">integer</span> <span class="kd">::</span> <span class="n">ngpt</span>
+<a name="ln-99"></a>      <span class="c">!! Internal: new / interpolated function values, size = ngpt</span>
+<a name="ln-100"></a>      <span class="kt">real</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">DP</span><span class="p">),</span> <span class="k">allocatable</span> <span class="kd">::</span> <span class="n">newvalues</span><span class="p">(:)</span>
+<a name="ln-101"></a>      <span class="c">!! </span>
+<a name="ln-102"></a>
+<a name="ln-103"></a>      <span class="c">! Catch some errors</span>
+<a name="ln-104"></a>      <span class="k">if</span><span class="p">(</span> <span class="p">.</span><span class="nb">not</span><span class="p">.</span> <span class="n">Mol_has_grid</span><span class="p">(</span> <span class="n">molecule</span> <span class="p">)</span> <span class="p">)&amp;</span>
+<a name="ln-105"></a>         <span class="p">&amp;</span> <span class="k">call </span><span class="n">Error</span><span class="p">(</span> <span class="s2">&quot;Mol_interpolate: Molecule has no grid!&quot;</span> <span class="p">)</span>
+<a name="ln-106"></a>
+<a name="ln-107"></a>      <span class="c">! TODO Calculate positions from cell, if cell exists</span>
+<a name="ln-108"></a>      <span class="k">if</span><span class="p">(</span> <span class="p">.</span><span class="nb">not</span><span class="p">.</span> <span class="n">Grid_has_positions</span><span class="p">(</span> <span class="n">molecule</span><span class="p">%</span><span class="n">grid</span> <span class="p">)</span> <span class="p">)</span> <span class="p">&amp;</span>
+<a name="ln-109"></a>         <span class="p">&amp;</span> <span class="k">call </span><span class="n">Error</span><span class="p">(</span> <span class="s2">&quot;Mol_interpolate: Molecule%grid has no positions!&quot;</span> <span class="p">)</span>
+<a name="ln-110"></a>      <span class="k">if</span><span class="p">(</span> <span class="p">.</span><span class="nb">not</span><span class="p">.</span> <span class="n">Grid_has_positions</span><span class="p">(</span> <span class="n">grid</span> <span class="p">)</span> <span class="p">)</span> <span class="p">&amp;</span>
+<a name="ln-111"></a>         <span class="p">&amp;</span> <span class="k">call </span><span class="n">Error</span><span class="p">(</span> <span class="s2">&quot;Mol_interpolate: Grid has no positions!&quot;</span> <span class="p">)</span>
+<a name="ln-112"></a>
+<a name="ln-113"></a>      <span class="c">! Set new grid points, so all the &quot;Mol_set&quot; later on works</span>
+<a name="ln-114"></a>      <span class="c">! New values always have dimension of grid</span>
+<a name="ln-115"></a>      <span class="n">ngpt</span> <span class="o">=</span> <span class="n">grid</span><span class="p">%</span><span class="n">ngpt</span>
+<a name="ln-116"></a>      <span class="n">molecule</span><span class="p">%</span><span class="n">ngpt</span> <span class="o">=</span> <span class="n">ngpt</span>
+<a name="ln-117"></a>      <span class="k">allocate</span><span class="p">(</span> <span class="n">newvalues</span><span class="p">(</span><span class="n">ngpt</span><span class="p">)</span> <span class="p">)</span>
+<a name="ln-118"></a>
+<a name="ln-119"></a>      <span class="c">! For spin polarized case, all the arrays are different sizes</span>
+<a name="ln-120"></a>      <span class="k">if</span><span class="p">(</span> <span class="n">molecule</span><span class="p">%</span><span class="n">spinpol</span> <span class="p">)</span> <span class="k">then</span>
+<a name="ln-121"></a>         <span class="c">! Interpolate density</span>
+<a name="ln-122"></a>         <span class="k">if</span><span class="p">(</span> <span class="n">Mol_has_density</span><span class="p">(</span> <span class="n">molecule</span> <span class="p">)</span> <span class="p">)</span> <span class="k">then</span>
+<a name="ln-123"></a><span class="k">            call </span><span class="n">Shepard_interpolate</span><span class="p">(</span> <span class="n">molecule</span><span class="p">%</span><span class="n">grid</span><span class="p">%</span><span class="n">positions</span><span class="p">,</span> <span class="p">&amp;</span>
+<a name="ln-124"></a>            <span class="p">&amp;</span> <span class="n">molecule</span><span class="p">%</span><span class="n">density</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">ngpt</span><span class="p">),</span> <span class="n">grid</span><span class="p">%</span><span class="n">positions</span><span class="p">,</span> <span class="n">newvalues</span><span class="p">,</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span> <span class="p">)</span>
+<a name="ln-125"></a>            <span class="k">call </span><span class="n">Mol_set_density_a</span><span class="p">(</span> <span class="n">molecule</span><span class="p">,</span> <span class="n">newvalues</span> <span class="p">)</span>
+<a name="ln-126"></a>            <span class="k">call </span><span class="n">Shepard_interpolate</span><span class="p">(</span> <span class="n">molecule</span><span class="p">%</span><span class="n">grid</span><span class="p">%</span><span class="n">positions</span><span class="p">,</span> <span class="p">&amp;</span>
+<a name="ln-127"></a>            <span class="p">&amp;</span> <span class="n">molecule</span><span class="p">%</span><span class="n">density</span><span class="p">(</span><span class="n">ngpt</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">ngpt</span><span class="p">),</span> <span class="n">grid</span><span class="p">%</span><span class="n">positions</span><span class="p">,</span> <span class="n">newvalues</span><span class="p">,</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span> <span class="p">)</span>
+<a name="ln-128"></a>            <span class="k">call </span><span class="n">Mol_set_density_b</span><span class="p">(</span> <span class="n">molecule</span><span class="p">,</span> <span class="n">newvalues</span> <span class="p">)</span>
+<a name="ln-129"></a>         <span class="n">endif</span>
+<a name="ln-130"></a>         <span class="c">! Interpolate gradient</span>
+<a name="ln-131"></a>         <span class="k">if</span><span class="p">(</span> <span class="n">Mol_has_gradient</span><span class="p">(</span> <span class="n">molecule</span> <span class="p">)</span> <span class="p">)</span> <span class="k">then</span>
+<a name="ln-132"></a><span class="k">            call </span><span class="n">Shepard_interpolate</span><span class="p">(</span> <span class="n">molecule</span><span class="p">%</span><span class="n">grid</span><span class="p">%</span><span class="n">positions</span><span class="p">,</span> <span class="p">&amp;</span>
+<a name="ln-133"></a>            <span class="p">&amp;</span> <span class="n">molecule</span><span class="p">%</span><span class="n">gradient</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">ngpt</span><span class="p">),</span> <span class="n">grid</span><span class="p">%</span><span class="n">positions</span><span class="p">,</span> <span class="n">newvalues</span><span class="p">,</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span> <span class="p">)</span>
+<a name="ln-134"></a>            <span class="k">call </span><span class="n">Mol_set_gradient_aa</span><span class="p">(</span> <span class="n">molecule</span><span class="p">,</span> <span class="n">newvalues</span> <span class="p">)</span>
+<a name="ln-135"></a>            <span class="k">call </span><span class="n">Shepard_interpolate</span><span class="p">(</span> <span class="n">molecule</span><span class="p">%</span><span class="n">grid</span><span class="p">%</span><span class="n">positions</span><span class="p">,</span> <span class="p">&amp;</span>
+<a name="ln-136"></a>            <span class="p">&amp;</span> <span class="n">molecule</span><span class="p">%</span><span class="n">gradient</span><span class="p">(</span><span class="n">ngpt</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">ngpt</span><span class="p">),</span> <span class="n">grid</span><span class="p">%</span><span class="n">positions</span><span class="p">,</span> <span class="n">newvalues</span><span class="p">,</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span> <span class="p">)</span>
+<a name="ln-137"></a>            <span class="k">call </span><span class="n">Mol_set_gradient_ab</span><span class="p">(</span> <span class="n">molecule</span><span class="p">,</span> <span class="n">newvalues</span> <span class="p">)</span>
+<a name="ln-138"></a>            <span class="k">call </span><span class="n">Shepard_interpolate</span><span class="p">(</span> <span class="n">molecule</span><span class="p">%</span><span class="n">grid</span><span class="p">%</span><span class="n">positions</span><span class="p">,</span> <span class="p">&amp;</span>
+<a name="ln-139"></a>            <span class="p">&amp;</span> <span class="n">molecule</span><span class="p">%</span><span class="n">gradient</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">ngpt</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="o">*</span><span class="n">ngpt</span><span class="p">),</span> <span class="n">grid</span><span class="p">%</span><span class="n">positions</span><span class="p">,</span> <span class="n">newvalues</span><span class="p">,</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span> <span class="p">)</span>
+<a name="ln-140"></a>            <span class="k">call </span><span class="n">Mol_set_gradient_bb</span><span class="p">(</span> <span class="n">molecule</span><span class="p">,</span> <span class="n">newvalues</span> <span class="p">)</span>
+<a name="ln-141"></a>         <span class="n">endif</span>
+<a name="ln-142"></a>
+<a name="ln-143"></a>      <span class="k">else</span>
+<a name="ln-144"></a>         <span class="c">! Interpolate density</span>
+<a name="ln-145"></a>         <span class="k">if</span><span class="p">(</span> <span class="n">Mol_has_density</span><span class="p">(</span> <span class="n">molecule</span> <span class="p">)</span> <span class="p">)</span> <span class="k">then</span>
+<a name="ln-146"></a><span class="k">            call </span><span class="n">Shepard_interpolate</span><span class="p">(</span> <span class="n">molecule</span><span class="p">%</span><span class="n">grid</span><span class="p">%</span><span class="n">positions</span><span class="p">,</span> <span class="p">&amp;</span>
+<a name="ln-147"></a>            <span class="p">&amp;</span> <span class="n">molecule</span><span class="p">%</span><span class="n">density</span><span class="p">,</span> <span class="n">grid</span><span class="p">%</span><span class="n">positions</span><span class="p">,</span> <span class="n">newvalues</span><span class="p">,</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span> <span class="p">)</span>
+<a name="ln-148"></a>            <span class="k">call </span><span class="n">Mol_set_density</span><span class="p">(</span> <span class="n">molecule</span><span class="p">,</span> <span class="n">newvalues</span> <span class="p">)</span>
+<a name="ln-149"></a>         <span class="n">endif</span>
+<a name="ln-150"></a>         <span class="c">! Interpolate gradient</span>
+<a name="ln-151"></a>         <span class="k">if</span><span class="p">(</span> <span class="n">Mol_has_gradient</span><span class="p">(</span> <span class="n">molecule</span> <span class="p">)</span> <span class="p">)</span> <span class="k">then</span>
+<a name="ln-152"></a><span class="k">            call </span><span class="n">Shepard_interpolate</span><span class="p">(</span> <span class="n">molecule</span><span class="p">%</span><span class="n">grid</span><span class="p">%</span><span class="n">positions</span><span class="p">,</span> <span class="p">&amp;</span>
+<a name="ln-153"></a>            <span class="p">&amp;</span> <span class="n">molecule</span><span class="p">%</span><span class="n">gradient</span><span class="p">,</span> <span class="n">grid</span><span class="p">%</span><span class="n">positions</span><span class="p">,</span> <span class="n">newvalues</span><span class="p">,</span> <span class="p">.</span><span class="n">true</span><span class="p">.</span> <span class="p">)</span>
+<a name="ln-154"></a>            <span class="k">call </span><span class="n">Mol_set_gradient</span><span class="p">(</span> <span class="n">molecule</span><span class="p">,</span> <span class="n">newvalues</span> <span class="p">)</span>
+<a name="ln-155"></a>         <span class="n">endif</span>
+<a name="ln-156"></a>
+<a name="ln-157"></a>      <span class="k">end if</span>
+<a name="ln-158"></a>
+<a name="ln-159"></a>      <span class="c">! Interpolate nuclear potential, doesnt depend on spin</span>
+<a name="ln-160"></a>      <span class="k">if</span><span class="p">(</span> <span class="n">Mol_has_vnuc</span><span class="p">(</span> <span class="n">molecule</span> <span class="p">)</span> <span class="p">)</span> <span class="k">then</span>
+<a name="ln-161"></a><span class="k">         call </span><span class="n">Shepard_interpolate</span><span class="p">(</span> <span class="n">molecule</span><span class="p">%</span><span class="n">grid</span><span class="p">%</span><span class="n">positions</span><span class="p">,</span> <span class="p">&amp;</span>
+<a name="ln-162"></a>         <span class="p">&amp;</span> <span class="n">molecule</span><span class="p">%</span><span class="n">vnuc</span><span class="p">,</span> <span class="n">grid</span><span class="p">%</span><span class="n">positions</span><span class="p">,</span> <span class="n">newvalues</span> <span class="p">)</span>
+<a name="ln-163"></a>         <span class="k">call </span><span class="n">Mol_set_vnuc</span><span class="p">(</span> <span class="n">molecule</span><span class="p">,</span> <span class="n">newvalues</span> <span class="p">)</span>
+<a name="ln-164"></a>      <span class="n">endif</span>
+<a name="ln-165"></a>
+<a name="ln-166"></a>      <span class="c">! Finally, set molecular grid to new grid</span>
+<a name="ln-167"></a>      <span class="k">call </span><span class="n">Mol_set_grid</span><span class="p">(</span> <span class="n">molecule</span><span class="p">,</span> <span class="n">grid</span> <span class="p">)</span>
+<a name="ln-168"></a>
+<a name="ln-169"></a>   <span class="k">end subroutine </span><span class="n">Mol_interpolate</span>
+<a name="ln-170"></a>
+<a name="ln-171"></a>   <span class="c">!!********************************************************************</span>
+<a name="ln-172"></a>   <span class="c">!! Shepard interpolation of a 3D function \(f_j\) given on positions \(\pmb{r}_{ref,j}\)</span>
+<a name="ln-173"></a>   <span class="c">!! onto a grid defined by positions \(\pmb{r}_i\).</span>
+<a name="ln-174"></a>   <span class="c">!!</span>
+<a name="ln-175"></a>   <span class="c">!! This is the basic, global Shepard method:</span>
+<a name="ln-176"></a>   <span class="c">!! $$ Q_i = \frac{ \sum_{j=1}^{M} w_i(\pmb{r}_{ref,j})\cdot f_j }{ \sum_{j=1}^{M} w_i(\pmb{r}_{ref,j}) } $$</span>
+<a name="ln-177"></a>   <span class="c">!! with</span>
+<a name="ln-178"></a>   <span class="c">!! $$ w_i(\pmb{r}_j) = \frac{1}{d_{i,j}^2} $$</span>
+<a name="ln-179"></a>   <span class="c">!! and </span>
+<a name="ln-180"></a>   <span class="c">!! $$ d_{i,j}^2 = |\pmb{r}_i - \pmb{r}_{ref,j}|^2 . $$</span>
+<a name="ln-181"></a>   <span class="c">!!</span>
+<a name="ln-182"></a>   <span class="c">!! ref_pos is \(\pmb{r}_{ref,j}\), ref_func is \(f_j\), pos is \(\pmb{r}_i\) and func is \(Q_i\).</span>
+<a name="ln-183"></a>   <span class="c">!! </span>
+<a name="ln-184"></a>   <span class="c">!! Ref.: Shepard D (1968) A two-dimensional interpolation function for irregularly spaced data </span>
+<a name="ln-185"></a>   <span class="c">!!       Proc. 23rd Nat. Conf. ACM 517-523 Brandon/Systems Press Inc., Princeton </span>
+<a name="ln-186"></a>   <span class="c">!! DOI: [https://dx.doi.org/10.1145/800186.810616](https://dx.doi.org/10.1145/800186.810616)</span>
+<a name="ln-187"></a>   <span class="c">!!</span>
+<a name="ln-188"></a>   <span class="c">!! If *texp = .true.* then \(w_j(\pmb{r}_j) = \frac{1}{\sinh(d_{i,j})}\), </span>
+<a name="ln-189"></a>   <span class="c">!! to get an exponential decay which might be nice for densities.</span>
+<a name="ln-190"></a>   <span class="c">!!</span>
+<a name="ln-191"></a>   <span class="c">!! @NOTE Might need to rescale everything if the integral has to be the same! @ENDNOTE</span>
+<a name="ln-192"></a>   <span class="c">!!********************************************************************</span>
+<a name="ln-193"></a>   <span class="k">subroutine </span><span class="n">Shepard_interpolate</span><span class="p">(</span> <span class="n">ref_pos</span><span class="p">,</span> <span class="n">ref_func</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">texp</span> <span class="p">)</span>
+<a name="ln-194"></a>      <span class="c">!! Input: reference position and target position</span>
+<a name="ln-195"></a>      <span class="kt">real</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">DP</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ref_pos</span><span class="p">(:,</span> <span class="p">:),</span> <span class="n">pos</span><span class="p">(:,</span> <span class="p">:)</span>
+<a name="ln-196"></a>      <span class="c">!! Input: reference function</span>
+<a name="ln-197"></a>      <span class="kt">real</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">DP</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">ref_func</span><span class="p">(:)</span>
+<a name="ln-198"></a>      <span class="c">!! Output: interpolated function</span>
+<a name="ln-199"></a>      <span class="kt">real</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">DP</span><span class="p">),</span> <span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="kd">::</span> <span class="n">func</span><span class="p">(:)</span>
+<a name="ln-200"></a>      <span class="c">!! Input: whether to use sinh weights</span>
+<a name="ln-201"></a>      <span class="kt">logical</span><span class="p">,</span> <span class="k">optional</span><span class="p">,</span> <span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span> <span class="kd">::</span> <span class="n">texp</span>
+<a name="ln-202"></a>      <span class="c">!! Internal: start and end of reference function, start and end of result function, </span>
+<a name="ln-203"></a>      <span class="c">!! loop indices, index of zero distance</span>
+<a name="ln-204"></a>      <span class="kt">integer</span> <span class="kd">::</span> <span class="n">ref_istart</span><span class="p">,</span> <span class="n">ref_iend</span><span class="p">,</span> <span class="n">istart</span><span class="p">,</span> <span class="n">iend</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">izero</span>
+<a name="ln-205"></a>      <span class="c">!! Internal: sum w*f, sum w, one function value, one weight</span>
+<a name="ln-206"></a>      <span class="kt">real</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">DP</span><span class="p">)</span> <span class="kd">::</span> <span class="n">sum_func</span><span class="p">,</span> <span class="n">sum_weights</span><span class="p">,</span> <span class="k">value</span><span class="p">,</span> <span class="n">weight</span>
+<a name="ln-207"></a>      <span class="c">!! Internal: array of distances dij for one i</span>
+<a name="ln-208"></a>      <span class="kt">real</span><span class="p">(</span><span class="nb">kind</span><span class="o">=</span><span class="n">DP</span><span class="p">),</span> <span class="k">allocatable</span> <span class="kd">::</span> <span class="n">distances</span><span class="p">(:)</span>
+<a name="ln-209"></a>      <span class="c">!! </span>
+<a name="ln-210"></a>
+<a name="ln-211"></a>      <span class="c">! Reference start and end index</span>
+<a name="ln-212"></a>      <span class="n">ref_istart</span> <span class="o">=</span> <span class="nb">Lbound</span><span class="p">(</span> <span class="n">ref_func</span><span class="p">,</span> <span class="mi">1</span> <span class="p">)</span>
+<a name="ln-213"></a>      <span class="n">ref_iend</span> <span class="o">=</span> <span class="nb">Ubound</span><span class="p">(</span> <span class="n">ref_func</span><span class="p">,</span> <span class="mi">1</span> <span class="p">)</span>
+<a name="ln-214"></a>      <span class="k">if</span><span class="p">(</span> <span class="n">ref_istart</span> <span class="o">/=</span> <span class="nb">LBound</span><span class="p">(</span> <span class="n">ref_pos</span><span class="p">,</span> <span class="mi">2</span> <span class="p">)</span> <span class="p">)</span> <span class="p">&amp;</span>
+<a name="ln-215"></a>         <span class="p">&amp;</span> <span class="k">call </span><span class="n">Error</span><span class="p">(</span> <span class="s2">&quot;Shepard_Interpolate: LBound( ref_func ) /= LBound( ref_pos )&quot;</span><span class="p">,</span> <span class="n">ref_istart</span><span class="p">,</span> <span class="nb">LBound</span><span class="p">(</span> <span class="n">ref_pos</span><span class="p">,</span> <span class="mi">2</span> <span class="p">)</span> <span class="p">)</span>
+<a name="ln-216"></a>      <span class="k">if</span><span class="p">(</span> <span class="n">ref_iend</span> <span class="o">/=</span> <span class="nb">UBound</span><span class="p">(</span> <span class="n">ref_pos</span><span class="p">,</span> <span class="mi">2</span> <span class="p">)</span> <span class="p">)</span> <span class="p">&amp;</span>
+<a name="ln-217"></a>         <span class="p">&amp;</span> <span class="k">call </span><span class="n">Error</span><span class="p">(</span> <span class="s2">&quot;Shepard_Interpolate: UBound( ref_func ) /= UBound( ref_pos )&quot;</span><span class="p">,</span> <span class="n">ref_iend</span><span class="p">,</span> <span class="nb">UBound</span><span class="p">(</span> <span class="n">ref_pos</span><span class="p">,</span> <span class="mi">2</span> <span class="p">)</span> <span class="p">)</span>
+<a name="ln-218"></a>
+<a name="ln-219"></a>      <span class="c">! Result start and end index</span>
+<a name="ln-220"></a>      <span class="n">istart</span> <span class="o">=</span> <span class="nb">Lbound</span><span class="p">(</span> <span class="n">func</span><span class="p">,</span> <span class="mi">1</span> <span class="p">)</span>
+<a name="ln-221"></a>      <span class="n">iend</span> <span class="o">=</span> <span class="nb">Ubound</span><span class="p">(</span> <span class="n">func</span><span class="p">,</span> <span class="mi">1</span> <span class="p">)</span>
+<a name="ln-222"></a>      <span class="k">if</span><span class="p">(</span> <span class="n">istart</span> <span class="o">/=</span> <span class="nb">LBound</span><span class="p">(</span> <span class="n">pos</span><span class="p">,</span> <span class="mi">2</span> <span class="p">)</span> <span class="p">)</span> <span class="p">&amp;</span>
+<a name="ln-223"></a>         <span class="p">&amp;</span> <span class="k">call </span><span class="n">Error</span><span class="p">(</span> <span class="s2">&quot;Shepard_Interpolate: LBound( func ) /= LBound( pos )&quot;</span><span class="p">,</span> <span class="n">istart</span><span class="p">,</span> <span class="nb">LBound</span><span class="p">(</span> <span class="n">pos</span><span class="p">,</span> <span class="mi">2</span> <span class="p">)</span> <span class="p">)</span>
+<a name="ln-224"></a>      <span class="k">if</span><span class="p">(</span> <span class="n">iend</span> <span class="o">/=</span> <span class="nb">UBound</span><span class="p">(</span> <span class="n">pos</span><span class="p">,</span> <span class="mi">2</span> <span class="p">)</span> <span class="p">)</span> <span class="p">&amp;</span>
+<a name="ln-225"></a>         <span class="p">&amp;</span> <span class="k">call </span><span class="n">Error</span><span class="p">(</span> <span class="s2">&quot;Shepard_Interpolate: UBound( func ) /= UBound( pos )&quot;</span><span class="p">,</span> <span class="n">ref_iend</span><span class="p">,</span> <span class="nb">UBound</span><span class="p">(</span> <span class="n">pos</span><span class="p">,</span> <span class="mi">2</span> <span class="p">)</span> <span class="p">)</span>
+<a name="ln-226"></a>
+<a name="ln-227"></a><span class="c">!TODO add check for first dimension of positions</span>
+<a name="ln-228"></a><span class="c">!      if( istart /= LBound( pos, 2 ) ) &amp;</span>
+<a name="ln-229"></a><span class="c">!         &amp; call Error( &quot;Shepard_Interpolate: LBound( func ) /= LBound( pos )&quot;, istart, LBound( pos, 2 ) )</span>
+<a name="ln-230"></a>
+<a name="ln-231"></a>      <span class="c">! Allocate distances, they have the length of the reference value array</span>
+<a name="ln-232"></a>      <span class="k">allocate</span><span class="p">(</span> <span class="n">distances</span><span class="p">(</span><span class="n">ref_istart</span><span class="p">:</span><span class="n">ref_iend</span><span class="p">)</span> <span class="p">)</span>
+<a name="ln-233"></a>
+<a name="ln-234"></a>      <span class="c">! Actual interpolation</span>
+<a name="ln-235"></a>      <span class="c">! Loop over result grid</span>
+<a name="ln-236"></a>      <span class="n">RESULTS</span><span class="p">:</span> <span class="k">do </span><span class="n">concurrent</span> <span class="p">(</span> <span class="n">i</span> <span class="o">=</span> <span class="n">istart</span><span class="p">:</span><span class="n">iend</span> <span class="p">)</span>
+<a name="ln-237"></a>         <span class="n">sum_func</span> <span class="o">=</span> <span class="mf">0.0_DP</span>
+<a name="ln-238"></a>         <span class="n">sum_weights</span> <span class="o">=</span> <span class="mf">0.0_DP</span>
+<a name="ln-239"></a>         <span class="n">izero</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<a name="ln-240"></a>         <span class="c">! Calculate distances beforehand, as we have to know if one of them is zero</span>
+<a name="ln-241"></a>         <span class="n">DISTANCE</span><span class="p">:</span> <span class="k">do </span><span class="n">concurrent</span> <span class="p">(</span> <span class="n">j</span> <span class="o">=</span> <span class="n">ref_istart</span><span class="p">:</span><span class="n">ref_iend</span> <span class="p">)</span>
+<a name="ln-242"></a>            <span class="k">value</span> <span class="o">=</span> <span class="nb">Sum</span><span class="p">(</span> <span class="p">(</span> <span class="n">pos</span><span class="p">(:,</span> <span class="n">i</span><span class="p">)</span> <span class="o">-</span> <span class="n">ref_pos</span><span class="p">(:,</span> <span class="n">j</span><span class="p">)</span> <span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="p">)</span>
+<a name="ln-243"></a>            <span class="n">distances</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="o">=</span> <span class="k">value</span>
+<a name="ln-244"></a>            <span class="c">! This doesnt need to be safe, as the ref_func value shoudl be the same wherever the distance is zero!</span>
+<a name="ln-245"></a>            <span class="k">if</span><span class="p">(</span> <span class="k">value</span> <span class="o">&lt;=</span> <span class="mf">1.0E-6_DP</span> <span class="p">)</span> <span class="n">izero</span> <span class="o">=</span> <span class="n">j</span>
+<a name="ln-246"></a>         <span class="k">end do </span><span class="n">DISTANCE</span>
+<a name="ln-247"></a>         <span class="c">! Sinh weights for exponential decay</span>
+<a name="ln-248"></a>         <span class="k">if</span><span class="p">(</span> <span class="nb">Present</span><span class="p">(</span> <span class="n">texp</span> <span class="p">)</span> <span class="p">)</span> <span class="k">then</span>
+<a name="ln-249"></a><span class="k">            if</span><span class="p">(</span> <span class="n">texp</span> <span class="p">)</span> <span class="n">distances</span><span class="p">(:)</span> <span class="o">=</span> <span class="nb">Sinh</span><span class="p">(</span> <span class="nb">Sqrt</span><span class="p">(</span> <span class="n">distances</span><span class="p">(:)</span> <span class="p">)</span> <span class="p">)</span>
+<a name="ln-250"></a>         <span class="k">end if</span>
+<a name="ln-251"></a>         <span class="c">! Find minimum to check if the grid point is known</span>
+<a name="ln-252"></a>         <span class="c">! It might be worth it to sort here instead of Minloc, </span>
+<a name="ln-253"></a>         <span class="c">! that way one could later on sum over N values nearest to reference grid point</span>
+<a name="ln-254"></a>         <span class="k">if</span><span class="p">(</span> <span class="n">izero</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">)</span> <span class="k">then</span> 
+<a name="ln-255"></a>            <span class="c">! If grid point is known, just use that value</span>
+<a name="ln-256"></a>            <span class="n">func</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="n">ref_func</span><span class="p">(</span><span class="n">izero</span><span class="p">)</span>
+<a name="ln-257"></a>         <span class="k">else</span>
+<a name="ln-258"></a>            <span class="c">! Loop over reference grid</span>
+<a name="ln-259"></a>            <span class="c">!TODO OpenMP stuff</span>
+<a name="ln-260"></a>            <span class="n">REFERENCES</span><span class="p">:</span> <span class="k">do </span><span class="n">concurrent</span> <span class="p">(</span> <span class="n">j</span> <span class="o">=</span> <span class="n">ref_istart</span><span class="p">:</span><span class="n">ref_iend</span> <span class="p">)</span>
+<a name="ln-261"></a>               <span class="k">value</span> <span class="o">=</span> <span class="n">ref_func</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+<a name="ln-262"></a>               <span class="c">!weight = Sum( ( pos(:, i) - ref_pos(:, j) ) ** 2 )</span>
+<a name="ln-263"></a>               <span class="n">weight</span> <span class="o">=</span> <span class="mf">1.0_DP</span> <span class="o">/</span> <span class="n">distances</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+<a name="ln-264"></a>               <span class="n">sum_func</span> <span class="o">=</span> <span class="n">sum_func</span> <span class="o">+</span> <span class="n">weight</span> <span class="o">*</span> <span class="k">value</span>
+<a name="ln-265"></a><span class="k">               </span><span class="n">sum_weights</span> <span class="o">=</span> <span class="n">sum_weights</span> <span class="o">+</span> <span class="n">weight</span>
+<a name="ln-266"></a>            <span class="k">end do </span><span class="n">REFERENCES</span>
+<a name="ln-267"></a>            <span class="c">! New value is quotient of sums</span>
+<a name="ln-268"></a>            <span class="n">func</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="n">sum_func</span> <span class="o">/</span> <span class="n">sum_weights</span>
+<a name="ln-269"></a>         <span class="k">end if</span>
+<a name="ln-270"></a>
+<a name="ln-271"></a>         <span class="c">!TODO IEEE error handling? important maths here!</span>
+<a name="ln-272"></a>
+<a name="ln-273"></a>      <span class="k">end do </span><span class="n">RESULTS</span>
+<a name="ln-274"></a>
+<a name="ln-275"></a>   <span class="k">end subroutine </span><span class="n">Shepard_interpolate</span>
+<a name="ln-276"></a>         
+<a name="ln-277"></a>
+<a name="ln-278"></a>
+<a name="ln-279"></a>   <span class="c">!!********************************************************************</span>
+<a name="ln-280"></a>   <span class="c">!! In future, this will calculate gradients of some function on arbitrary grids</span>
+<a name="ln-281"></a>   <span class="c">!!********************************************************************</span>
+<a name="ln-282"></a>   <span class="k">subroutine </span><span class="n">Gradient</span><span class="p">(</span> <span class="n">molecule</span> <span class="p">)</span>
+<a name="ln-283"></a>      <span class="c">! Input: molecule, will be modifies</span>
+<a name="ln-284"></a>      <span class="k">type</span><span class="p">(</span><span class="n">molecule_t</span><span class="p">)</span> <span class="kd">::</span> <span class="n">molecule</span>
+<a name="ln-285"></a>
+<a name="ln-286"></a>   <span class="k">end subroutine </span><span class="n">Gradient</span>
+<a name="ln-287"></a>
+<a name="ln-288"></a>
+<a name="ln-289"></a><span class="k">end module </span><span class="n">Utils_mod</span>
+</pre></div>
+
+    </section>
+    </div>
+  </div>
+
+  
+    <hr>    
+    </div> <!-- /container -->
+    <footer>
+      <div class="container">
+      <div class="row">
+        <div class="col-xs-6 col-md-4"><p>&copy; 2019 Christian Schwermann <br/> ALL RIGHTS RESERVED 
+                                          </p></div>
+        <div class="col-xs-6 col-md-4 col-md-push-4">
+          <p class="text-right">
+            Documentation generated by 
+            <a href="https://github.com/cmacmackin/ford">FORD</a>
+             on 2019-03-16T17:37:11.792028 
+          </p>
+        </div>
+        <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> PEREMB was developed by Christian Schwermann</p></div>
+      </div>
+      <br>
+      </div> <!-- /container -->    
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+<!--
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+-->
+    <script src="../js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../js/ie10-viewport-bug-workaround.js"></script>
+
+    <!-- MathJax JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } },
+        jax: ['input/TeX','input/MathML','output/HTML-CSS'],
+        extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']
+      });
+    </script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
+    <script src="../tipuesearch/tipuesearch_content.js"></script>
+    <script src="../tipuesearch/tipuesearch_set.js"></script>
+    <script src="../tipuesearch/tipuesearch.js"></script>
+    
+    
+  </body>
+</html>
